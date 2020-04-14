@@ -19,6 +19,9 @@ body {
 }
 .nav-link:hover {
     color: #000;
+    font-size: larger;
+    border-bottom: 2px solid white;
+    opacity: 100%;
 }
 .navbar-collapse.Cend {
     justify-content: flex-end;
@@ -46,12 +49,6 @@ body {
     margin-bottom: 20px;
     text-transform: uppercase;
     text-align: center
-}
-.features img {
-    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    margin-bottom: 16px;
 }
 .features .form-control, .features input {
     border-radius: 0;
