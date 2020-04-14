@@ -13,7 +13,7 @@
     <body>
         <!-- BARRE DE NAVIGATION INSPIREE DU TP7-->
         <nav class="navbar navbar-expand-md">
-            <a class="navbar-brand" href="#"><img class="img-fluid navbar-img" src="C:\wamp64\www\ProjetWebDynamique\img\UI\LogoEBayECE.png"></a>
+            <a class="navbar-brand" href="#"><img class="img-fluid navbar-img" src="../../img/UI/LogoEBayECE.png"></a> <!-- ManqueS lienS -->
             <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,8 +38,60 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h1 class="feature-title">Créer un compte acheteur</h1>
-                    <form method="POST" action="#">
-                        
+
+                    <form method="POST" action="#"> <!-- Manque lien -->
+                        <h4>| Informations personelles</h4>
+
+                        <div class="form-group"> <!-- Inspiré de https://getbootstrap.com/docs/4.0/components/forms/ -->
+                            <label for="inNom">Nom</label>
+                            <input type="text" class="form-control" id="inNom" aria-describedby="nomHelp" placeholder="Ex: Jean" name="nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="inPrenom">Prenom</label>
+                            <input type="text" class="form-control" id="inPrenom" placeholder="Ex: Moulin"  name="prenom">
+                        </div>
+                        <div class="form-group">
+                            <label for="inMail">Adresse mail</label>
+                            <input type="email" class="form-control" id="inMail" placeholder="Ex: jean.moulin@edu.ece.fr" name="mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="inPsw">Mot de passe</label>
+                            <input type="password" class="form-control" id="inPsw" placeholder="" name="psw">
+                        </div>
+
+                        <br><hr><h4>| Adresse</h4>
+                        <div class="form-group">
+                            <label for="inAdrL1">Adresse Ligne 1</label>
+                            <input type="text" class="form-control" id="inAdrL1" placeholder="Ex: 37 Quai de Grenelle" name="adrL1">
+                        </div>
+                        <div class="form-group">
+                            <label for="inAdrL1">Adresse Ligne 2</label>
+                            <input type="text" class="form-control" id="inAdrL2" placeholder="Ex: Immeuble Pollux" name="adrL2">
+                        </div>
+                        <div class="form-group">
+                            <label for="inVille">Ville</label>
+                            <input type="text" class="form-control" id="inVille" placeholder="Ex: Paris" name="ville">
+                        </div>
+                        <div class="form-group">
+                            <label for="inCP">Code Postal</label>
+                            <input type="number" class="form-control" id="inCP" placeholder="Ex: 75015" name="CP">
+                        </div>
+                        <div class="form-group">
+                            <label for="inPays">Pays</label>
+                            <input type="text" class="form-control" id="inPays" placeholder="Ex: France" name="pays">
+                        </div>
+                        <div class="form-group">
+                            <label for="inNum">Numéro de téléphone</label>
+                            <input type="number" class="form-control" id="inNum" placeholder="Ex: 0706050303" name="tel">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1" name="CGUCheck">
+                                Acceptez-vous les conditions générales de vente ?<br>
+                                Notamment, vous vous engagez à payer chaque article que vous enchérissez.
+                            </label>
+                        </div>
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
                 </div>
             </div>
