@@ -12,8 +12,8 @@
 
     <body>
         <!-- BARRE DE NAVIGATION INSPIREE DU TP7-->
-        <nav class="navbar navbar-expand-md">
-            <a class="navbar-brand" href="#"><img class="img-fluid navbar-img" src="../../img/UI/LogoEBayECE.png" style="width: 120px; height: 35px;"></a> <!-- ManqueS lienS -->
+        <nav class="navbar navbar-expand-md"><!-- ManqueS lienS -->
+            <a class="navbar-brand" href="#"><img class="img-fluid navbar-img" src="../../img/UI/LogoEBayECE.png" style="width: 120px; height: 35px;"></a> 
             <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -99,7 +99,14 @@
                                 Notamment, vous vous engagez à payer chaque article que vous enchérissez.
                             </label>
                         </div>
-                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <br><!-- Insipiré de https://mdbootstrap.com/docs/jquery/forms/file-input/ -->
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inImgProfil" name ="imgProfil" aria-describedby="inImgProfil">
+                                <label class="custom-file-label" for="inImgProfil" data-browse="Parcourir">Choisir un fichier</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
                 </div>
             </div>
