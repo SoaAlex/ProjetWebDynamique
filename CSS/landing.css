@@ -73,8 +73,9 @@ body {
 .page-footer {
     background-color: #222;
     color: #ccc;
-    padding: 60px 0 30px;
-    margin-top: 700px;
+    padding: 30px 0 0px;
+    margin-top: 800px;
+    z-index: 1;
 }
 .footer-copyright {
     color: #666;
