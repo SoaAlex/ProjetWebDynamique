@@ -46,4 +46,4 @@ if (isset($_POST['button1'])) {
 else {
 echo "Database not found";
 }
-?>
+}
