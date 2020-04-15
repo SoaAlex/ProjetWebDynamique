@@ -10,7 +10,7 @@ body {
 .navbar {
     background: black;
     opacity: 60%;
-    z-index: 2;
+    z-index: 1;
 }
 .nav-link, .navbar-brand {
     color: #fff;
@@ -35,44 +35,50 @@ body {
     padding-bottom: 3px;
 }
 
-/*--- body container ---*/
-.features {
-    margin: 4em auto;
-    padding: 1em;
-    position: relative;
-    border: 3px solid black;
-    background-color: white;
-    border-radius: 15px;
-}
-.feature-title {
-    color: #333;
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    text-align: center
-}
-.features .form-control, .features input {
-    border-radius: 0;
-}
-.features .btn {
-    background-color:orange;
-    border: 1px solid orange;
-    color: #fff;
-    margin-top: 20px;
-}
-.features .btn:hover {
-    background-color: #333;
-    border: 1px solid #333;
-}
-
-/*--- carroussel --*/
+/*--- carroussel ADAPTE AVEC https://bootsnipp.com/snippets/4a73 --*/ 
 .carousel-item.active{
     filter: brightness(50%);
 }
 .carousel{
     margin-top: -150px;
-    z-index: 1;
+    z-index: -1;
+}
+.carousel, .carousel-inner {
+	width:100%;
+	height:100%;
+	z-index:0;
+	overflow:hidden;
+}
+.item {
+	width:100%;
+	height:100%;
+	background-position:center center;
+	background-size:cover;
+	z-index:0;
+}
+#carousel-background{
+	position:fixed;
+	width:100%;
+	height:100%;
+	z-index:-1;
+}
+#content-wrapper {
+	position:absolute;
+	z-index:1 !important;
+	min-width:100%;
+	min-height:100%;
+}
+
+/*--- footer ---*/
+.page-footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 60px 0 30px;
+    margin-top: 700px;
+}
+.footer-copyright {
+    color: #666;
+    padding: 40px 0;
 }
 
 /*--- mobile view ---*/
