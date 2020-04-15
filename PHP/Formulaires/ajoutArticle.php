@@ -2,16 +2,16 @@
 //Récupération des données  !!!! Les clés étrangères ? 
 $nom = isset($_POST["nom"])? $_POST["nom"] : "";
 $description = isset($_POST["description"])? $_POST["description"] : "";
-$typeArticle = isset($_POST["typeArticle"])? $_POST["TypeArticle"] : "";
+$typeArticle = isset($_POST["typeProd"])? $_POST["typeProd"] : "";
 $prix = isset($_POST["prix"])? $_POST["prix"] : "";
 $VenteEnchere = isset($_POST["VenteEnchere"])? $_POST["VenteEnchere"] : "";
 $VenteImmediat = isset($_POST["VenteImmediat"])? $_POST["VenteImmediat"] : "";
 $VenteBestOffer = isset($_POST["VenteBestOffer"])? $_POST["VenteBestOffer"] : "";
-$dateLim = isset($_POST["DateLim"])? $_POST["DateLim"] : "";
+$dateLim = isset($_POST["dateLim"])? $_POST["dateLim"] : "";
  // $IDVendeur = isset($_POST["prix"])? $_POST["prix"] : "";
-$CheminImage1 = isset($_POST["CheminImage1"])? $_POST["CheminImage1"] : "";
-$CheminImage2 = isset($_POST["CheminImage2"])? $_POST["CheminImage2"] : "";   
-$CheminVideo = isset($_POST["CheminVideo"])? $_POST["CheminVideo"] : "";
+$CheminImage1 = isset($_POST["img1"])? $_POST["img1"] : "";
+$CheminImage2 = isset($_POST["img2"])? $_POST["img2"] : "";   
+$CheminVideo = isset($_POST["video"])? $_POST["video"] : "";
 
 //identifier votre BDD
 $database = "ebayece";
@@ -45,5 +45,6 @@ if (isset($_POST['button1'])) {
 }
 else {
 echo "Database not found";
+}
 }
 ?>

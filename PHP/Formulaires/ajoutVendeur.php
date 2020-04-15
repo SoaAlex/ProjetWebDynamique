@@ -2,8 +2,9 @@
 //Récupération des données  !!!! Les clés étrangères ? 
 $pseudo = isset($_POST["pseudo"])? $_POST["pseudo"] : "";
 $mail = isset($_POST["mail"])? $_POST["mail"] : "";
-$password = isset($_POST["password"])? $_POST["password"] : "";
-$CheminImage = isset($_POST["CheminImage"])? $_POST["CheminImage"] : "";
+$password = isset($_POST["psw"])? $_POST["psw"] : "";
+$PP = isset($_POST["imgProfil"])? $_POST["imgProfil"] : "";
+$Fond = isset($_POST["imgFond"])? $_POST["imgFond"] : "";
 
 //identifier votre BDD
 $database = "ebayece";
@@ -24,7 +25,7 @@ if (isset($_POST['button1'])) {
     //vérification Vendeur déjà existant ou informations déjà prises
     if (mysqli_num_rows($result) == 0) {
         $sql = "INSERT INTO vendeur(pseudo, mail, password, CheminImage)
-        VALUES('$pseudo', '$mail', '$password', '$CheminImage')";
+        VALUES('$pseudo', '$mail', '$password', '$PP')";
         echo "Nouveau Compte Vendeur créé <br>";
         } 
     else {
@@ -34,5 +35,6 @@ if (isset($_POST['button1'])) {
 }
 else {
 echo "Database not found";
+}
 }
 ?>
