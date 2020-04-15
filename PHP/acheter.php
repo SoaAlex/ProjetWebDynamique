@@ -10,15 +10,18 @@
     if ($db_found) {
         $reponse = $bdd->query('SELECT * FROM article');
         while ($donnees = $reponse->fetch())
-    { echo "<div class='row'>";
-    for($i=0;$i<3;$i++){
-    echo "<div class='col-md-4'>";
-     echo .$donnees['#CheminImage']; //ici tu peux aller récupérer du contenu dans ta bdd...
-    echo "</div>";   
-    ?>         
-}
-echo "</div>";
+        {
+            echo "<div class='row'>";
+            for($i=0;$i<3;$i++){
+                echo "<div class='col-md-4'>";
+                echo $donnees['#CheminImage']; //ici tu peux aller récupérer du contenu dans ta bdd...
+                echo "</div>";    
+            }
+        }
+    }
+?> 
 <?php
-}
+echo "</div>";
+
 $reponse->closeCursor(); // Termine le traitement de la requête
 ?>
