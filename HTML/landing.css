@@ -1,127 +1,121 @@
-
-#menu{
-    background-color: black;
-    width: 100%;
+#menu {
+  background-color: black;
+  width: 100%;
 }
-#ConteneurHeader{
-    background-color: black;
-    opacity: 80%;
-    width: 100%;
-   
+#ConteneurHeader {
+  background-color: black;
+  opacity: 80%;
+  width: 100%;
 }
-body{
-    width: 95%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+body {
+  width: 95%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.row{
-   width: 100%;
+.row {
+  width: 100%;
 }
 
-
-#menuCategorie{
-    margin-top: 30px;
-    font-size: large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+#menuCategorie {
+  margin-top: 30px;
+  font-size: large;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-#menuCategorie a{
-   text-decoration: none;
-   color:rgb(230, 220, 220);
-   border-bottom: 2px solid transparent;
+#menuCategorie a {
+  text-decoration: none;
+  color: rgb(230, 220, 220);
+  border-bottom: 2px solid transparent;
 }
 
-#menuCategorie a:hover{
-    font-size: larger;
-    border-bottom: 2px solid white;
-    color: white;
-    opacity: 100%;
- }
+#menuCategorie a:hover {
+  font-size: larger;
+  border-bottom: 2px solid white;
+  color: white;
+  opacity: 100%;
+}
 
 .header {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 60px;
-    color: #FFFFFF;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  color: #ffffff;
 }
 
- .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    background:  #DF6D14;
-    color: #FFFFFF;
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background: #df6d14;
+  color: #ffffff;
 }
 
-#footerText{
-    margin-top: 30px;
-    font-size: smaller;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+#footerText {
+  margin-top: 30px;
+  font-size: smaller;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-
-.banière{
-   width:100%;
-   filter:brightness(50%);
-   margin-top :-100px;
-   position: absolute;
-
+.banière {
+  width: 100%;
+  filter: brightness(50%);
+  margin-top: -100px;
+  position: absolute;
 }
 
-
-#citation{
-    color:black;
-    background-color: black;
-    font-family: "Shadows into light",fantasy;
-    text-align: right;
-    opacity: 0.3;
-    margin-left: auto;
-    font-weight: bolder;
-    animation-name: cit;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-out;
-    animation-delay: 3s;
+#citation {
+  color: black;
+  background-color: black;
+  font-family: "Shadows into light", fantasy;
+  text-align: right;
+  opacity: 0.3;
+  margin-left: auto;
+  font-weight: bolder;
+  animation-name: cit;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  animation-delay: 3s;
 }
 
-@keyframes cit{
-    from{
-        color: black;
-        opacity: inherit;
-    }
-    70%{
-        color: darkgray;
-        opacity: inherit;
-    }
-    74.9%{
-        color: darkgray;
-        opacity: inherit;
-    }
-    
-    75%{
-        color: whitesmoke;
-        opacity: 0.7;
-    }
-    75.000001%{
-        color: dimgray;
-        opacity: inherit;
-    }
-    to{
-        color: black;
-        opacity: inherit;
-    }
+@keyframes cit {
+  from {
+    color: black;
+    opacity: inherit;
+  }
+  70% {
+    color: darkgray;
+    opacity: inherit;
+  }
+  74.9% {
+    color: darkgray;
+    opacity: inherit;
+  }
+
+  75% {
+    color: whitesmoke;
+    opacity: 0.7;
+  }
+  75.000001% {
+    color: dimgray;
+    opacity: inherit;
+  }
+  to {
+    color: black;
+    opacity: inherit;
+  }
 }
 
-
-.carousel-page
-{
-width:100%;
-height:400px;
-background-color:#5f666d;
-color:white;
-position: absolute;
+.carousel-page {
+  width: 100%;
+  height: 400px;
+  background-color: #5f666d;
+  color: white;
+  position: absolute;
 }
