@@ -1,9 +1,11 @@
 <?php
 //Récupération des données  !!!! Les clés étrangères ? 
-$pseudo = isset($_POST["pseudo"])? $_POST["pseudo"] : "";
+$nom = isset($_POST["nom"])? $_POST["nom"] : "";
+$prenom = isset($_POST["prenom"])? $_POST["prenom"] : "";
 $mail = isset($_POST["mail"])? $_POST["mail"] : "";
 $password = isset($_POST["password"])? $_POST["password"] : "";
-$CheminImage = isset($_POST["CheminImage"])? $_POST["CheminImage"] : "";
+$CGU = isset($_POST["CGU"])? $_POST["CGU"] : "";
+
 
 //identifier votre BDD
 $database = "ebayece";
@@ -15,17 +17,17 @@ $db_found = mysqli_select_db($db_handle, $database);
 
 if (isset($_POST['button1'])) {
     if ($db_found) {
-    $sql = "SELECT * FROM vendeur";
-        if ($pseudo != "" AND $mail !="" AND $password !="") {
-        $sql .= " WHERE Pseudo LIKE '$pseudo' OR Mail LIKE '$mail' OR Password LIKE '$password'" ;
+    $sql = "SELECT * FROM acheteur";
+        if ($mail !="" AND $password !="") {
+        $sql .= " WHERE  Mail LIKE '$mail' OR Password LIKE '$password'" ;
         }
     $result = mysqli_query($db_handle, $sql);
 
-    //vérification Vendeur déjà existant ou informations déjà prises
+    //vérification Acheteur déjà existant ou informations déjà prises
     if (mysqli_num_rows($result) == 0) {
-        $sql = "INSERT INTO vendeur(pseudo, mail, password, CheminImage)
-        VALUES('$pseudo', '$mail', '$password', '$CheminImage')";
-        echo "Nouveau Compte Vendeur créé <br>";
+        $sql = "INSERT INTO acheteur(nom, prenom, mail, password, CGU)
+        VALUES('$nom','$prenom','$mail','$password', '$CGU')";
+        echo "Nouveau Compte Acheteur créé <br>";
         } 
     else {
         // Informations déjà utilisée
@@ -34,5 +36,6 @@ if (isset($_POST['button1'])) {
 }
 else {
 echo "Database not found";
+}
 }
 ?>
