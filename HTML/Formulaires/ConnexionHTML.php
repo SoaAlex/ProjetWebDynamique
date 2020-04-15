@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+   ob_start();
+   session_start();
+?>
 <html>
     <head>
         <title>Connexion</title>
@@ -47,17 +51,17 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h1 class="feature-title">Connexion</h1>
 
-                    <form method="POST" action="#"> <!-- Manque lien -->
+                    <form method="POST" action="../../PHP/Formulaires/Connexion.php"> <!-- Manque lien -->
                         <h4>| Identifiants</h4>
 
                         <!-- Inspiré de https://getbootstrap.com/docs/4.0/components/forms/ -->
-                        <div class="form-group">
+                        <div class="form-group" id="divMail">
                             <label for="inMail">Adresse mail</label>
-                            <input type="email" class="form-control" id="inMail" placeholder="Ex: jean.moulin@edu.ece.fr" name="mail">
+                            <input type="email" class="form-control" id="inMail" placeholder="Ex: jean.moulin@edu.ece.fr" name="mail" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="formPsw">
                             <label for="inPsw">Mot de passe</label>
-                            <input type="password" class="form-control" id="inPsw" placeholder="" name="psw">
+                            <input type="password" class="form-control" id="inPsw" placeholder="" name="psw" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Connexion</button>
                     </form>
@@ -65,4 +69,5 @@
             </div>
         </div>
     </body>
+
 </html>
