@@ -64,6 +64,16 @@ body {
     border: 1px solid #333;
 }
 
+/*--- footer ---*/
+.page-footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 60px 0 30px;
+}
+.footer-copyright {
+    color: #666;
+    padding: 40px 0;
+}
 
 /*--- mobile view ---*/
 @media (max-width: 575.98px) {

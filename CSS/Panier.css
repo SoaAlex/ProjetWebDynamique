@@ -84,6 +84,19 @@ body {
     margin-left: 17%;
 }
 
+/*--- footer ---*/
+.page-footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 30px 0 0px;
+    margin-top: 1000px;
+    z-index: 1;
+}
+.footer-copyright {
+    color: #666;
+    padding: 40px 0;
+}
+
 /*--- mobile view ---*/
 @media (max-width: 575.98px) {
     .description {

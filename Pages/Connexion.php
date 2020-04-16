@@ -26,39 +26,46 @@
 
     if($db_found && $mail != '' && $psw != ''){
         //Trouver acheteur
-        $sql = "SELECT Mail, Password FROM acheteur WHERE Mail='$mail' AND Password='$psw'";
+        $sql = "SELECT Mail AS Mail, Nom AS Nom FROM acheteur WHERE Mail='$mail' AND Password='$psw'";
         $result = mysqli_query($db_handle, $sql);
+
         if(mysqli_num_rows($result) == 0){
             //Trouver Vendeur
-            $sql = "SELECT Mail, Password FROM vendeur WHERE Mail='$mail' AND Password='$psw'";
+            $sql = "SELECT Mail AS Mail, Pseudo AS Pseudo FROM vendeur WHERE Mail='$mail' AND Password='$psw'";
             $result = mysqli_query($db_handle, $sql);
+
             if(mysqli_num_rows($result) == 0){
-                $sql = "SELECT Mail, Password FROM administrateur WHERE Mail='$mail' AND Password='$psw'";
-                $result = mysqli_query($db_handle, $sql);
                 //Trouver admin
+                $sql = "SELECT Mail AS Mail, Nom AS Nom FROM administrateur WHERE Mail='$mail' AND Password='$psw'";
+                $result = mysqli_query($db_handle, $sql);
                 if(mysqli_num_rows($result) == 0){
-                    $mail_error = "Utilisateur non trouve";
+                    $mail_error = "Utilisateur non trouvé";
                     $psw_error = "Mot de passe ou mail incorrect";
                 }
                 else{
+                    $data = mysqli_fetch_assoc($result);
+                    $_SESSION['username'] = $data['Nom'];
                     $_SESSION['loggedin'] = true;
-                    $_SESSION['username'] = $mail;
+                    $_SESSION['usermail'] = $mail;
                     $_SESSION['user_type'] = 'Admin';
                     header("Location: landingPage.php");
                 }
             }
             else{
+                $data = mysqli_fetch_assoc($result);
+                $_SESSION['username'] = $data['Pseudo'];
                 $_SESSION['loggedin'] = true;
-                $_SESSION['username'] = $mail;
+                $_SESSION['usermail'] = $mail;
                 $_SESSION['user_type'] = 'Vendeur';
                 header("Location: landingPage.php");
             }
         }
         else{
-            //$sql = "SELECT Nom FROM acheteur WHERE Mail='$mail' AND Password='$psw'";
+            $data = mysqli_fetch_assoc($result);
+            $_SESSION["username"] = $data['Nom'];
             $_SESSION['loggedin'] = true;
             $_SESSION['valid'] = true;
-            $_SESSION['username'] = $mail;
+            $_SESSION['usermail'] = $mail;
             $_SESSION['user_type'] = 'Acheteur';
             header("Location: landingPage.php");
         }
@@ -83,36 +90,7 @@
     </head>
 
     <body>
-        <!-- BARRE DE NAVIGATION INSPIREE DU TP7-->
-        <nav class="navbar navbar-expand-md"><!-- ManqueS lienS -->
-            <a class="navbar-brand" href="../landingPage.html"><img class="img-fluid navbar-img" src="../img/UI/Logo.png" style="width: 120px; height: 35px;"></a> 
-            <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse Cstart" id="main-navigation">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">CATEGORIES</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">ACHETER</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">VENDRE</a></li>
-                </ul>
-            </div>
-            <div class="collapse navbar-collapse Cend" id="main-navigation">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">
-                        <img class="img-fluid navbar-img" src="../img/UI/PanierBlanc.png" style="width: 20px; margin-right: 5px;">PANIER
-                    </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">
-                        <img class="img-fluid navbar-img" src="../img/UI/loupe.png" style="width: 20px; margin-right: 5px;">
-                    </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">
-                        <img class="img-fluid navbar-img" src="../img/UI/notif.png" style="width: 20px; margin-right: 5px;">
-                    </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">
-                        <img class="img-fluid navbar-img" src="../img/UI/account.png" style="width: 20px; margin-right: 5px;">
-                    </a></li>
-                </ul>
-            </div>
-        </nav>
+        <?php include 'navbar.php'; ?>
 
         <div class="container features">
             <div class="row">

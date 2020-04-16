@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 14 avr. 2020 à 12:19
+-- Généré le :  mer. 15 avr. 2020 à 15:19
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `ebayece`
+-- Base de données :  `bddebay`
 --
 
 -- --------------------------------------------------------
@@ -36,22 +36,18 @@ CREATE TABLE IF NOT EXISTS `acheteur` (
   `Mail` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `CGU` tinyint(1) NOT NULL DEFAULT '0',
-  `#IDAdresse` int(11) NOT NULL,
-  `#IDEnchere` int(11) DEFAULT NULL,
-  `#IDNego` int(11) DEFAULT NULL,
-  `#IDCommande` int(11) DEFAULT NULL,
-  `#IDTransaction` int(11) DEFAULT NULL,
-  `#IDCB` int(11) DEFAULT NULL,
-  `#IDPanier` int(11) NOT NULL,
+  `#IDAdresse` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDAcheteur`),
-  KEY `#IDAdresse` (`#IDAdresse`),
-  KEY `#IDEnchere` (`#IDEnchere`),
-  KEY `#IDNego` (`#IDNego`),
-  KEY `#IDCommande` (`#IDCommande`),
-  KEY `#IDTransaction` (`#IDTransaction`),
-  KEY `#IDCB` (`#IDCB`),
-  KEY `#IDPanier` (`#IDPanier`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `#IDAdresse` (`#IDAdresse`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `acheteur`
+--
+
+INSERT INTO `acheteur` (`IDAcheteur`, `Nom`, `Prenom`, `Mail`, `Password`, `CGU`, `#IDAdresse`) VALUES
+(1, 'SOARES', 'Alexandre', 'alexandre.soares@edu.ece.fr', '1234', 1, NULL),
+(2, 'BESSIERES', 'Adrien', 'adrien.bessieres@edu.ece.fr', '1234', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -63,13 +59,18 @@ DROP TABLE IF EXISTS `administrateur`;
 CREATE TABLE IF NOT EXISTS `administrateur` (
   `IDAdmin` int(11) NOT NULL AUTO_INCREMENT,
   `Nom` varchar(255) NOT NULL,
-  `Prenom` varchar(255) NOT NULL,
+  `Prenom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Mail` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
-  `#IDArticle` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IDAdmin`),
-  KEY `#IDArticle` (`#IDArticle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`IDAdmin`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `administrateur`
+--
+
+INSERT INTO `administrateur` (`IDAdmin`, `Nom`, `Prenom`, `Mail`, `Password`) VALUES
+(1, 'LE STANG', 'Paul', 'Paul.le-stang@edu.ece.fr', '1234');
 
 -- --------------------------------------------------------
 
@@ -85,13 +86,19 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   `Ville` varchar(255) NOT NULL,
   `CodePostal` int(11) NOT NULL,
   `Pays` varchar(255) NOT NULL,
-  `NumTel` int(11) NOT NULL,
-  `#IDAcheteur` int(11) NOT NULL,
-  `#IDCommande` int(11) DEFAULT NULL,
+  `NumTel` int(15) NOT NULL,
+  `#IDAcheteur` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDAdresse`),
-  KEY `#IDAcheteur` (`#IDAcheteur`),
-  KEY `#IDCommande` (`#IDCommande`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `#IDAcheteur` (`#IDAcheteur`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `adresse`
+--
+
+INSERT INTO `adresse` (`IDAdresse`, `AdrLigne1`, `AdrLigne2`, `Ville`, `CodePostal`, `Pays`, `NumTel`, `#IDAcheteur`) VALUES
+(1, '37 Quai de Grenelle', 'Immeuble Pollux', 'PARIS', 75015, 'FRANCE', 303030303, 2),
+(2, '9 RUE BOULARD', 'BAT B', 'PARIS', 75017, 'FRANCE', 606060606, 1);
 
 -- --------------------------------------------------------
 
@@ -109,46 +116,50 @@ CREATE TABLE IF NOT EXISTS `article` (
   `VenteEnchere` tinyint(1) NOT NULL DEFAULT '0',
   `VenteImmediat` tinyint(1) NOT NULL DEFAULT '0',
   `VenteBestOffer` tinyint(1) NOT NULL DEFAULT '0',
-  `DateLim` date DEFAULT NULL,
-  `#IDVendeur` int(11) NOT NULL,
-  `#CheminVideo` varchar(255) DEFAULT NULL,
-  `#CheminImage` varchar(255) DEFAULT NULL,
-  `#IDEnchere` int(11) DEFAULT NULL,
-  `#IDNego` int(11) DEFAULT NULL,
+  `DateLim` date NOT NULL,
   `#IDCommande` int(11) DEFAULT NULL,
-  `#IDPanier` int(11) DEFAULT NULL,
+  `#IDVendeur` int(11) DEFAULT NULL,
   `#IDAdmin` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDArticle`),
-  KEY `#IDVendeur` (`#IDVendeur`),
-  KEY `#IDVideo` (`#CheminVideo`),
-  KEY `#IDImage` (`#CheminImage`),
-  KEY `#IDEnchere` (`#IDEnchere`),
-  KEY `#IDNego` (`#IDNego`),
   KEY `#IDCommande` (`#IDCommande`),
-  KEY `#IDPanier` (`#IDPanier`),
+  KEY `#IDVendeur` (`#IDVendeur`),
+  KEY `#IDCommande_2` (`#IDCommande`),
   KEY `#IDAdmin` (`#IDAdmin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `article`
+--
+
+INSERT INTO `article` (`IDArticle`, `Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`) VALUES
+(1, 'Piece rare', 'Je suis une description nulle d\'article', 'Ferraille', 50, 1, 0, 0, '2020-04-29', NULL, NULL, NULL),
+(2, 'Picasso', 'Je suis une description nulle d\'article', 'Musee', 100, 0, 1, 0, '2020-04-29', NULL, NULL, NULL),
+(3, 'Anneau', 'Je suis une description nulle d\'article', 'VIP', 200, 0, 0, 1, '2020-04-21', NULL, NULL, NULL),
+(4, 'La nuit étoilée', 'Je suis une description nulle d\'article', 'Musee', 200, 0, 1, 1, '2020-04-21', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `cartebancaire`
+-- Structure de la table `choixarticles`
 --
 
-DROP TABLE IF EXISTS `cartebancaire`;
-CREATE TABLE IF NOT EXISTS `cartebancaire` (
-  `IDCB` int(11) NOT NULL AUTO_INCREMENT,
-  `NumCarte` int(11) NOT NULL,
-  `DateExpiration` date NOT NULL,
-  `NomAffiche` varchar(255) NOT NULL,
-  `CodeSecur` int(11) NOT NULL,
-  `TypeCarte` varchar(255) NOT NULL,
-  `#IDTransaction` int(11) DEFAULT NULL,
+DROP TABLE IF EXISTS `choixarticles`;
+CREATE TABLE IF NOT EXISTS `choixarticles` (
+  `IDChoix` int(11) NOT NULL AUTO_INCREMENT,
   `#IDAcheteur` int(11) NOT NULL,
-  PRIMARY KEY (`IDCB`),
-  KEY `#IDTransaction` (`#IDTransaction`),
-  KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `#IDArticle` int(11) NOT NULL,
+  PRIMARY KEY (`IDChoix`),
+  KEY `#IDAcheteur` (`#IDAcheteur`),
+  KEY `#IDArticle` (`#IDArticle`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `choixarticles`
+--
+
+INSERT INTO `choixarticles` (`IDChoix`, `#IDAcheteur`, `#IDArticle`) VALUES
+(1, 1, 1),
+(2, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -162,18 +173,21 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `Date` date NOT NULL,
   `FraisLivraison` int(11) NOT NULL,
   `Total` int(11) NOT NULL,
-  `#IDArticle` int(11) NOT NULL,
-  `#IDVendeur` int(11) NOT NULL,
-  `#IDAdresse` int(11) NOT NULL,
-  `#IDTransaction` int(11) NOT NULL,
   `#IDAcheteur` int(11) NOT NULL,
+  `#IDAdresse` int(11) NOT NULL,
+  `#IDVendeur` int(11) NOT NULL,
   PRIMARY KEY (`IDCommande`),
-  KEY `#IDArticle` (`#IDArticle`),
-  KEY `#IDVendeur` (`#IDVendeur`),
+  KEY `#IDAcheteur` (`#IDAcheteur`),
   KEY `#IDAdresse` (`#IDAdresse`),
-  KEY `#IDTransaction` (`#IDTransaction`),
-  KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `#IDVendeur` (`#IDVendeur`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `commande`
+--
+
+INSERT INTO `commande` (`IDCommande`, `Date`, `FraisLivraison`, `Total`, `#IDAcheteur`, `#IDAdresse`, `#IDVendeur`) VALUES
+(2, '2020-04-14', 10, 200, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -184,15 +198,22 @@ CREATE TABLE IF NOT EXISTS `commande` (
 DROP TABLE IF EXISTS `enchere`;
 CREATE TABLE IF NOT EXISTS `enchere` (
   `IDEnchere` int(11) NOT NULL AUTO_INCREMENT,
-  `MontantMaxAch` int(11) NOT NULL,
+  `MontantMaxAcheteur` int(11) NOT NULL,
   `DateProposition` date NOT NULL,
   `Accepte` tinyint(1) NOT NULL DEFAULT '0',
-  `#IDAchteur` int(11) NOT NULL,
   `#IDArticle` int(11) NOT NULL,
+  `#IDAcheteur` int(11) NOT NULL,
   PRIMARY KEY (`IDEnchere`),
-  KEY `#IDAchteur` (`#IDAchteur`),
-  KEY `#IDArticle` (`#IDArticle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `#IDArticle` (`#IDArticle`),
+  KEY `#IDAcheteur` (`#IDAcheteur`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `enchere`
+--
+
+INSERT INTO `enchere` (`IDEnchere`, `MontantMaxAcheteur`, `DateProposition`, `Accepte`, `#IDArticle`, `#IDAcheteur`) VALUES
+(1, 400, '2020-04-15', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -204,12 +225,24 @@ DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
   `CheminImg` varchar(255) NOT NULL,
   `Nom` varchar(255) NOT NULL,
-  `#IDVendeur` int(11) NOT NULL,
-  `#IDArticle` int(11) NOT NULL,
+  `#IDArticle` int(11) DEFAULT NULL,
+  `#IDVendeur` int(11) DEFAULT NULL,
   PRIMARY KEY (`CheminImg`),
-  KEY `#IDVendeur` (`#IDVendeur`),
-  KEY `#IDArticle` (`#IDArticle`)
+  KEY `#IDArticle` (`#IDArticle`),
+  KEY `#IDVendeur` (`#IDVendeur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `image`
+--
+
+INSERT INTO `image` (`CheminImg`, `Nom`, `#IDArticle`, `#IDVendeur`) VALUES
+('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Articles\\anneau.jpg', 'Anneau', 3, NULL),
+('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Articles\\Picasso.jpg', 'Picasso', 2, NULL),
+('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Articles\\piecerare.jpg', 'Pièce Rare', 1, NULL),
+('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Articles\\tabVanGogh', 'La nuit étoilée', 4, NULL),
+('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Vendeur\\collectionneur.jpg', 'Collectionneur', NULL, 1),
+('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Vendeur\\collectionneurBack.jpg', 'Magasin vendeur collectionneur', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -228,46 +261,14 @@ CREATE TABLE IF NOT EXISTS `negociation` (
   PRIMARY KEY (`IDNego`),
   KEY `#IDArticle` (`#IDArticle`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Structure de la table `panier`
+-- Déchargement des données de la table `negociation`
 --
 
-DROP TABLE IF EXISTS `panier`;
-CREATE TABLE IF NOT EXISTS `panier` (
-  `IDPanier` int(11) NOT NULL AUTO_INCREMENT,
-  `SousTotal` int(11) NOT NULL,
-  `#IDAcheteur` int(11) NOT NULL,
-  `#IDArticle` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IDPanier`),
-  KEY `#IDAcheteur` (`#IDAcheteur`),
-  KEY `#IDArticle` (`#IDArticle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `transaction`
---
-
-DROP TABLE IF EXISTS `transaction`;
-CREATE TABLE IF NOT EXISTS `transaction` (
-  `IDTransaction` int(11) NOT NULL AUTO_INCREMENT,
-  `Montant` int(11) NOT NULL,
-  `Date` date NOT NULL,
-  `#IDVendeur` int(11) NOT NULL,
-  `#IDAcheteur` int(11) NOT NULL,
-  `#IDCommande` int(11) NOT NULL,
-  `#IDCB` int(11) NOT NULL,
-  PRIMARY KEY (`IDTransaction`),
-  KEY `#IDVendeur` (`#IDVendeur`),
-  KEY `#IDAcheteur` (`#IDAcheteur`),
-  KEY `#IDCommande` (`#IDCommande`),
-  KEY `#IDCB` (`#IDCB`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `negociation` (`IDNego`, `NBNego`, `DerniereOffre`, `Accepte`, `#IDArticle`, `#IDAcheteur`) VALUES
+(1, 1, 400, 0, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -281,31 +282,15 @@ CREATE TABLE IF NOT EXISTS `vendeur` (
   `Pseudo` varchar(255) NOT NULL,
   `Mail` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
-  `#CheminImg` varchar(255) NOT NULL,
-  `#IDArticle` int(11) NOT NULL,
-  `#IDCommande` int(11) DEFAULT NULL,
-  `#IDTransaction` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IDVendeur`),
-  KEY `#CheminImg` (`#CheminImg`),
-  KEY `#IDArticle` (`#IDArticle`),
-  KEY `#IDCommande` (`#IDCommande`),
-  KEY `#IDTransaction` (`#IDTransaction`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
+  PRIMARY KEY (`IDVendeur`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Structure de la table `video`
+-- Déchargement des données de la table `vendeur`
 --
 
-DROP TABLE IF EXISTS `video`;
-CREATE TABLE IF NOT EXISTS `video` (
-  `CheminVideo` varchar(255) NOT NULL,
-  `Nom` varchar(255) NOT NULL,
-  `#IDArticle` int(11) NOT NULL,
-  PRIMARY KEY (`CheminVideo`),
-  KEY `#IDArticle` (`#IDArticle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `vendeur` (`IDVendeur`, `Pseudo`, `Mail`, `Password`) VALUES
+(1, 'Collectionneur', 'collectionneur@edu.ece.fr', '1234');
 
 --
 -- Contraintes pour les tables déchargées
@@ -315,46 +300,28 @@ CREATE TABLE IF NOT EXISTS `video` (
 -- Contraintes pour la table `acheteur`
 --
 ALTER TABLE `acheteur`
-  ADD CONSTRAINT `acheteur_ibfk_1` FOREIGN KEY (`#IDCommande`) REFERENCES `commande` (`IDCommande`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `acheteur_ibfk_2` FOREIGN KEY (`#IDPanier`) REFERENCES `panier` (`IDPanier`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `acheteur_ibfk_3` FOREIGN KEY (`#IDAdresse`) REFERENCES `adresse` (`IDAdresse`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `acheteur_ibfk_4` FOREIGN KEY (`#IDCB`) REFERENCES `cartebancaire` (`IDCB`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `acheteur_ibfk_5` FOREIGN KEY (`#IDEnchere`) REFERENCES `enchere` (`IDEnchere`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `acheteur_ibfk_6` FOREIGN KEY (`#IDNego`) REFERENCES `negociation` (`IDNego`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `acheteur_ibfk_7` FOREIGN KEY (`#IDTransaction`) REFERENCES `transaction` (`IDTransaction`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `administrateur`
---
-ALTER TABLE `administrateur`
-  ADD CONSTRAINT `administrateur_ibfk_1` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `acheteur_ibfk_1` FOREIGN KEY (`#IDAdresse`) REFERENCES `adresse` (`IDAdresse`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `adresse`
 --
 ALTER TABLE `adresse`
-  ADD CONSTRAINT `adresse_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `adresse_ibfk_2` FOREIGN KEY (`#IDCommande`) REFERENCES `commande` (`IDCommande`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `adresse_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `article`
 --
 ALTER TABLE `article`
-  ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`#IDAdmin`) REFERENCES `administrateur` (`IDAdmin`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`#IDAdmin`) REFERENCES `administrateur` (`IDAdmin`) ON DELETE RESTRICT ON UPDATE CASCADE,
   ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`#IDCommande`) REFERENCES `commande` (`IDCommande`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_3` FOREIGN KEY (`#IDEnchere`) REFERENCES `enchere` (`IDEnchere`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_4` FOREIGN KEY (`#IDNego`) REFERENCES `negociation` (`IDNego`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_5` FOREIGN KEY (`#IDPanier`) REFERENCES `panier` (`IDPanier`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_6` FOREIGN KEY (`#IDVendeur`) REFERENCES `vendeur` (`IDVendeur`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_7` FOREIGN KEY (`#CheminImage`) REFERENCES `image` (`CheminImg`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `article_ibfk_8` FOREIGN KEY (`#CheminVideo`) REFERENCES `video` (`CheminVideo`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `article_ibfk_3` FOREIGN KEY (`#IDVendeur`) REFERENCES `vendeur` (`IDVendeur`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `cartebancaire`
+-- Contraintes pour la table `choixarticles`
 --
-ALTER TABLE `cartebancaire`
-  ADD CONSTRAINT `cartebancaire_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cartebancaire_ibfk_2` FOREIGN KEY (`#IDTransaction`) REFERENCES `transaction` (`IDTransaction`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `choixarticles`
+  ADD CONSTRAINT `choixarticles_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `choixarticles_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `commande`
@@ -362,16 +329,14 @@ ALTER TABLE `cartebancaire`
 ALTER TABLE `commande`
   ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE RESTRICT ON UPDATE CASCADE,
   ADD CONSTRAINT `commande_ibfk_2` FOREIGN KEY (`#IDAdresse`) REFERENCES `adresse` (`IDAdresse`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `commande_ibfk_3` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `commande_ibfk_4` FOREIGN KEY (`#IDTransaction`) REFERENCES `transaction` (`IDTransaction`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `commande_ibfk_5` FOREIGN KEY (`#IDVendeur`) REFERENCES `vendeur` (`IDVendeur`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `commande_ibfk_3` FOREIGN KEY (`#IDVendeur`) REFERENCES `vendeur` (`IDVendeur`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `enchere`
 --
 ALTER TABLE `enchere`
-  ADD CONSTRAINT `enchere_ibfk_1` FOREIGN KEY (`#IDAchteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `enchere_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `enchere_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enchere_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `image`
@@ -384,39 +349,8 @@ ALTER TABLE `image`
 -- Contraintes pour la table `negociation`
 --
 ALTER TABLE `negociation`
-  ADD CONSTRAINT `negociation_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `negociation_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `panier`
---
-ALTER TABLE `panier`
-  ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `panier` (`IDPanier`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `transaction`
---
-ALTER TABLE `transaction`
-  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`#IDCB`) REFERENCES `cartebancaire` (`IDCB`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`#IDCommande`) REFERENCES `commande` (`IDCommande`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`#IDVendeur`) REFERENCES `vendeur` (`IDVendeur`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `vendeur`
---
-ALTER TABLE `vendeur`
-  ADD CONSTRAINT `vendeur_ibfk_1` FOREIGN KEY (`#CheminImg`) REFERENCES `image` (`CheminImg`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `vendeur_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `vendeur_ibfk_3` FOREIGN KEY (`#IDCommande`) REFERENCES `commande` (`IDCommande`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `vendeur_ibfk_4` FOREIGN KEY (`#IDTransaction`) REFERENCES `transaction` (`IDTransaction`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `video`
---
-ALTER TABLE `video`
-  ADD CONSTRAINT `video_ibfk_1` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `negociation_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `negociation_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
