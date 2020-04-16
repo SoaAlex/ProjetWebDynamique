@@ -32,7 +32,7 @@
                         <h4>| Informations vendeur</h4>
                         <div class="form-group"> <!-- Inspiré de https://getbootstrap.com/docs/4.0/components/forms/ -->
                             <label for="inPseudo">Pseudo</label>
-                            <input type="text" class="form-control" id="inPseudo" aria-describedby="nomHelp" placeholder="Ex: Storm74" name="pseudo"> required
+                            <input type="text" class="form-control" id="inPseudo" aria-describedby="nomHelp" placeholder="Ex: Storm74" name="pseudo" required> 
                         </div>
                         <div class="form-group">
                             <label for="inMail">Adresse mail</label>
@@ -43,23 +43,18 @@
                             <input type="password" class="form-control" id="inPsw" placeholder="" name="psw" required>
                         </div>
                         <!-- Insipiré de https://mdbootstrap.com/docs/jquery/forms/file-input/ -->
-                        <div class="form-group">
-                            <label for="inImgProfil">Image de profil</label>
-
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inImgProfil" name ="imgProfil" aria-describedby="inImgProfil">
-                                <label class="custom-file-label" for="inImgProfil" data-browse="Parcourir">Choisir un fichier</label>
+   
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="inImgProfil">Image de Profil</label>
+                                <input type="text" class="form-control-file" name="imgProfil" id="inImgProfil" required>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inImgFond">Image de Fond</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inImgFond" name ="imgFond" aria-describedby="inImgFond">
-                                <label class="custom-file-label" for="inImgFond" data-browse="Parcourir">Choisir un fichier</label>
+                            <div class="col">
+                                <label for="inImg2">Image de Fond</label>
+                                <input type="text" class="form-control-file" name="imgFond">
                             </div>
-                        </div>
-                        
+
+
                         <button type="submit" class="btn btn-primary btn-block" name="button1">Inscription</button>
                     </form>
                 </div>

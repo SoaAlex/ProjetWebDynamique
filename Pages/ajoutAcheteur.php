@@ -36,8 +36,8 @@ if (isset($_POST['button1'])) {
 
     //vérification Acheteur déjà existant ou informations déjà prises
     if (mysqli_num_rows($result) == 0) {
-        $sql2 = "INSERT INTO `acheteur` (`Nom`, `Prenom`, `Mail`, `Password`, `CGU`,`#IDAdresse`)
-        VALUES('$nom','$prenom','$mail','$password',$CGU, NULL)";
+        $sql2 = "INSERT INTO `acheteur` (`Nom`, `Prenom`, `Mail`, `Password`, `CGU`)
+        VALUES('$nom','$prenom','$mail','$password',$CGU)";
 
     if (mysqli_query($db_handle, $sql2)) {
             echo "<br> Compte Acheteur créé <br>";
@@ -48,6 +48,20 @@ if (isset($_POST['button1'])) {
     else {
         // Informations déjà utilisée
     echo "Veuillez choisir d'autres informations de connexion";
+        }
+
+        $sql = "SELECT IDAcheteur FROM acheteur WHERE Mail LIKE '$mail'";
+        $result = mysqli_query($db_handle, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $IDAcheteur= $row['IDAcheteur'];
+
+     $sql3 = "INSERT INTO `adresse` (`AdrLigne1`, `AdrLigne2`, `Ville`, `CodePostal`, `Pays`,`NumTel`,`#IDAcheteur`)
+        VALUES('$adrL1','$adrL2','$ville',$CP,'$pays',$tel,$IDAcheteur)";
+
+    if (mysqli_query($db_handle, $sql3)) {
+            echo "<br> Adresse Ajoutee créé <br>";
+        } else {
+            echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
         }
 }
 else {

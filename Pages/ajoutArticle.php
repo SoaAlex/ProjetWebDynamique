@@ -55,7 +55,6 @@ if (isset($_POST['button1'])) {
         $sql .= " WHERE nom LIKE '$nom'";
         }
 
-    
     $result = mysqli_query($db_handle, $sql);
     //vérification Article déjà existant avec même vendeur
     if(mysqli_num_rows($result)==0){
@@ -82,6 +81,55 @@ if (isset($_POST['button1'])) {
         //Article déjà existant
         echo "Article deja existant";
         }
+
+        $sql = "SELECT IDArticle FROM article WHERE Nom LIKE '$nom' AND DateLim LIKE '$dateLim'";
+        $result = mysqli_query($db_handle, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $IDVendeur = $row['IDArticle'];
+
+        $sql3 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDArticle`)
+        VALUES(NULL,'$nom',$IDArticle,NULL)";
+
+        if (mysqli_query($db_handle, $sql3)) {
+            echo "<br> Image 1 Ajoutée<br>";
+            } else {
+        echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
+            }       
+
+        if($CheminImage2 != NULL)
+        {
+        $sql = "SELECT IDArticle FROM article WHERE Nom LIKE '$nom' AND DateLim LIKE '$dateLim'";
+        $result = mysqli_query($db_handle, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $IDVendeur = $row['IDArticle'];
+
+        $sql4 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDArticle`)
+        VALUES(NULL,'$nom',$IDArticle,NULL)";
+
+        if (mysqli_query($db_handle, $sql4)) {
+            echo "<br> Image 2 Ajoutée<br>";
+         } else {
+        echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
+    }
+    }
+    if($CheminImage3 != NULL)
+    {
+    $sql = "SELECT IDArticle FROM article WHERE Nom LIKE '$nom' AND DateLim LIKE '$dateLim'";
+    $result = mysqli_query($db_handle, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $IDVendeur = $row['IDArticle'];
+
+    $sql5 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDArticle`)
+    VALUES(NULL,'$nom',$IDArticle,NULL)";
+
+    if (mysqli_query($db_handle, $sql5)) {
+        echo "<br> Image 3 Ajoutée<br>";
+     } else {
+    echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
+}
+}
+
+      
 }
 else {
 echo "Database not found";

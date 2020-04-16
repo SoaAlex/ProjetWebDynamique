@@ -35,11 +35,11 @@
 
                         <div class="form-group"> <!-- Inspiré de https://getbootstrap.com/docs/4.0/components/forms/ -->
                             <label for="inNom">Nom</label>
-                            <input type="text" class="form-control" id="inNom" aria-describedby="nomHelp" placeholder="Ex: Jean" name="nom" required>
+                            <input type="text" class="form-control" id="inNom" aria-describedby="nomHelp" placeholder="Ex: Moulin" name="nom" required>
                         </div>
                         <div class="form-group">
                             <label for="inPrenom">Prenom</label>
-                            <input type="text" class="form-control" id="inPrenom" placeholder="Ex: Moulin"  name="prenom" required>
+                            <input type="text" class="form-control" id="inPrenom" placeholder="Ex: Jean"  name="prenom" required>
                         </div>
                         <div class="form-group">
                             <label for="inMail">Adresse mail</label>

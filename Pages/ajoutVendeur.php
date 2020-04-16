@@ -38,9 +38,30 @@ if (isset($_POST['button1'])) {
         // Informations déjà utilisée
     echo "Veuillez choisir d'autres informations de connexion";
         }
-        $sql3 = "INSERT INTO `image` (`Pseudo`, `Mail`,`Password`)
-        VALUES('$pseudo','$mail','$password')";
-    
+
+        $sql = "SELECT IDVendeur FROM vendeur WHERE Pseudo LIKE '$pseudo'";
+        $result = mysqli_query($db_handle, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $IDVendeur = $row['IDVendeur'];
+
+        $sql3 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDVendeur`)
+        VALUES(NULL,'$pseudo',NULL,$IDVendeur)";
+
+        if (mysqli_query($db_handle, $sql3)) {
+            echo "<br> Image profil Ajoutée<br>";
+        } else {
+            echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
+        }
+        
+
+        $sql4 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDVendeur`)
+        VALUES(NULL,'$pseudo',NULL, $IDVendeur)";
+
+        if (mysqli_query($db_handle, $sql4)) {
+            echo "<br> Image Fond Ajoutée<br>";
+        } else {
+            echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
+        }
 }
 else {
 echo "Database not found";

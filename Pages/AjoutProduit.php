@@ -108,16 +108,16 @@
                         <div class="form-row">
                             <div class="col">
                                 <label for="inImg1">Image 1</label>
-                                <input type="file" class="form-control-file" name="img1" id="inImg1" required>
+                                <input type="text" class="form-control-file" name="img1" id="inImg1" required>
                             </div>
                             <div class="col">
                                 <label for="inImg2">Image 2</label>
-                                <input type="file" class="form-control-file" name="img2">
+                                <input type="text" class="form-control-file" name="img2">
                             </div>
 
                             <div class="col">
                                 <label for="inImg3">Image 3</label>
-                                <input type="file" class="form-control-file" name="img3">
+                                <input type="text" class="form-control-file" name="img3">
                             </div>
 
                             <div class="form-group">
