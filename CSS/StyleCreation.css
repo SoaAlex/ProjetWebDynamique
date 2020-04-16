@@ -4,6 +4,7 @@ body {
     padding: 0px;
     margin: 0px;
     background: #e4e4e4;
+    /*background-image: url("../img/UI/background1.jpg");*/
 }
 
 /*--- navigation bar ---*/
@@ -73,6 +74,26 @@ body {
 .footer-copyright {
     color: #666;
     padding: 40px 0;
+}
+
+/*-- produit **/
+.img-produit{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border: 3px solid black;
+}
+
+.titre-prod{
+    text-align: left;
+}
+.prix-prod{
+    text-align: right;
+}
+
+.prodVente{
+    font-size: xx-large;
 }
 
 /*--- mobile view ---*/

@@ -18,7 +18,7 @@
         <?php include 'navbar.php'; ?>
 
         <div id="content-wrapper" style="margin-top: 2%;">
-            <div class="container" >&nbsp
+            <div class="container" >
                 <div class="row">
                     <!-- CONNEXION A LA BDD ET AFFICHAGE DE TOUT LES ARTICLES -->
                     <?php
@@ -39,7 +39,9 @@
                                     echo '
                                     <div class="col-lg-4 col-md-2 col-sm-12">
                                         <div class="box-article">
-                                        <img src="'. $dataImg['CheminImg'] .'" style="width: 100%;">'.
+                                        <a href="http://localhost/ProjetWebDynamique/Pages/produit.php?IDArticle=' . $data['IDArticle'] . '">'.
+                                        '<img src="'. $dataImg['CheminImg'] .'" style="width: 100%;" class="img-fluid">'.
+                                        '</a>'.
                                         '<h2 style="margin-left: 5%;">'. $data['Nom'] . '</h2>';
                                     
                                     $IDVendeur = $data['#IDVendeur'];
@@ -49,16 +51,22 @@
                                     echo '
                                         <img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;">'. $dataVend['PseudoVend'].
                                         '<p style="margin: 5%;">'. $data['Description']. '</p>';
-                                    if($data['VenteBestOffer'] == 1) echo '<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>';
-                                    else if($data['VenteEnchere'] == 1) echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-                                    else if($data['VenteImmediat'] == 1) echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
-                                    else if($data['VenteImmediat'] == 1 && $data['VenteBestOffer'] == 1) {
-                                        echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>'. '<br>';
+                                    if($data['VenteBestOffer'] == 1 && $data['VenteImmediat'] == 0){
                                         echo '<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>';
+                                    }
+                                    if($data['VenteEnchere'] == 1){
+                                        echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>';
+                                    } 
+                                    if($data['VenteImmediat'] == 1 && $data['VenteBestOffer'] == 0) {
+                                        echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                    }
+                                    if($data['VenteImmediat'] == 1 && $data['VenteBestOffer'] == 1) {
+                                        echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                        echo '<div style="margin-top: -10%; margin-left: -3%;"> <img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span> </div>';
                                     }
                                     echo '
                                         </span>'.
-                                        '<span class="prixArticle">'.$data['Prix'] . '€' . '</span>'.
+                                        '<div class="prixArticle">'.$data['Prix'] . '€' . '</div>'.
                                         '</div>'.
                                     '</div>';
                                 }
