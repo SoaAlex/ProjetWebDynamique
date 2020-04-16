@@ -1,3 +1,8 @@
+<?php
+   ob_start();
+   session_start();
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,23 +26,40 @@
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="#">CATEGORIES</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">ACHETER</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/HTML/Formulaires/AjoutProduit.html">VENDRE</a></li>
+                    <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
+                    echo '<li class="nav-item"><a class="nav-link" href="AjoutProduit.html">VENDRE</a></li>'
+                    ?>
                 </ul>
             </div>
             <div class="collapse navbar-collapse Cend" id="main-navigation">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="panierHTML.php">
-                        <img class="img-fluid navbar-img" src="../img/UI/PanierBlanc.png" style="width: 20px; margin-right: 5px;">PANIER
-                    </a></li>
-                    <li class="nav-item"><a class="nav-link" href="Connexion.html">
+                    <li class="nav-item"><a class="nav-link" href="#">
                         <img class="img-fluid navbar-img" src="../img/UI/loupe.png" style="width: 20px; margin-right: 5px;">
                     </a></li>
-                    <li class="nav-item"><a class="nav-link" href="Connexion.html">
-                        <img class="img-fluid navbar-img" src="../img/UI/notif.png" style="width: 20px; margin-right: 5px;">
+                    <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false)
+                    echo'
+                    <li class="nav-item"><a class="nav-link" href="CreationAcheteur.html">
+                        Inscription
                     </a></li>
-                    <li class="nav-item"><a class="nav-link" href="Connexion.html">
-                        <img class="img-fluid navbar-img" src="../img/UI/account.png" style="width: 20px; margin-right: 5px;">
-                    </a></li>
+                    <li class="nav-item"><a class="nav-link" href="Connexion.php">
+                        Connexion
+                    </a></li>'
+                    ?>
+                    <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
+                        echo'
+                        <li class="nav-item"><a class="nav-link" href="panierHTML.php">
+                        <img class="img-fluid navbar-img" src="../img/UI/PanierBlanc.png" style="width: 20px; margin-right: 5px;">PANIER
+                        </a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">
+                            <img class="img-fluid navbar-img" src="../img/UI/loupe.png" style="width: 20px; margin-right: 5px;">
+                        </a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">
+                            <img class="img-fluid navbar-img" src="../img/UI/notif.png" style="width: 20px; margin-right: 5px;">
+                        </a></li>
+                        <li class="nav-item"><a class="nav-link" href="Compte.php">
+                            <img class="img-fluid navbar-img" src="../img/UI/account.png" style="width: 20px; margin-right: 5px;">
+                        </a></li>'
+                    ?>
                 </ul>
             </div>
         </nav>
@@ -72,7 +94,19 @@
 
         <div id="content-wrapper">
             <div class="container">
-                <h1>BIENVENU SUR EBAYECE</h1>
+                <h1 style="text-align: center; color: white;">BIENVENUE 
+                <?php 
+                    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
+                    {
+                        echo $_SESSION["username"]. "<br>";
+                        echo 'Profil ' . $_SESSION['user_type'];
+
+                    }
+                    else{
+                        echo "SUR EBAYECE";
+                    }
+                ?>
+            </h1>
             </div>
         </div>
 
