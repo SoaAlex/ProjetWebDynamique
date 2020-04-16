@@ -8,10 +8,10 @@
                 <ul class="navbar-nav">
                     <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false)
                     echo'
-                        <li class="nav-item"><a class="nav-link" href="#">CATEGORIES</a></li>
+                        <li class="nav-item"><a class="nav-link" href="articles.php">CATEGORIES</a></li>
                     ';
                     else{
-                        echo'<li class="nav-item"><a class="nav-link" href="#">ACHETER</a></li>';
+                        echo'<li class="nav-item"><a class="nav-link" href="articles.php">ACHETER</a></li>';
                     }
                     ?>
                     <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_type'] != "Acheteur")//Pas vendre si acheteur
