@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 15 avr. 2020 à 15:19
+-- Généré le :  jeu. 16 avr. 2020 à 14:55
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -120,10 +120,10 @@ CREATE TABLE IF NOT EXISTS `article` (
   `#IDCommande` int(11) DEFAULT NULL,
   `#IDVendeur` int(11) DEFAULT NULL,
   `#IDAdmin` int(11) DEFAULT NULL,
+  `CheminVideo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IDArticle`),
   KEY `#IDCommande` (`#IDCommande`),
   KEY `#IDVendeur` (`#IDVendeur`),
-  KEY `#IDCommande_2` (`#IDCommande`),
   KEY `#IDAdmin` (`#IDAdmin`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -131,11 +131,11 @@ CREATE TABLE IF NOT EXISTS `article` (
 -- Déchargement des données de la table `article`
 --
 
-INSERT INTO `article` (`IDArticle`, `Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`) VALUES
-(1, 'Piece rare', 'Je suis une description nulle d\'article', 'Ferraille', 50, 1, 0, 0, '2020-04-29', NULL, NULL, NULL),
-(2, 'Picasso', 'Je suis une description nulle d\'article', 'Musee', 100, 0, 1, 0, '2020-04-29', NULL, NULL, NULL),
-(3, 'Anneau', 'Je suis une description nulle d\'article', 'VIP', 200, 0, 0, 1, '2020-04-21', NULL, NULL, NULL),
-(4, 'La nuit étoilée', 'Je suis une description nulle d\'article', 'Musee', 200, 0, 1, 1, '2020-04-21', NULL, NULL, NULL);
+INSERT INTO `article` (`IDArticle`, `Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, `CheminVideo`) VALUES
+(1, 'Piece rare', 'Je suis une description nulle d\'article', 'Ferraille', 50, 1, 0, 0, '2020-04-29', NULL, 1, NULL, NULL),
+(2, 'Picasso', 'Je suis une description nulle d\'article', 'Musee', 100, 0, 1, 0, '2020-04-29', NULL, 1, NULL, NULL),
+(3, 'Anneau', 'Je suis une description nulle d\'article', 'VIP', 200, 0, 0, 1, '2020-04-21', NULL, 1, NULL, NULL),
+(4, 'La nuit étoilée', 'Je suis une description nulle d\'article', 'Musee', 200, 0, 1, 1, '2020-04-21', NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -237,12 +237,12 @@ CREATE TABLE IF NOT EXISTS `image` (
 --
 
 INSERT INTO `image` (`CheminImg`, `Nom`, `#IDArticle`, `#IDVendeur`) VALUES
-('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Articles\\anneau.jpg', 'Anneau', 3, NULL),
-('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Articles\\Picasso.jpg', 'Picasso', 2, NULL),
-('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Articles\\piecerare.jpg', 'Pièce Rare', 1, NULL),
-('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Articles\\tabVanGogh', 'La nuit étoilée', 4, NULL),
-('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Vendeur\\collectionneur.jpg', 'Collectionneur', NULL, 1),
-('C:\\wamp64\\www\\ProjetWebDynamique\\img\\Vendeur\\collectionneurBack.jpg', 'Magasin vendeur collectionneur', NULL, 1);
+('../img/Articles/anneau.jpg', 'Anneau', 3, NULL),
+('../img/Articles/Picasso.jpg', 'Picasso', 2, NULL),
+('../img/Articles/piecerare.jpg', 'Pièce Rare', 1, NULL),
+('../img/Articles/tabVanGogh.jpg', 'La nuit étoilée', 4, NULL),
+('../img/Vendeur/collectionneur.jpg', 'Collectionneur', NULL, 1),
+('../img/Vendeur/collectionneurBack.jpg', 'Magasin vendeur collectionneur', NULL, 1);
 
 -- --------------------------------------------------------
 
