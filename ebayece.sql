@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 16 avr. 2020 à 14:55
+-- Généré le :  jeu. 16 avr. 2020 à 17:54
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -36,18 +36,16 @@ CREATE TABLE IF NOT EXISTS `acheteur` (
   `Mail` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `CGU` tinyint(1) NOT NULL DEFAULT '0',
-  `#IDAdresse` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IDAcheteur`),
-  KEY `#IDAdresse` (`#IDAdresse`)
+  PRIMARY KEY (`IDAcheteur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `acheteur`
 --
 
-INSERT INTO `acheteur` (`IDAcheteur`, `Nom`, `Prenom`, `Mail`, `Password`, `CGU`, `#IDAdresse`) VALUES
-(1, 'SOARES', 'Alexandre', 'alexandre.soares@edu.ece.fr', '1234', 1, NULL),
-(2, 'BESSIERES', 'Adrien', 'adrien.bessieres@edu.ece.fr', '1234', 1, NULL);
+INSERT INTO `acheteur` (`IDAcheteur`, `Nom`, `Prenom`, `Mail`, `Password`, `CGU`) VALUES
+(1, 'SOARES', 'Alexandre', 'alexandre.soares@edu.ece.fr', '1234', 1),
+(2, 'BESSIERES', 'Adrien', 'adrien.bessieres@edu.ece.fr', '1234', 1);
 
 -- --------------------------------------------------------
 
@@ -125,14 +123,14 @@ CREATE TABLE IF NOT EXISTS `article` (
   KEY `#IDCommande` (`#IDCommande`),
   KEY `#IDVendeur` (`#IDVendeur`),
   KEY `#IDAdmin` (`#IDAdmin`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `article`
 --
 
 INSERT INTO `article` (`IDArticle`, `Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, `CheminVideo`) VALUES
-(1, 'Piece rare', 'Je suis une description nulle d\'article', 'Ferraille', 50, 1, 0, 0, '2020-04-29', NULL, 1, NULL, NULL),
+(1, 'Piece rare', 'Je suis une description nulle d\'article. Je suis une description nulle d\'article. Je suis une description nulle d\'article. Je suis une description nulle d\'article.\r\nJe suis une description nulle d\'article.\r\nJe suis une description nulle d\'article.', 'Ferraille', 50, 1, 0, 0, '2020-04-29', NULL, 1, NULL, NULL),
 (2, 'Picasso', 'Je suis une description nulle d\'article', 'Musee', 100, 0, 1, 0, '2020-04-29', NULL, 1, NULL, NULL),
 (3, 'Anneau', 'Je suis une description nulle d\'article', 'VIP', 200, 0, 0, 1, '2020-04-21', NULL, 1, NULL, NULL),
 (4, 'La nuit étoilée', 'Je suis une description nulle d\'article', 'Musee', 200, 0, 1, 1, '2020-04-21', NULL, 1, NULL, NULL);
@@ -295,12 +293,6 @@ INSERT INTO `vendeur` (`IDVendeur`, `Pseudo`, `Mail`, `Password`) VALUES
 --
 -- Contraintes pour les tables déchargées
 --
-
---
--- Contraintes pour la table `acheteur`
---
-ALTER TABLE `acheteur`
-  ADD CONSTRAINT `acheteur_ibfk_1` FOREIGN KEY (`#IDAdresse`) REFERENCES `adresse` (`IDAdresse`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `adresse`
