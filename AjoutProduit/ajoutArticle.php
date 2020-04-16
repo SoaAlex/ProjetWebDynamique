@@ -10,7 +10,8 @@ $prix = isset($_POST["prix"])? $_POST["prix"] : "";
 $dateLim = isset($_POST["dateLim"])? $_POST["dateLim"] : "";
  // $IDVendeur = isset($_POST["prix"])? $_POST["prix"] : "";
 $CheminImage1 = isset($_POST["img1"])? $_POST["img1"] : "";
-$CheminImage2 = isset($_POST["img2"])? $_POST["img2"] : "";   
+$CheminImage2 = isset($_POST["img2"])? $_POST["img2"] : "";  
+$CheminImage3 = isset($_POST["img3"])? $_POST["img3"] : "";  
 $CheminVideo = isset($_POST["video"])? $_POST["video"] : "";
 
 //identifier votre BDD
@@ -31,6 +32,9 @@ if (isset($_POST['button1'])) {
     }
     if ($CheminImage2 == "") {
         $CheminImage2 = NULL;
+    }
+    if ($CheminImage3 == "") {
+        $CheminImage3 = NULL;
     }
     if ($CheminVideo == "") {
         $CheminVideo = NULL;
@@ -56,8 +60,8 @@ if (isset($_POST['button1'])) {
         echo "$CheminImage2";
         echo "$CheminVideo ";
 
-        $sql = "INSERT INTO article(nom, description, typeArticle, prix, VenteEnchere; VenteImmediat, VenteBestOffer, DateLim, IDCommande, IDVendeur, IDAdmin CheminImage1, CheminImage2, CheminVideo)
-        VALUES('$nom', '$description', '$typeArticle', '$prix', '$VenteEnchere'; '$VenteImmediat', '$VenteBestOffer', '$dateLim', NULL, NULL, NULL,'$CheminImage1', '$CheminImage2', '$CheminVideo')";
+        $sql = "INSERT INTO article(nom, description, typeArticle, prix, VenteEnchere; VenteImmediat, VenteBestOffer, DateLim, IDCommande, IDVendeur, IDAdmin, CheminImage1, CheminImage2, CheminImage3, CheminVideo)
+        VALUES('$nom', '$description', '$typeArticle', '$prix', '$VenteEnchere'; '$VenteImmediat', '$VenteBestOffer', '$dateLim', NULL, NULL, NULL,'$CheminImage1', '$CheminImage2', '$CheminImage3','$CheminVideo')";
         echo "Article mis en vente <br>";
         } 
     else {
