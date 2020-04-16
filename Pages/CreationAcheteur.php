@@ -4,7 +4,7 @@
 <?php
     session_start();
     
-    if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true){
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         header("location: landingPage.php");
         exit;
 }
@@ -30,7 +30,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h1 style="text-align:center;">Créer un compte acheteur</h1>
 
-                    <form method="POST" action="#"> <!-- Manque lien -->
+                    <form method="POST" action="ajoutAcheteur.php"> 
                         <h4>| Informations personelles</h4>
 
                         <div class="form-group"> <!-- Inspiré de https://getbootstrap.com/docs/4.0/components/forms/ -->
@@ -75,23 +75,15 @@
                             <label for="inNum">Numéro de téléphone</label>
                             <input type="number" class="form-control" id="inNum" placeholder="Ex: 0706050303" name="tel">
                         </div>
-                        <!-- Insipiré de https://mdbootstrap.com/docs/jquery/forms/file-input/ 
-                        <div class="form-group">
-                            <label for="inImgProfil">Image de profil</label>
-
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inImgProfil" name ="imgProfil" aria-describedby="inImgProfil">
-                                <label class="custom-file-label" for="inImgProfil" data-browse="Parcourir">Choisir un fichier</label>
-                            </div>
-                        </div> -->
+                        <!-- Insipiré de https://mdbootstrap.com/docs/jquery/forms/file-input/ -->
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1" name="CGUCheck">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="CGUCheck" value=1>
+                            <label class="form-check-label" for="exampleCheck1"  >
                                 Acceptez-vous les conditions générales de vente ?<br>
                                 Notamment, vous vous engagez à payer chaque article que vous enchérissez.
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Inscription</button>
+                        <button type="submit" class="btn btn-primary btn-block" name="button1">Inscription</button>
                     </form>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 //Récupération des données  !!!! Les clés étrangères ? 
 $nom = isset($_POST["nom"])? $_POST["nom"] : "";
 $typeArticle = isset($_POST["typeProd"])? $_POST["typeProd"] : "";
@@ -8,7 +9,7 @@ $VenteImmediat = isset($_POST["VenteImmediat"])? $_POST["VenteImmediat"] : "";
 $VenteBestOffer = isset($_POST["VenteBestOffer"])? $_POST["VenteBestOffer"] : "";
 $prix = isset($_POST["prix"])? $_POST["prix"] : "";
 $dateLim = isset($_POST["dateLim"])? $_POST["dateLim"] : "";
-$IDVendeur = isset($_SESSION["user_name"])? $_SESSION["user_name"] : "";
+$PSVendeur = isset($_SESSION["username"])? $_SESSION["username"] : "";
 $CheminImage1 = isset($_POST["img1"])? $_POST["img1"] : "";
 $CheminImage2 = isset($_POST["img2"])? $_POST["img2"] : "";  
 $CheminImage3 = isset($_POST["img3"])? $_POST["img3"] : "";  
@@ -22,6 +23,11 @@ $db_found = mysqli_select_db($db_handle, $database);
 
 //Ajout de l'article
 if (isset($_POST['button1'])) {
+
+    $sql = "SELECT IDVendeur FROM vendeur WHERE Pseudo LIKE '$PSVendeur'";
+    $result = mysqli_query($db_handle, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $IDVendeur = $row['IDVendeur'];
 
     //Remplissage False Vente
     if ($VenteEnchere == "") {
@@ -48,9 +54,11 @@ if (isset($_POST['button1'])) {
         if ($nom != "") {
         $sql .= " WHERE nom LIKE '$nom'";
         }
+
+    
     $result = mysqli_query($db_handle, $sql);
     //vérification Article déjà existant avec même vendeur
-    if (mysqli_num_rows($result) == 0) {
+    if(mysqli_num_rows($result)==0){
         echo "$nom ";
         echo "$typeArticle ";
         echo "$description ";
@@ -59,15 +67,20 @@ if (isset($_POST['button1'])) {
         echo "$VenteBestOffer ";
         echo "$prix ";
         echo "$dateLim ";
-        echo "$IDVendeur";
+        echo "$IDVendeur ";
 
-        $sql = "INSERT INTO `article` (`Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`)
-        VALUES('$nom', '$description', '$typeArticle', $prix, $VenteEnchere, $VenteImmediat, $VenteBestOffer, '$dateLim', NULL, NULL, NULL)";
-        echo "Article mis en vente <br>";
+        $sql2 = "INSERT INTO `article` (`Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, 'CheminVideo')
+        VALUES('$nom','$description','$typeArticle',$prix,$VenteEnchere,$VenteImmediat,$VenteBestOffer,'$dateLim', NULL,'$IDVendeur', NULL,'$CheminVideo')";
+        
+        if (mysqli_query($db_handle, $sql2)) {
+            echo "<br> Article mis en vente <br>";
+        } else {
+            echo "Error: " . $sql2 . "<br>" . mysqli_error($db_handle);
+        }
         } 
-    else {
+        else {
         //Article déjà existant
-    echo "Article deja existant";
+        echo "Article deja existant";
         }
 }
 else {
