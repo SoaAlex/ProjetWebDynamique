@@ -68,7 +68,7 @@ if (isset($_POST['button1'])) {
         echo "$dateLim ";
         echo "$IDVendeur ";
 
-        $sql2 = "INSERT INTO `article` (`Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, 'CheminVideo')
+        $sql2 = "INSERT INTO `article` (`Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, `CheminVideo`)
         VALUES('$nom','$description','$typeArticle',$prix,$VenteEnchere,$VenteImmediat,$VenteBestOffer,'$dateLim', NULL,'$IDVendeur', NULL,'$CheminVideo')";
         
         if (mysqli_query($db_handle, $sql2)) {
@@ -85,10 +85,10 @@ if (isset($_POST['button1'])) {
         $sql = "SELECT IDArticle FROM article WHERE Nom LIKE '$nom' AND DateLim LIKE '$dateLim'";
         $result = mysqli_query($db_handle, $sql);
         $row = mysqli_fetch_assoc($result);
-        $IDVendeur = $row['IDArticle'];
+        $IDArticle = $row['IDArticle'];
 
         $sql3 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDArticle`)
-        VALUES(NULL,'$nom',$IDArticle,NULL)";
+        VALUES('$CheminImage1','$nom',$IDArticle)";
 
         if (mysqli_query($db_handle, $sql3)) {
             echo "<br> Image 1 Ajoutée<br>";
@@ -98,13 +98,8 @@ if (isset($_POST['button1'])) {
 
         if($CheminImage2 != NULL)
         {
-        $sql = "SELECT IDArticle FROM article WHERE Nom LIKE '$nom' AND DateLim LIKE '$dateLim'";
-        $result = mysqli_query($db_handle, $sql);
-        $row = mysqli_fetch_assoc($result);
-        $IDVendeur = $row['IDArticle'];
-
         $sql4 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDArticle`)
-        VALUES(NULL,'$nom',$IDArticle,NULL)";
+        VALUES('$CheminImage2','$nom',$IDArticle)";
 
         if (mysqli_query($db_handle, $sql4)) {
             echo "<br> Image 2 Ajoutée<br>";
@@ -114,13 +109,8 @@ if (isset($_POST['button1'])) {
     }
     if($CheminImage3 != NULL)
     {
-    $sql = "SELECT IDArticle FROM article WHERE Nom LIKE '$nom' AND DateLim LIKE '$dateLim'";
-    $result = mysqli_query($db_handle, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $IDVendeur = $row['IDArticle'];
-
     $sql5 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDArticle`)
-    VALUES(NULL,'$nom',$IDArticle,NULL)";
+    VALUES('$CheminImage3','$nom',$IDArticle)";
 
     if (mysqli_query($db_handle, $sql5)) {
         echo "<br> Image 3 Ajoutée<br>";

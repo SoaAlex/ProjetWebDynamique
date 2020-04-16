@@ -45,7 +45,7 @@ if (isset($_POST['button1'])) {
         $IDVendeur = $row['IDVendeur'];
 
         $sql3 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDVendeur`)
-        VALUES(NULL,'$pseudo',NULL,$IDVendeur)";
+        VALUES('$imgProfil','$pseudo',$IDVendeur)";
 
         if (mysqli_query($db_handle, $sql3)) {
             echo "<br> Image profil Ajoutée<br>";
@@ -55,7 +55,7 @@ if (isset($_POST['button1'])) {
         
 
         $sql4 = "INSERT INTO `image` (`CheminImg`,`Nom`,`#IDVendeur`)
-        VALUES(NULL,'$pseudo',NULL, $IDVendeur)";
+        VALUES('$imgFond','$pseudo',$IDVendeur)";
 
         if (mysqli_query($db_handle, $sql4)) {
             echo "<br> Image Fond Ajoutée<br>";
