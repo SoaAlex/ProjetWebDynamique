@@ -29,7 +29,6 @@
                     <h2>| Achats possibles</h2>
                     <div class="row">
                         <div class="col-lg-4 col-md-2 col-sm-12">
-                            <?php include '../PHP/panier.php'; ?>
                         </div>
                     </div><br><br>
 
@@ -68,9 +67,11 @@
                     <h2>| Négociation en cours</h2>
 
                 </div>
+            </div>
         </div>
 
         <?php include 'footer.php'; ?>
 
     </body>
+
 </html>

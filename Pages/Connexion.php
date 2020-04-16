@@ -45,6 +45,7 @@
                 else{
                     $data = mysqli_fetch_assoc($result);
                     $_SESSION['username'] = $data['Nom'];
+                    $_SESSION["userID"] = $data['IDAdmin'];
                     $_SESSION['loggedin'] = true;
                     $_SESSION['usermail'] = $mail;
                     $_SESSION['user_type'] = 'Admin';
@@ -54,6 +55,7 @@
             else{
                 $data = mysqli_fetch_assoc($result);
                 $_SESSION['username'] = $data['Pseudo'];
+                $_SESSION["userID"] = $data['IDVendeur'];
                 $_SESSION['loggedin'] = true;
                 $_SESSION['usermail'] = $mail;
                 $_SESSION['user_type'] = 'Vendeur';
@@ -63,6 +65,7 @@
         else{
             $data = mysqli_fetch_assoc($result);
             $_SESSION["username"] = $data['Nom'];
+            $_SESSION["userID"] = $data['IDAcheteur'];
             $_SESSION['loggedin'] = true;
             $_SESSION['valid'] = true;
             $_SESSION['usermail'] = $mail;
