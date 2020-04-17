@@ -114,7 +114,9 @@
                         <label for="CodePostal">Code Postal</label>
                         <input type="text" class="form-control" id="IDCodePostal" placeholder="Ex: 75 003" name="CodePostal">
                         <label for="Pays">Pays</label>
-                        <input type="text" class="form-control" id="ISPays" placeholder="Ex: Guatemala" name="Pays"><br>
+                        <input type="text" class="form-control" id="IPays" placeholder="Ex: Guatemala" name="Pays"><br>
+                        <label for="Tel">Telephone</label>
+                        <input type="text" class="form-control" id="Tel" placeholder="Ex: Guatemala" name="Tel"><br>
                     <div class="btn btn-warning btn-lg btn-block">Valider les informations</button></div>
                 </div>
                 
