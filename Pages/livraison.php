@@ -18,6 +18,7 @@ session_start();
     $CP2 = isset($_POST["CP2"])? $_POST["CP2"] : "";
     $pays2 = isset($_POST["pays2"])? $_POST["pays2"] : "";
     $tel2 = isset($_POST["tel2"])? $_POST["tel2"] : "";
+
 //identifier votre BDD
 $database = "bddebay";
 //connectez-vous de votre BDD
@@ -63,6 +64,7 @@ echo "Database not found";
 }
 }
 if (isset($_POST['button2'])) {
+    $liv=3;
 
     if ($db_found) {
         $sql = "SELECT IDAcheteur FROM acheteur WHERE Nom LIKE '$PSAcheteur'";
@@ -78,6 +80,19 @@ if (isset($_POST['button2'])) {
         } else {
             echo "Error: " . $sql4 . "<br>" . mysqli_error($db_handle);
         }
+        $sql = "SELECT `IDAdresse` FROM `adresse` WHERE AdrLigne1 LIKE '$adrL12' AND Ville LIKE '$ville2'";
+        $result = mysqli_query($db_handle, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $IDAdresse = $row['IDAdresse'];
+
+        $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
+        VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
+
+        if (mysqli_query($db_handle, $sql5)) {
+            echo "<br> Commande Créée<br>";
+            } else {
+        echo "Error: " . $sql5 . "<br>" . mysqli_error($db_handle);
+            } 
 }
 else {
 echo "Database not found";
