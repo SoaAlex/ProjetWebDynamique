@@ -105,8 +105,9 @@
             </div>
             <div class="row" style="margin-top: 20px;"> 
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                <form method="POST" action="livraison.php">
+                
                     <div id="affichageRelais1"> 
+                    <form method="POST" action="livraison.php">
                         <h4>| Nouvelle Adresse</h4><br>
                             <label for="AdresseL1">Adresse Ligne 1</label>
                             <input type="text" class="form-control" id="IDAdresseL1" placeholder="Ex: 8 avenue des Petits Princes" name="AdresseL1">
@@ -122,8 +123,9 @@
                             <input type="text" class="form-control" id="Tel" placeholder="" name="tel"><br>
                         <div class="btn btn-warning btn-lg btn-block" name="button1">Valider les informations</button></div>
                         <br>
+                        </form>
                     </div>
-                </form>
+                
                 </div>
                 
                 <div class="col-lg-1 col-md-1 col-sm-1"></div>
