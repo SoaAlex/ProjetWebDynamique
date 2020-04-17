@@ -26,17 +26,17 @@
 
     if($db_found && $mail != '' && $psw != ''){
         //Trouver acheteur
-        $sql = "SELECT Mail AS Mail, Nom AS Nom FROM acheteur WHERE Mail='$mail' AND Password='$psw'";
+        $sql = "SELECT Mail AS Mail, Nom AS Nom, IDAcheteur as IDAcheteur FROM acheteur WHERE Mail='$mail' AND Password='$psw'";
         $result = mysqli_query($db_handle, $sql);
 
         if(mysqli_num_rows($result) == 0){
             //Trouver Vendeur
-            $sql = "SELECT Mail AS Mail, Pseudo AS Pseudo FROM vendeur WHERE Mail='$mail' AND Password='$psw'";
+            $sql = "SELECT Mail AS Mail, Pseudo AS Pseudo, IDVendeur as IDVendeur FROM vendeur WHERE Mail='$mail' AND Password='$psw'";
             $result = mysqli_query($db_handle, $sql);
 
             if(mysqli_num_rows($result) == 0){
                 //Trouver admin
-                $sql = "SELECT Mail AS Mail, Nom AS Nom FROM administrateur WHERE Mail='$mail' AND Password='$psw'";
+                $sql = "SELECT Mail AS Mail, Nom AS Nom, IDAdmin as IDAdmin FROM administrateur WHERE Mail='$mail' AND Password='$psw'";
                 $result = mysqli_query($db_handle, $sql);
                 if(mysqli_num_rows($result) == 0){
                     $mail_error = "Utilisateur non trouvé";
@@ -45,6 +45,7 @@
                 else{
                     $data = mysqli_fetch_assoc($result);
                     $_SESSION['username'] = $data['Nom'];
+                    $_SESSION["userID"] = $data['IDAdmin'];
                     $_SESSION['loggedin'] = true;
                     $_SESSION['usermail'] = $mail;
                     $_SESSION['user_type'] = 'Admin';
@@ -54,6 +55,7 @@
             else{
                 $data = mysqli_fetch_assoc($result);
                 $_SESSION['username'] = $data['Pseudo'];
+                $_SESSION["userID"] = $data['IDVendeur'];
                 $_SESSION['loggedin'] = true;
                 $_SESSION['usermail'] = $mail;
                 $_SESSION['user_type'] = 'Vendeur';
@@ -63,6 +65,7 @@
         else{
             $data = mysqli_fetch_assoc($result);
             $_SESSION["username"] = $data['Nom'];
+            $_SESSION["userID"] = $data['IDAcheteur'];
             $_SESSION['loggedin'] = true;
             $_SESSION['valid'] = true;
             $_SESSION['usermail'] = $mail;
