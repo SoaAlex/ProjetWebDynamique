@@ -9,6 +9,7 @@ session_start();
     $pays = isset($_POST["pays"])? $_POST["pays"] : "";
     $tel = isset($_POST["tel"])? $_POST["tel"] : "";
     $PSAcheteur = isset($_SESSION["username"])? $_SESSION["username"] : "";
+    $liv = isset($_POST["Livraison"])? $_POST["Livraison"] : "";
 
     $adrL12 = isset($_POST["AdresseL12"])? $_POST["AdresseL12"] : "";
     $nom2 = isset($_POST["nom2"])? $_POST["nom2"] : "";
@@ -41,6 +42,21 @@ if (isset($_POST['button1'])) {
         } else {
             echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
         }
+        
+        $sql = "SELECT `IDAdresse` FROM `adresse` WHERE AdrLigne1 LIKE '$adrL1' AND Ville LIKE '$ville'";
+        $result = mysqli_query($db_handle, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $IDAdresse = $row['IDAdresse'];
+
+        $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
+        VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
+
+        if (mysqli_query($db_handle, $sql5)) {
+            echo "<br> Commande Créée<br>";
+            } else {
+        echo "Error: " . $sql5 . "<br>" . mysqli_error($db_handle);
+            }       
+
 }
 else {
 echo "Database not found";

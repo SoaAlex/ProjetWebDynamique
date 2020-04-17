@@ -3,7 +3,16 @@
 ?>
 <?php
     session_start();
- 
+    
+    $userID = $_SESSION['userID'];
+    $database = "bddebay";
+    $db_handle = mysqli_connect('localhost', 'root','');
+    $db_found = mysqli_select_db($db_handle, $database);
+
+    if($db_found){
+        $sql = "SELECT * FROM adresse WHERE `#IDAcheteur`=$userID LIMIT 1";
+        $result = mysqli_query($db_handle, $sql);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +71,8 @@
 		</div>
 
         <div class="container-fluid">
-            <div class="row" style="margin-top: 20px;"> 
+
+        <div class="row" style="margin-top: 20px;"> 
                 <div class="col-lg-2 col-md-2 col-sm-2">
                     <h4>| Adresse Enregistrée</h4>
                 </div>
@@ -73,9 +83,10 @@
                 </div>
             </div>
             <div class="row" style="margin-top: 20px;">      
-                <div class="col-lg-2 col-md-2 col-sm-2">
-                    <input type="text" class="form-control" id="IDAdresseSave"placeholder=""name="AdresseSave">
-                </div>
+                
+            <!-- A TRAVAILLER -->
+             <?php // echo '<div class="col-lg-2 col-md-2 col-sm-2"> <input type="text" class="form-control" id="IDAdresseSave"placeholder=".$result['adrl1']" name="AdresseSave"> </div>'; ?> 
+        
                 <div class="col-lg-2 col-md-2 col-sm-2" >
                     <div class="btn btn-warning btn-lg btn-block">Valider</button></div>
                 </div>
@@ -84,16 +95,17 @@
                    
                    
                     <div class="form-check form-check-inline" style="margin-top: 20px">
-                          <input class="form-check-input" type="radio" name="exampleRadios" class="exampleRadios" value="option1" onclick="Prelais()" checked>
+                    <form method="POST" action="livraison.php">
+                          <input class="form-check-input" type="radio" name="Livraison" class="exampleRadios" value=10 onclick="Prelais()" checked>
                           <label class="form-check-label" for="exampleRadios1" style="width: 200px;  margin-right: 30px;">
                           Express: 10€
                           </label>
-                          <input class="form-check-input" type="radio" name="exampleRadios" class="exampleRadios" value="option2" onclick="Prelais()">
+                          <input class="form-check-input" type="radio" name="Livraison" class="exampleRadios" value=5 onclick="Prelais()">
                           <label class="form-check-label" for="exampleRadios1" style="width: 200px;  margin-right: 30px;">
                           Standard: 5€
                           </label>
-                          <input class="form-check-input" type="radio" name="exampleRadios" class="exampleRadios" value="option3" onclick="relais()">
-                          <label class="form-check-label" for="exampleRadios1" style="width: 200px;  margin-right: 30px;">
+                          <input class="form-check-input" type="radio" name="Livraison" class="exampleRadios" value=3 onclick="relais()">
+                          <label class="form-check-label" for="exampleRadios1" style="width: 130px;  margin-right: 30px;">
                           Point relais: 3€
                           </label>
                     </div>
@@ -103,7 +115,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                 
                     <div id="affichageRelais1"> 
-                    <form method="POST" action="livraison.php">
+                    
                         <h4>| Nouvelle Adresse</h4><br>
                             <label for="AdresseL1">Adresse Ligne 1</label>
                             <input type="text" class="form-control" id="IDAdresseL1" placeholder="Ex: 8 avenue des Petits Princes" name="AdresseL1">

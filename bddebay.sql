@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 16 avr. 2020 à 17:54
+-- Généré le :  ven. 17 avr. 2020 à 15:54
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `acheteur` (
   `Password` varchar(255) NOT NULL,
   `CGU` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `acheteur`
@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS `acheteur` (
 
 INSERT INTO `acheteur` (`IDAcheteur`, `Nom`, `Prenom`, `Mail`, `Password`, `CGU`) VALUES
 (1, 'SOARES', 'Alexandre', 'alexandre.soares@edu.ece.fr', '1234', 1),
-(2, 'BESSIERES', 'Adrien', 'adrien.bessieres@edu.ece.fr', '1234', 1);
+(2, 'BESSIERES', 'Adrien', 'adrien.bessieres@edu.ece.fr', '1234', 1),
+(3, 'Jean', 'Paul', 'jeanpaul@edu.ece.fr', '1234', 1);
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 INSERT INTO `adresse` (`IDAdresse`, `AdrLigne1`, `AdrLigne2`, `Ville`, `CodePostal`, `Pays`, `NumTel`, `#IDAcheteur`) VALUES
 (1, '37 Quai de Grenelle', 'Immeuble Pollux', 'PARIS', 75015, 'FRANCE', 303030303, 2),
 (2, '9 RUE BOULARD', 'BAT B', 'PARIS', 75017, 'FRANCE', 606060606, 1),
-(3, '29 rue des Dieux', 'Heaven', 'LeHavre', 12457, 'Paradis', 712457896, 6);
+(3, '28 rue louis', '', 'ROUBAIX', 59100, 'France', 988790, 3);
 
 -- --------------------------------------------------------
 
@@ -119,12 +120,12 @@ CREATE TABLE IF NOT EXISTS `article` (
   `#IDCommande` int(11) DEFAULT NULL,
   `#IDVendeur` int(11) DEFAULT NULL,
   `#IDAdmin` int(11) DEFAULT NULL,
-  `CheminVideo` varchar(255) DEFAULT NULL,
+  `CheminVideo` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   PRIMARY KEY (`IDArticle`),
   KEY `#IDCommande` (`#IDCommande`),
   KEY `#IDVendeur` (`#IDVendeur`),
   KEY `#IDAdmin` (`#IDAdmin`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `article`
@@ -135,6 +136,26 @@ INSERT INTO `article` (`IDArticle`, `Nom`, `Description`, `TypeArticle`, `Prix`,
 (2, 'Picasso', 'Je suis une description nulle d\'article', 'Musee', 100, 0, 1, 0, '2020-04-29', NULL, 1, NULL, NULL),
 (3, 'Anneau', 'Je suis une description nulle d\'article', 'VIP', 200, 0, 0, 1, '2020-04-21', NULL, 1, NULL, NULL),
 (4, 'La nuit étoilée', 'Je suis une description nulle d\'article', 'Musee', 200, 0, 1, 1, '2020-04-21', NULL, 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cartebancaire`
+--
+
+DROP TABLE IF EXISTS `cartebancaire`;
+CREATE TABLE IF NOT EXISTS `cartebancaire` (
+  `IDCB` int(11) NOT NULL AUTO_INCREMENT,
+  `NumCarte` int(11) NOT NULL,
+  `DateExpiration` date NOT NULL,
+  `NomAffiche` varchar(255) NOT NULL,
+  `CodeSecur` int(11) NOT NULL,
+  `TypeCarte` varchar(255) NOT NULL,
+  `Solde` int(11) NOT NULL,
+  `#IDAcheteur` int(11) NOT NULL,
+  PRIMARY KEY (`IDCB`),
+  KEY `#IDAcheteur` (`#IDAcheteur`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -150,15 +171,15 @@ CREATE TABLE IF NOT EXISTS `choixarticles` (
   PRIMARY KEY (`IDChoix`),
   KEY `#IDAcheteur` (`#IDAcheteur`),
   KEY `#IDArticle` (`#IDArticle`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `choixarticles`
 --
 
 INSERT INTO `choixarticles` (`IDChoix`, `#IDAcheteur`, `#IDArticle`) VALUES
-(1, 1, 1),
-(2, 2, 3);
+(2, 2, 3),
+(31, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -205,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `enchere` (
   PRIMARY KEY (`IDEnchere`),
   KEY `#IDArticle` (`#IDArticle`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `enchere`
@@ -222,10 +243,11 @@ INSERT INTO `enchere` (`IDEnchere`, `MontantMaxAcheteur`, `DateProposition`, `Ac
 
 DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
-  `CheminImg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `CheminImg` varchar(700) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Nom` varchar(255) NOT NULL,
   `#IDArticle` int(11) DEFAULT NULL,
   `#IDVendeur` int(11) DEFAULT NULL,
+  PRIMARY KEY (`CheminImg`),
   KEY `#IDArticle` (`#IDArticle`),
   KEY `#IDVendeur` (`#IDVendeur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -240,7 +262,9 @@ INSERT INTO `image` (`CheminImg`, `Nom`, `#IDArticle`, `#IDVendeur`) VALUES
 ('../img/Articles/piecerare.jpg', 'Pièce Rare', 1, NULL),
 ('../img/Articles/tabVanGogh.jpg', 'La nuit étoilée', 4, NULL),
 ('../img/Vendeur/collectionneur.jpg', 'Collectionneur', NULL, 1),
-('../img/Vendeur/collectionneurBack.jpg', 'Magasin vendeur collectionneur', NULL, 1);
+('../img/Vendeur/collectionneurBack.jpg', 'Magasin vendeur collectionneur', NULL, 1),
+('https://images.jeugeek.com/uploads/files/csgo-ranks.jpg', 'jeanvaljean', NULL, 2),
+('https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt73c524420c2ba62c/5ca6896ee2a0d75e33470a83/sql-search.jpg', 'jeanvaljean', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -259,14 +283,15 @@ CREATE TABLE IF NOT EXISTS `negociation` (
   PRIMARY KEY (`IDNego`),
   KEY `#IDArticle` (`#IDArticle`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `negociation`
 --
 
 INSERT INTO `negociation` (`IDNego`, `NBNego`, `DerniereOffre`, `Accepte`, `#IDArticle`, `#IDAcheteur`) VALUES
-(1, 1, 400, 0, 3, 2);
+(1, 1, 400, 0, 3, 2),
+(6, 1, 200, 0, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -281,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `vendeur` (
   `Mail` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   PRIMARY KEY (`IDVendeur`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `vendeur`
@@ -289,9 +314,7 @@ CREATE TABLE IF NOT EXISTS `vendeur` (
 
 INSERT INTO `vendeur` (`IDVendeur`, `Pseudo`, `Mail`, `Password`) VALUES
 (1, 'Collectionneur', 'collectionneur@edu.ece.fr', '1234'),
-(2, 'pipo', 'pipo@gmail.com', '1234'),
-(3, 'pipo2', 'pipo2@gmail.com', '1234'),
-(4, 'Lelouch', 'lulu@edu.ece.fr', '1234');
+(2, 'jeanvaljean', 'jeanvaljean@edu.ece.fr', '1234');
 
 --
 -- Contraintes pour les tables déchargées
@@ -310,6 +333,12 @@ ALTER TABLE `article`
   ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`#IDAdmin`) REFERENCES `administrateur` (`IDAdmin`) ON DELETE RESTRICT ON UPDATE CASCADE,
   ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`#IDCommande`) REFERENCES `commande` (`IDCommande`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `article_ibfk_3` FOREIGN KEY (`#IDVendeur`) REFERENCES `vendeur` (`IDVendeur`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `cartebancaire`
+--
+ALTER TABLE `cartebancaire`
+  ADD CONSTRAINT `cartebancaire_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `choixarticles`
