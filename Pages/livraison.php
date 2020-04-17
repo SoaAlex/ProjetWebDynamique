@@ -1,11 +1,5 @@
 <?php
-//Récupération des données  !!!! Les clés étrangères ? 
-$nom = isset($_POST["nom"])? $_POST["nom"] : "";
-$prenom = isset($_POST["prenom"])? $_POST["prenom"] : "";
-$mail = isset($_POST["mail"])? $_POST["mail"] : "";
-$password = isset($_POST["psw"])? $_POST["psw"] : "";
-$CGU = isset($_POST["CGUCheck"])? $_POST["CGUCheck"] : "";
-
+//Récupération des données 
 $adrL1 = isset($_POST["adrL1"])? $_POST["adrL1"] : "";
 $adrL2 = isset($_POST["adrL2"])? $_POST["adrL2"] : "";
 $ville = isset($_POST["ville"])? $_POST["ville"] : "";

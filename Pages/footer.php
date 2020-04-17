@@ -4,9 +4,6 @@
                     <div class="col-lg-8 col-md-8 col-sm-12">
                         <h6 class="text-uppercase font-weight-bold">Liens </h6>
                         <p>
-                            <a href="CreationAdmin.php">Ajouter un Admin</a>
-                        </p>
-                        <p>
                             <a href="CreationAcheteur.php">Ajouter un Acheteur</a>
                         </p>
                         <p>

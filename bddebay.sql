@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   `#IDAcheteur` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDAdresse`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `adresse`
@@ -96,7 +96,8 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 
 INSERT INTO `adresse` (`IDAdresse`, `AdrLigne1`, `AdrLigne2`, `Ville`, `CodePostal`, `Pays`, `NumTel`, `#IDAcheteur`) VALUES
 (1, '37 Quai de Grenelle', 'Immeuble Pollux', 'PARIS', 75015, 'FRANCE', 303030303, 2),
-(2, '9 RUE BOULARD', 'BAT B', 'PARIS', 75017, 'FRANCE', 606060606, 1);
+(2, '9 RUE BOULARD', 'BAT B', 'PARIS', 75017, 'FRANCE', 606060606, 1),
+(3, '29 rue des Dieux', 'Heaven', 'LeHavre', 12457, 'Paradis', 712457896, 6);
 
 -- --------------------------------------------------------
 
@@ -221,11 +222,10 @@ INSERT INTO `enchere` (`IDEnchere`, `MontantMaxAcheteur`, `DateProposition`, `Ac
 
 DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
-  `CheminImg` varchar(255) NOT NULL,
+  `CheminImg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Nom` varchar(255) NOT NULL,
   `#IDArticle` int(11) DEFAULT NULL,
   `#IDVendeur` int(11) DEFAULT NULL,
-  PRIMARY KEY (`CheminImg`),
   KEY `#IDArticle` (`#IDArticle`),
   KEY `#IDVendeur` (`#IDVendeur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -281,14 +281,17 @@ CREATE TABLE IF NOT EXISTS `vendeur` (
   `Mail` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   PRIMARY KEY (`IDVendeur`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `vendeur`
 --
 
 INSERT INTO `vendeur` (`IDVendeur`, `Pseudo`, `Mail`, `Password`) VALUES
-(1, 'Collectionneur', 'collectionneur@edu.ece.fr', '1234');
+(1, 'Collectionneur', 'collectionneur@edu.ece.fr', '1234'),
+(2, 'pipo', 'pipo@gmail.com', '1234'),
+(3, 'pipo2', 'pipo2@gmail.com', '1234'),
+(4, 'Lelouch', 'lulu@edu.ece.fr', '1234');
 
 --
 -- Contraintes pour les tables déchargées

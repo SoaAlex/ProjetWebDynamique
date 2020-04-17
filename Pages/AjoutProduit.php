@@ -22,6 +22,7 @@
             {
                 document.getElementById('inAchatImmediat').disabled = true;
                 document.getElementById('inBestOffer').disabled = true;
+                document.getElementById('prixAff').innerHTML = "Prix de départ de l'enchere (en €)";
             }
             else{
                 document.getElementById('inAchatImmediat').disabled = false;
@@ -33,6 +34,7 @@
             if(document.getElementById('inAchatImmediat').checked==true||document.getElementById('inBestOffer').checked==true)
             {
                 document.getElementById('inEncheres').disabled = true;
+                document.getElementById('prixAff').innerHTML = "Prix de vente (en €)";
             }
             else
             {
@@ -57,13 +59,13 @@
                         <!-- Inspiré de https://getbootstrap.com/docs/4.0/components/forms/ -->
                         <div class="form-group">
                             <label for="inNom">Nom du produit</label>
-                            <input type="text" class="form-control" id="inNom" placeholder="Ex: Pièces de monnaie" name="nom">
+                            <input type="text" class="form-control" id="inNom" placeholder="Ex: Pièces de monnaie" name="nom" required>
                         </div>
 
                         <label>Type de produit:&nbsp;&nbsp;&nbsp;</label>
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                    <input class="form-check-input" type="radio" name="typeProd" id="inFerrailleOuTresor" value="FerrailleOuTresor" >
+                                    <input class="form-check-input" type="radio" name="typeProd" id="inFerrailleOuTresor" value="FerrailleOuTresor">
                                     <label class="form-check-label" for="inFerrailleOuTresor">Ferraille ou Trésor</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
@@ -96,28 +98,28 @@
                           </div>
 
                         <div class="form-group">
-                            <label for="inPrix">Prix (en €)</label>
-                            <input type="number" class="form-control" id="inPrix" placeholder="Ex: 500" name="prix">
+                            <label for="inPrix" id="prixAff">Prix (en €)</label>
+                            <input type="number" class="form-control" id="inPrix" placeholder="Ex: 500" name="prix" required>
                         </div>
                         <div class="form-group">
                             <label for="inDateLim">Date Limite</label>
-                            <input type="date" class="form-control" id="inDateLim" name="dateLim">
+                            <input type="date" class="form-control" id="inDateLim" name="dateLim" required>
                         </div>
 
                         <label>Ajout de photos/video</label>
                         <div class="form-row">
                             <div class="col">
                                 <label for="inImg1">Image 1</label>
-                                <input type="file" class="form-control-file" name="img1" id="inImg1">
+                                <input type="text" class="form-control-file" name="img1" id="inImg1" required>
                             </div>
                             <div class="col">
                                 <label for="inImg2">Image 2</label>
-                                <input type="file" class="form-control-file" name="img2">
+                                <input type="text" class="form-control-file" name="img2">
                             </div>
 
                             <div class="col">
-                                <label for="inImg3">Image 2</label>
-                                <input type="file" class="form-control-file" name="img3">
+                                <label for="inImg3">Image 3</label>
+                                <input type="text" class="form-control-file" name="img3">
                             </div>
 
                             <div class="form-group">

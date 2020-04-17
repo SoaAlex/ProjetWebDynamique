@@ -1,6 +1,11 @@
+
 <?php
-   ob_start();
-   session_start();
+    session_start();
+    
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        header("location: landingPage.php");
+        exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,30 +28,34 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h1 class="feature-title">Créer un compte vendeur</h1>
 
-                    <form method="POST" action="#"> <!-- Manque lien -->
+                    <form method="POST" action="ajoutVendeur.php">
                         <h4>| Informations vendeur</h4>
                         <div class="form-group"> <!-- Inspiré de https://getbootstrap.com/docs/4.0/components/forms/ -->
                             <label for="inPseudo">Pseudo</label>
-                            <input type="text" class="form-control" id="inPseudo" aria-describedby="nomHelp" placeholder="Ex: Storm74" name="pseudo">
+                            <input type="text" class="form-control" id="inPseudo" aria-describedby="nomHelp" placeholder="Ex: Storm74" name="pseudo" required> 
                         </div>
                         <div class="form-group">
                             <label for="inMail">Adresse mail</label>
-                            <input type="email" class="form-control" id="inMail" placeholder="Ex: jean.moulin@edu.ece.fr" name="mail">
+                            <input type="email" class="form-control" id="inMail" placeholder="Ex: jean.moulin@edu.ece.fr" name="mail" required>
                         </div>
                         <div class="form-group">
                             <label for="inPsw">Mot de passe</label>
-                            <input type="password" class="form-control" id="inPsw" placeholder="" name="psw">
+                            <input type="password" class="form-control" id="inPsw" placeholder="" name="psw" required>
                         </div>
                         <!-- Insipiré de https://mdbootstrap.com/docs/jquery/forms/file-input/ -->
-                        <div class="form-group">
-                            <label for="inImgProfil">Image de profil</label>
-
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inImgProfil" name ="imgProfil" aria-describedby="inImgProfil">
-                                <label class="custom-file-label" for="inImgProfil" data-browse="Parcourir">Choisir un fichier</label>
+   
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="inImgProfil">Image de Profil</label>
+                                <input type="text" class="form-control-file" name="imgProfil" id="inImgProfil" required>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Inscription</button>
+                            <div class="col">
+                                <label for="inImg2">Image de Fond</label>
+                                <input type="text" class="form-control-file" name="imgFond">
+                            </div>
+
+
+                        <button type="submit" class="btn btn-primary btn-block" name="button1">Inscription</button>
                     </form>
                 </div>
             </div>
