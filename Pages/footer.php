@@ -1,4 +1,4 @@
-<footer class="page-footer">
+<footer class="page-footer footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12">
@@ -29,4 +29,4 @@
                     &copy; 2020 Copyright | Droit d'auteur: SOARES Alexandre BESSIERES Adrien LE STANG Paul | Projet piscine web dynamique 2020 (site e-commerce)
             </div>
 
-        </footer>
+ </footer>
