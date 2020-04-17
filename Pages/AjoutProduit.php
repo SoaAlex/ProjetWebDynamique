@@ -22,6 +22,7 @@
             {
                 document.getElementById('inAchatImmediat').disabled = true;
                 document.getElementById('inBestOffer').disabled = true;
+                document.getElementById('prixAff').innerHTML = "Prix de départ de l'enchere (en €)";
             }
             else{
                 document.getElementById('inAchatImmediat').disabled = false;
@@ -33,6 +34,7 @@
             if(document.getElementById('inAchatImmediat').checked==true||document.getElementById('inBestOffer').checked==true)
             {
                 document.getElementById('inEncheres').disabled = true;
+                document.getElementById('prixAff').innerHTML = "Prix de vente (en €)";
             }
             else
             {
@@ -96,7 +98,7 @@
                           </div>
 
                         <div class="form-group">
-                            <label for="inPrix">Prix (en €)</label>
+                            <label for="inPrix" id="prixAff">Prix (en €)</label>
                             <input type="number" class="form-control" id="inPrix" placeholder="Ex: 500" name="prix" required>
                         </div>
                         <div class="form-group">
