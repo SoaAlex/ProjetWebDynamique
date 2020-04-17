@@ -18,7 +18,7 @@ body {
     margin-right: 1em !important;
 }
 .nav-link:hover {
-    color: #000;
+    color: #fff;
     font-size: larger;
     border-bottom: 2px solid white;
     opacity: 100%;
@@ -64,18 +64,6 @@ body {
     border: 1px solid #333;
 }
 
-/*--- footer ---*/
-.page-footer {
-    background-color: #222;
-    color: #ccc;
-    padding: 60px 0 30px;
-}
-.footer-copyright {
-    color: #666;
-    padding: 40px 0;
-}
-
-
 .box-article{
     border: 3px solid black;
     -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
@@ -110,19 +98,6 @@ body {
 .decale{
     margin-top: 30px;
 }
-.mon_image{
-    float: left;
-    width: 800px;
-    margin: 0 6px 6px 0;
-}
-
-.exampleRadios{
-  width: 120%;
-  height: 120%;
-  border: 1px #DF6D14;
-
-}
-
 
 
 /*--- mobile view ---*/
