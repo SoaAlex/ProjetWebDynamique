@@ -7,7 +7,7 @@
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         header("location: landingPage.php");
         exit;
-}
+    }
 ?>
 
 <!DOCTYPE html>
@@ -43,13 +43,13 @@
 		<div class="container-fluid">
 		    <div class="row" style="margin-top: 50px;">
 		        <div class="col-sm-2" style="height:150px; "></div>
-		        <img class="col-sm-1" src="../img/UI/CaddiOrange.png" style="width: 20px; height:150px; "></img>
-		        <img class="col-sm-1" src="../img/UI/DroiteVerte.png" style="width: 20px; height:150px; "></img>
-		        <img class="col-sm-1" src="../img/UI/CarteOrange.png" style="width: 20px; height:150px; "></img>
-		        <img class="col-sm-1" src="../img/UI/DroiteVerte1.png" style="width: 20px; height:150px; "></img>
-		        <img class="col-sm-1" src="../img/UI/CamionOrange.png" style="width: 20px; height:150px; "></img>
-		        <img class="col-sm-1" src="../img/UI/DroiteVerte.png" style="width: 20px; height:150px; "></img>
-		        <img class="col-sm-1" src="../img/UI/CheckGreen.png" style="width: 20px; height:150px; "></img>
+		        <img class="col-sm-1" src="../img/UI/CaddiOrange.png"></img>
+		        <img class="col-sm-1" src="../img/UI/DroiteVerte.png"></img>
+		        <img class="col-sm-1" src="../img/UI/CamionOrange.png"></img>
+		        <img class="col-sm-1" src="../img/UI/DroiteNoir1.png"></img>
+		        <img class="col-sm-1" src="../img/UI/CarteBlack.png"></img>
+		        <img class="col-sm-1" src="../img/UI/DroiteNoir1.png"></img>
+		        <img class="col-sm-1" src="../img/UI/CheckBlack.png"></img>
 		    </div>
 		</div> 
 		<div class="container-fluid">
@@ -57,9 +57,9 @@
 		        <div class="col-sm-2" style="height:150px;"></div>
 		        <div class="col-sm-1" style="width: 20px; height:150px; "><h2>Panier</h2></div>
 		        <div class="col-sm-1" style="width: 20px; height:150px; "></div>
-		        <div class="col-sm-1" style="width: 20px; height:150px; "><h2>Paiement</h2></div>
-		        <div class="col-sm-1" style="width: 20px; height:150px; "></div>
 		        <div class="col-sm-1" style="width: 20px; height:150px; "><h2>Livraison</h2></div>
+		        <div class="col-sm-1" style="width: 20px; height:150px; "></div>
+		        <div class="col-sm-1" style="width: 20px; height:150px;"><h2>Paiement</h2></div>
 		        <div class="col-sm-1" style="width: 20px; height:150px; "></div>
 		        <div class="col-sm-1" style="width: 20px; height:150px; "><h2>Validation</h2></div>
 		    </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="row" style="margin-top: 20px;">      
                 <div class="col-lg-2 col-md-2 col-sm-2">
-                    <input type="text" class="form-control" id="IDAdresseSave"placeholder="37 Quai Grenelle, 75 015 PARIS "name="AdresseSave">
+                    <input type="text" class="form-control" id="IDAdresseSave"placeholder=""name="AdresseSave">
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2" >
                     <div class="btn btn-warning btn-lg btn-block">Valider</button></div>
