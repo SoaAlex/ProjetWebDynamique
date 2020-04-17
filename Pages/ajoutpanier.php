@@ -21,14 +21,22 @@
             $result_article = mysqli_query($db_handle, $sql_article);
             $data = mysqli_fetch_assoc($result_article);
             $isNego = $data['VenteBestOffer'];
-            echo "TEST";
 
             if($isNego == 1){
                 //Insertion dans table nego
                 $prixNego = $_POST['prixNego'];
-                $sql_nego = "INSERT INTO negociation('NBNego', 'DerniereOffre', 'Accepte', `#IDArticle`, `#IDAcheteur`) VALUES (1, $prixNego, 0, $IDArticle, $IDAcheteur)";
+                $sql_nego = "INSERT INTO negociation(`NBNego`, `DerniereOffre`, `Accepte`, `#IDArticle`, `#IDAcheteur`) VALUES (1, $prixNego, 0, $IDArticle, $IDAcheteur)";
                 $result_nego = mysqli_query($db_handle, $sql_nego);//Ajouter nego
-                echo "TEST2";
+            }
+
+            //Si enchère
+            $isEnchere = $data['VenteEnchere'];
+
+            if($isEnchere == 1){
+                //Insertion dans table nego
+                $prixEnchere = $_POST['prixEnchere'];
+                $sql_enchere = "INSERT INTO enchere(`MontantMaxAcheteur`, `DateProposition`, `Accepte`, `#IDArticle`, `#IDAcheteur`) VALUES ($prixEnchere, CURDATE(), 0, $IDArticle, $IDAcheteur)";
+                $result_enchere = mysqli_query($db_handle, $sql_enchere);//Ajouter enchere
             }
             //Redirection
             header("Location: http://localhost/ProjetWebDynamique/Pages/panier.php");

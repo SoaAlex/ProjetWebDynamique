@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h1>PANIER</h1><br>
-                    <h2>| Achats possibles</h2>
+                    <h2>| Achats immédiats</h2>
                     <div class="row">
                         <?php 
                             while($data = mysqli_fetch_assoc($result)){
