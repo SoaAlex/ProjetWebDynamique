@@ -14,6 +14,7 @@
     if($db_found){
         $sql = "SELECT * FROM choixArticles WHERE `#IDAcheteur`=$userID";
         $result = mysqli_query($db_handle, $sql);
+        $TOTAL = 0;
     }
 ?>
 
@@ -47,6 +48,9 @@
                                 $data_article = mysqli_fetch_assoc($result_article);
 
                                 if($data_article['VenteImmediat'] == 1){
+                                    //Ajout au total
+                                    $TOTAL += $data_article['Prix'];
+
                                     //Recherche image article
                                     $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$article";
                                     $result_img = mysqli_query($db_handle, $sql_img);
@@ -90,8 +94,22 @@
                             }
 
                         ?>
-                    </div><br><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <h1>TOTAL: <?php echo $TOTAL ?>€</h1>
+                            <form action="CommandeLivraison.php">
+                                <button type="submit" class="btn btn-primary btn-block">COMMANDER</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
 
+                    <br><br>
                     <h2>| Enchères en cours</h2>
                     <div class="row">
                     <?php 

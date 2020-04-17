@@ -1,5 +1,17 @@
+<?php
+   ob_start();
+?>
+<?php
+    session_start();
+    
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        header("location: landingPage.php");
+        exit;
+    }
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <title>Création d'un compte acheteur</title>
         <meta charset="utf-8" />
@@ -14,36 +26,8 @@
     </head>
 
     <body>
-        <!-- BARRE DE NAVIGATION INSPIREE DU TP7-->
-        <nav class="navbar navbar-expand-md"><!-- ManqueS lienS -->
-            <a class="navbar-brand" href="#"><img class="img-fluid navbar-img" src="img/Logo.png" style="width: 120px; height: 70px;"></a> 
-            <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse Cstart" id="main-navigation">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">CATEGORIES</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">ACHETER</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">VENDRE</a></li>
-                </ul>
-            </div>
-            <div class="collapse navbar-collapse Cend" id="main-navigation">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">
-                        <img class="img-fluid navbar-img" src="img/PanierBlanc.png" style="width: 20px; margin-right: 5px;">PANIER
-                    </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">
-                        <img class="img-fluid navbar-img" src="img/loupe.png" style="width: 20px; margin-right: 5px;">
-                    </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">
-                        <img class="img-fluid navbar-img" src="img/notif.png" style="width: 20px; margin-right: 5px;">
-                    </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">
-                        <img class="img-fluid navbar-img" src="img/account.png" style="width: 20px; margin-right: 5px;">
-                    </a></li>
-                </ul>
-            </div>
-        </nav>
+        <?php include 'navbar.php'; ?>
+
 
 		<div class="Titre" style="margin-top: 30px; margin-left: 50px;"><h1>| PROCESSUS DE COMMANDE</h1></div>
 		<div class="container-fluid">

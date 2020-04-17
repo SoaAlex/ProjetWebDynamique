@@ -4,7 +4,7 @@
 <?php
     session_start();
     
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    if(!isset($_SESSION["loggedin"])){
         header("location: landingPage.php");
         exit;
     }
@@ -81,7 +81,9 @@
                     <input type="text" class="form-control" id="IDAdresseSave"placeholder=""name="AdresseSave">
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2" >
-                    <div class="btn btn-warning btn-lg btn-block">Valider</button></div>
+                    <form action="CommandeCB.php">
+                    <div class="btn btn-warning btn-lg btn-block">Valider</div>
+                    </form>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2"></div>
                 <div class="col-lg-4 col-md-4 col-sm-4">

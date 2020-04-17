@@ -23,7 +23,7 @@
         <?php include 'navbar.php'; ?>
 
         <div id="content-wrapper">
-            <div class="container">
+            <div class="container-fluid">
                 <h3>| Informations du compte</h3>
 
                 <form action="Deconnexion.php">

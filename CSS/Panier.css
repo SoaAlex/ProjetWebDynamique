@@ -59,6 +59,12 @@ body {
     color: #fff;
     margin-top: 20px;
 }
+.btn {
+    background-color:orange;
+    border: 1px solid orange;
+    color: #fff;
+    margin-top: 20px;
+}
 .features .btn:hover {
     background-color: #333;
     border: 1px solid #333;
