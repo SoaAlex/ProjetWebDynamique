@@ -23,22 +23,22 @@
 
         <script type="text/javascript">
             function relais(){
-                document.getElementById('affichageRelais1').style.display ='block';
-                document.getElementById('affichageRelais2').style.display ='block';
-            }
-            function Prelais(){
                 document.getElementById('affichageRelais1').style.display ='none';
-                document.getElementById('affichageRelais2').style.display ='none';
+                document.getElementById('affichageRelais2').style.display ='block';
+                document.getElementById('affichageRelais3').style.display ='block';
             }
 
+            function Prelais(){
+                document.getElementById('affichageRelais1').style.display ='block';
+                document.getElementById('affichageRelais2').style.display ='none';
+                document.getElementById('affichageRelais3').style.display ='none';
+            }
         </script>
     </head>
 
     <body onLoad="Prelais()">
         
         <?php include 'navbar.php'; ?>
-        
-
 		<div class="Titre" style="margin-top: 30px; margin-left: 50px;"><h1>| PROCESSUS DE COMMANDE</h1></div>
 		<div class="container-fluid">
 		    <div class="row" style="margin-top: 50px;">
@@ -86,6 +86,7 @@
                 <div class="col-lg-2 col-md-2 col-sm-2"></div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                    
+                   
                     <div class="form-check form-check-inline" style="margin-top: 20px">
                           <input class="form-check-input" type="radio" name="exampleRadios" class="exampleRadios" value="option1" onclick="Prelais()" checked>
                           <label class="form-check-label" for="exampleRadios1" style="width: 200px;  margin-right: 30px;">
@@ -95,7 +96,7 @@
                           <label class="form-check-label" for="exampleRadios1" style="width: 200px;  margin-right: 30px;">
                           Standard: 5€
                           </label>
-                          <input class="form-check-input" type="radio" name="exampleRadios" class="exampleRadios" value="option3" id="relais" onclick="relais()">
+                          <input class="form-check-input" type="radio" name="exampleRadios" class="exampleRadios" value="option3" onclick="relais()">
                           <label class="form-check-label" for="exampleRadios1" style="width: 200px;  margin-right: 30px;">
                           Point relais: 3€
                           </label>
@@ -104,26 +105,31 @@
             </div>
             <div class="row" style="margin-top: 20px;"> 
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                    <h4>| Nouvelle Adresse</h4><br>
-                        <label for="AdresseL1">Adresse Ligne 1</label>
-                        <input type="text" class="form-control" id="IDAdresseL1" placeholder="Ex: 8 avenue des Petits Princes" name="AdresseL1">
-                        <label for="AdresseL2">Adresse Ligne 2</label>
-                        <input type="text" class="form-control" id="IDAdresseL2" placeholder="Ex: Marais" name="AdresseL2">
-                        <label for="Ville">Ville</label>
-                        <input type="text" class="form-control" id="IDVille" placeholder="Ex: Chamouille" name="Ville">
-                        <label for="CodePostal">Code Postal</label>
-                        <input type="text" class="form-control" id="IDCodePostal" placeholder="Ex: 75 003" name="CodePostal">
-                        <label for="Pays">Pays</label>
-                        <input type="text" class="form-control" id="IPays" placeholder="Ex: Guatemala" name="Pays"><br>
-                        <label for="Tel">Telephone</label>
-                        <input type="text" class="form-control" id="Tel" placeholder="Ex: Guatemala" name="Tel"><br>
-                    <div class="btn btn-warning btn-lg btn-block">Valider les informations</button></div>
+                <form method="POST" action="livraison.php">
+                    <div id="affichageRelais1"> 
+                        <h4>| Nouvelle Adresse</h4><br>
+                            <label for="AdresseL1">Adresse Ligne 1</label>
+                            <input type="text" class="form-control" id="IDAdresseL1" placeholder="Ex: 8 avenue des Petits Princes" name="AdresseL1">
+                            <label for="AdresseL2">Adresse Ligne 2</label>
+                            <input type="text" class="form-control" id="IDAdresseL2" placeholder="Ex: Marais" name="AdresseL2">
+                            <label for="Ville">Ville</label>
+                            <input type="text" class="form-control" id="IDVille" placeholder="Ex: Chamouille" name="Ville">
+                            <label for="CodePostal">Code Postal</label>
+                            <input type="text" class="form-control" id="IDCodePostal" placeholder="Ex: 75 003" name="CP">
+                            <label for="Pays">Pays</label>
+                            <input type="text" class="form-control" id="IPays" placeholder="Ex: Guatemala" name="pays"><br>
+                            <label for="Tel">Telephone</label>
+                            <input type="text" class="form-control" id="Tel" placeholder="" name="tel"><br>
+                        <div class="btn btn-warning btn-lg btn-block" name="button1">Valider les informations</button></div>
+                        <br>
+                    </div>
+                </form>
                 </div>
                 
                 <div class="col-lg-1 col-md-1 col-sm-1"></div>
                 
                     <div class="col-lg-4 col-md-4 col-sm-4">        
-                     <div id="affichageRelais1" class="Relais"> 
+                     <div id="affichageRelais2" class="Relais"> 
                             <br><hr><h4>| Choix du point de retrait</h4><br>
                             <div class="mon_image">
                                 <a href="#"><img src="../img/UI/map.jpg"  style="width: 70%" alt="pc1" /></a>
@@ -132,27 +138,31 @@
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-3"><br><br>
-                     <div id="affichageRelais2" class="Relais"> 
+                     <div id="affichageRelais3" class="Relais"> 
                         <label for="AdresseL1">Adresse Ligne 1</label>
-                        <input type="text" class="form-control" id="IDAdresseL1" placeholder="Ex: 8 avenue des Petits Princes" name="AdresseL1">
+                        <input type="text" class="form-control" id="IDAdresseL1" placeholder="Ex: 8 avenue des Petits Princes" name="AdresseL12">
                         
                             
                         <label for="AdresseL2">Adresse Ligne 2</label>
-                        <input type="text" class="form-control" id="IDAdresseL2" placeholder="Ex: Marais" name="AdresseL2">
+                        <input type="text" class="form-control" id="IDAdresseL2" placeholder="Ex: Marais" name="AdresseL22">
                         
                             
                         <label for="Ville">Ville</label>
-                        <input type="text" class="form-control" id="IDVille" placeholder="Ex: Chamouille" name="Ville">
+                        <input type="text" class="form-control" id="IDVille" placeholder="Ex: Chamouille" name="Ville2">
                             
                         
                         <label for="CodePostal">Code Postal</label>
-                        <input type="text" class="form-control" id="IDCodePostal" placeholder="Ex: 75 003" name="CodePostal">
+                        <input type="text" class="form-control" id="IDCodePostal" placeholder="Ex: 75 003" name="CP2">
                             
                         
                         <label for="Pays">Pays</label>
-                        <input type="text" class="form-control" id="ISPays" placeholder="Ex: Guatemala" name="Pays"><br>
+                        <input type="text" class="form-control" id="ISPays" placeholder="Ex: Guatemala" name="pays2"><br>
+
+                        <label for="Tel">Telephone</label>
+                        <input type="text" class="form-control" id="Tel" placeholder="" name="tel2"><br>
                         
-                        <div class="btn btn-warning btn-lg btn-block">Valider les informations</button></div><br><br>
+                        <div class="btn btn-warning btn-lg btn-block" name="button1">Valider les informations</button></div><br><br>
+                   
                      </div>
                     </div>
                 
