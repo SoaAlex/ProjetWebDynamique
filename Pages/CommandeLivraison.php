@@ -3,11 +3,7 @@
 ?>
 <?php
     session_start();
-    
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-        header("location: landingPage.php");
-        exit;
-    }
+ 
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +117,7 @@
                             <input type="text" class="form-control" id="IPays" placeholder="Ex: Guatemala" name="pays"><br>
                             <label for="Tel">Telephone</label>
                             <input type="text" class="form-control" id="Tel" placeholder="" name="tel"><br>
-                        <div class="btn btn-warning btn-lg btn-block" name="button1">Valider les informations</button></div>
+                            <button type="submit" class="btn btn-primary btn-block" name="button1">Valider les informations</button>
                         <br>
                         </form>
                     </div>
@@ -141,6 +137,7 @@
 
                     <div class="col-lg-3 col-md-3 col-sm-3"><br><br>
                      <div id="affichageRelais3" class="Relais"> 
+                     <form method="POST" action="livraison.php">
                         <label for="AdresseL1">Adresse Ligne 1</label>
                         <input type="text" class="form-control" id="IDAdresseL1" placeholder="Ex: 8 avenue des Petits Princes" name="AdresseL12">
                         
@@ -163,8 +160,8 @@
                         <label for="Tel">Telephone</label>
                         <input type="text" class="form-control" id="Tel" placeholder="" name="tel2"><br>
                         
-                        <div class="btn btn-warning btn-lg btn-block" name="button1">Valider les informations</button></div><br><br>
-                   
+                        <button type="submit" class="btn btn-primary btn-block" name="button2">Valider les informations</button>
+                    </form>
                      </div>
                     </div>
                 
