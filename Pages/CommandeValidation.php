@@ -3,7 +3,17 @@
 ?>
 <?php
     session_start();
- 
+	$userID = $_SESSION['userID'];
+	$userAdresse = $_SESSION['adresse'];
+    $database = "bddebay";
+    $db_handle = mysqli_connect('localhost', 'root','');
+    $db_found = mysqli_select_db($db_handle, $database);
+
+    if($db_found){
+        $sql = "SELECT * FROM choixarticles WHERE `#IDAcheteur`=$userID";
+        $result = mysqli_query($db_handle, $sql);
+        $TOTAL = $_SESSION['liv'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +26,6 @@
         <link rel="stylesheet" type="text/css" href="../CSS/StyleCreation.css">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
     </head>
 
     <body>
@@ -51,69 +60,76 @@
 
 		<div class="container">
         	<div class="row">
-    			<div class="col-lg-4 col-md-2 col-sm-12">
-        			<div class="box-article">
-            			<img src="../img/Articles/image1.jpg" style="width: 100%;">
-            			<h2 style="margin-left: 5%;">BitCoin</h2>
-            			<img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;">M.Collectionneur
-            			<p style="margin: 5%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  
-            			</p>
-            			<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>
-            			<span class="prixArticle">2 000€</span>
-        			</div>
-    			</div>
-	    		<div class="col-lg-4 col-md-2 col-sm-12">
-	       			<div class="box-article">
-	           			<img src="img/image2.jpg" style="width: 344px; height: 260px;">
-	            		<h2 style="margin-left: 5%;">Anneau</h2>
-	            		<img src="img/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;">M.Collectionneur
-	            		<p style="margin: 5%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  
-	            		</p>
-	            		<img src="img/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>
-	            		<span class="prixArticle">3 000€</span>
-	        		</div>
-	    		</div>
-    
-    			<div class="col-lg-4 col-md-2 col-sm-12"></div>
+    			<?php 
+                            while($data = mysqli_fetch_assoc($result)){
+                                $article = $data["#IDArticle"];
+                                $sql_article = "SELECT * FROM article WHERE `IDArticle`=$article";
+                                $result_article = mysqli_query($db_handle, $sql_article);
+                                $data_article = mysqli_fetch_assoc($result_article);
 
+                                if($data_article['VenteImmediat'] == 1){
+                                    //Ajout au total
+                                    $TOTAL += $data_article['Prix'];
+
+                                    //Recherche image article
+                                    $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$article";
+                                    $result_img = mysqli_query($db_handle, $sql_img);
+                                    $dataImg = mysqli_fetch_assoc($result_img);
+
+                                    //Affichage si conditions remplies
+                                    echo '
+                                    <div class="col-lg-4 col-md-2 col-sm-12">
+                                        <div class="box-article">
+                                        <a href="http://localhost/ProjetWebDynamique/Pages/produit.php?IDArticle=' . $data_article['IDArticle'] . '">'.
+                                        '<img src="'. $dataImg['CheminImg'] .'" style="width: 100%;" class="img-fluid">'.
+                                        '</a>'.
+                                        '<h2 style="margin-left: 5%;">'. $data_article['Nom'] . '</h2>';
+                                    
+                                    $IDVendeur = $data_article['#IDVendeur'];
+                                    $sql_vend = "SELECT Pseudo AS PseudoVend FROM `Vendeur` WHERE `IDVendeur`=$IDVendeur";
+                                    $result_vend = mysqli_query($db_handle, $sql_vend);
+                                    $dataVend = mysqli_fetch_assoc($result_vend);
+                                    echo '
+                                        <img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;">'. $dataVend['PseudoVend'].
+                                        '<p style="margin: 5%;">'. $data_article['Description']. '</p>';
+                                    if($data_article['VenteBestOffer'] == 1 && $data_article['VenteImmediat'] == 0){
+                                        echo '<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>';
+                                    }
+                                    if($data_article['VenteEnchere'] == 1){
+                                        echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>';
+                                    } 
+                                    if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 0) {
+                                        echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                    }
+                                    if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 1) {
+                                        echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                        echo '<div style="margin-top: -10%; margin-left: -3%;"> <img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span> </div>';
+                                    }
+                                    echo '
+                                        </span>'.
+                                        '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
+                                        '</div>'.
+                                    '</div>';
+                                }
+                            }
+
+                        ?>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <h1>TOTAL: <?php echo $TOTAL ?>€</h1>
+                            <form action="CommandeLivraison.php">
+                                <button type="submit" class="btn btn-primary btn-block">COMMANDER</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
 			</div>
 		</div>
-		<div class="container">
-        	<div class="row" style="margin-top: 20px;">
 
-    			<div class="col-lg-4 col-md-2 col-sm-12">
-					<h3>| Adresse de livraison</h3>
-                    <div class="decale"></div>
-					<p>Adresse Ligne 1 : 37 Quai Grenelle<br><br>
-					Adresse Ligne 2 : Beaugrenelle<br><br>
-                    Ville : Paris<br><br>
-                    Code Postal : 75 015<br><br>
-                    Pays : France<br><br>
-                    Téléphone : 07-07-07-07-07</p>
-                <br><br><br>
-            </div>
-
-    			<div class="col-lg-4 col-md-2 col-sm-12">
-    				<h3>| Moyen de payement</h3>
-                    <div class="decale"></div>
-					<p>Type carte :<br> <br>
-					Numéro de carte : XXXX XXXX XXX9 9782<br><br>
-                    3 derniers chiffres:   XXX <br><br>
-                    Nom du détenteur: HINA MANOLO</p></div>
-
-    			<div class="col-lg-4 col-md-2 col-sm-12">
-					<h3>| Facturation</h3>
-					<p>
-                    <div class="bordure">Sous-total : 5 000€</div>
-                    <div class="bordure">Livraison : 15€</div>
-                    <div class="text">TOTAL : 5 015€</p></div>
-                </div>
-					
-			</div>
-		</div>
-
-		<div class="container">
-			<button type="button" class="btn btn-warning btn-lg btn-block">Valider la commande</button>
-            <br><br>
     </body>
 </html>

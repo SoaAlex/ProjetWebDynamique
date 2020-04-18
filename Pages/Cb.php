@@ -29,6 +29,7 @@ if (isset($_POST['button1'])) {
                     $sql .= " AND CodeSecur LIKE '$secu'";
                         if ($type!= "") {
                         $sql .= " AND TypeCarte LIKE '%$type%'";
+                        $sql .= " AND Solde >= 10";
                         }
                     }
                 }

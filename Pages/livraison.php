@@ -48,6 +48,7 @@ if (isset($_POST['button1'])) {
         $row = mysqli_fetch_assoc($result);
         $IDAdresse = $row['IDAdresse'];
         $_SESSION['adresse']=$row;
+        $_SESSION['liv']=$liv;
 
         $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
         VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
@@ -85,6 +86,7 @@ if (isset($_POST['button2'])) {
         $row = mysqli_fetch_assoc($result);
         $IDAdresse = $row['IDAdresse'];
         $_SESSION['adresse']=$row;
+        $_SESSION['liv']=$liv;
 
         $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
         VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
