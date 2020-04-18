@@ -29,7 +29,6 @@ if (isset($_POST['button1'])) {
                     $sql .= " AND CodeSecur LIKE '$secu'";
                         if ($type!= "") {
                         $sql .= " AND TypeCarte LIKE '%$type%'";
-                        $sql .= " AND Solde >= 10";
                         }
                     }
                 }
@@ -41,7 +40,9 @@ if (isset($_POST['button1'])) {
             header('Location: CommandeCB.php');
             } 
         else {
-            header('Location: CommandeValidation.php');
+            $data = mysqli_fetch_assoc($result);
+            $_SESSION['SoldeRestant']=$data['Solde'];
+            header('Location: CommandeValidation.php');    
             }
             
 }

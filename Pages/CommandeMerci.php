@@ -20,7 +20,11 @@
 
     <body>
     <?php include 'navbar.php'; ?>
-       
+
+
+    <?php mail($to_email_address,$subject,$message,[$headers],[$parameters]); ?>
+
+    
 		<div class="Titre" style="margin-top: 30px; margin-left: 50px;"><h1>| PROCESSUS DE COMMANDE</h1></div>
 
         <div class="container-fluid">
@@ -33,7 +37,7 @@
                 </div>
                 <div class="Texte">
                     Votre commande a bien été enregistrée.<br>
-                    Sa livraison est prévu pour le 28/04/2020.<br><br>
+                    Sa livraison est prévue pour le <?php echo  date('Y-m-d', strtotime('+1 week'));?>.<br><br>
 
                     Vous allez recevoir un mail récapitulatif prochainement.<br>
                     Vous pouvez suivre à tout moment l'état de votre commande sur votre compte dans la rubrique "Commandes en cours".

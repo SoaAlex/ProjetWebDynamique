@@ -8,6 +8,8 @@
     $database = "bddebay";
     $db_handle = mysqli_connect('localhost', 'root','');
     $db_found = mysqli_select_db($db_handle, $database);
+    $adresse = $_SESSION['adresse'];
+    $solde=$_SESSION['SoldeRestant'];
 
     if($db_found){
         $sql = "SELECT * FROM choixarticles WHERE `#IDAcheteur`=$userID";
@@ -26,6 +28,22 @@
         <link rel="stylesheet" type="text/css" href="../CSS/StyleCreation.css">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript">
+
+            function Solde(total){
+                
+                var solde = <?php echo json_encode($solde); ?>;
+
+                if(solde >= total)
+                {
+                    window.location = "CommandeMerci.php";
+                }
+                else{
+                    document.getElementById('MnqArgent').style.display ='block';
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -121,10 +139,12 @@
                         <div class="col-lg-4 col-md-4 col-sm-12">
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12">
-                            <h1>TOTAL: <?php echo $TOTAL ?>€</h1>
-                            <form action="CommandeLivraison.php">
-                                <button type="submit" class="btn btn-primary btn-block">COMMANDER</button>
-                            </form>
+                            <?php echo'<div>Votre Commande sera livrée à l\'adresse : ' .$adresse['IDAdresse']. '</div>'?>
+                            <h1>TOTAL: <?php echo $TOTAL ?>€</h1>   
+                                <button type="submit" class="btn btn-primary btn-block" onclick="Solde(<?php echo json_encode($TOTAL); ?>)">COMMANDER</button>
+                            <div id='MnqArgent' style="display:none">Valeur de la commande supérieur au Solde de votre CB <br> 
+                            <button type="submit" class="btn btn-primary btn-block" onclick="header('Location: landingPage.php')">Retour à la page d'accueil</button></div>
+                            <br> <br> <br>
                         </div>
                     </div>
                     <hr>

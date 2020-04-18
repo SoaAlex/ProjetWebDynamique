@@ -49,6 +49,7 @@ if (isset($_POST['button1'])) {
         $IDAdresse = $row['IDAdresse'];
         $_SESSION['adresse']=$row;
         $_SESSION['liv']=$liv;
+        $_SESSION['adresse1']=$row['AdrLigne1'];
 
         $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
         VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
@@ -87,6 +88,7 @@ if (isset($_POST['button2'])) {
         $IDAdresse = $row['IDAdresse'];
         $_SESSION['adresse']=$row;
         $_SESSION['liv']=$liv;
+        $_SESSION['adresse1']=$row['AdrLigne1'];
 
         $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
         VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
