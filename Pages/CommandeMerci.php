@@ -22,9 +22,28 @@
     <?php include 'navbar.php'; ?>
 
 
-    <?php mail($to_email_address,$subject,$message,[$headers],[$parameters]); ?>
+    <?php 
+
+    //identifier votre BDD
+    $database = "bddebay";
+    //connectez-vous de votre BDD
+    $db_handle = mysqli_connect('localhost', 'root', '');
+    $db_found = mysqli_select_db($db_handle, $database);
+
+    $ID = $_SESSION['userID'];
+    $sql = "SELECT Mail FROM acheteur";
+    if ($_SESSION['userID'] != "") {
+        $sql .= " WHERE IDAcheteur LIKE '$ID'";
+         }
+    $result = mysqli_query($db_handle, $sql);
+    $mail = mysqli_fetch_assoc($result);
+
+    $message = "Bonjour ".$_SESSION["username"].", votre commande sur le site EbayEce à bien été prise en compte. La livraison de vos achats est prévue pour le " .date('Y-m-d', strtotime('+1 week'))." Nous vous remercions de votre confiance";
 
     
+    mail($mail['Mail'],'Commande passée',$message,'From: noreply @ ebayece.fr'); ?>
+
+
 		<div class="Titre" style="margin-top: 30px; margin-left: 50px;"><h1>| PROCESSUS DE COMMANDE</h1></div>
 
         <div class="container-fluid">
