@@ -42,7 +42,7 @@
                         <li class="nav-item"><a class="nav-link" href="#">
                             <img class="img-fluid navbar-img" src="../img/UI/loupe.png" style="width: 20px; margin-right: 5px;">
                         </a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">
+                        <li class="nav-item"><a class="nav-link" href="Notification.php">
                             <img class="img-fluid navbar-img" src="../img/UI/notif.png" style="width: 20px; margin-right: 5px;">
                         </a></li>
                         <li class="nav-item"><a class="nav-link" href="ComptePerso.php">

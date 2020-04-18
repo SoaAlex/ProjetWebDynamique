@@ -50,11 +50,11 @@
             </div>
         </nav>
 
-        <div class="container">
+        <div class="container-fluid">
             <?php 
                 //Pour chaque commandes
                 while($data_com = mysqli_fetch_assoc($result)){
-                    echo '<div class="row">';
+                    echo '<div class="row" style="margin:2%;">';
                         echo '<div class="col-lg-12 col-md-12 col-sm-12">';
                             echo '<h2>| Commande N° '. $data_com['IDCommande'] .'</h2><br>';
 
@@ -74,7 +74,7 @@
                                     
                                     //Recherche Carte
                                     $IDCB = $data_com['#IDCB'];
-                                    $sql_cb = "SELECT * FROM cartebancaire WHERE `IDAdresse`=$IDCB";
+                                    $sql_cb = "SELECT * FROM cartebancaire WHERE `IDCB`=$IDCB";
                                     $result_cb = mysqli_query($db_handle, $sql_cb);
                                     $data_cb = mysqli_fetch_assoc($result_cb);
 
@@ -114,8 +114,7 @@
                                                 echo '<div style="margin-top: -10%; margin-left: -3%;"> <img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span> </div>';
                                             }
                                             echo '
-                                                </span>'.
-                                                '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
+                                                <div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
                                                 '</div>'.
                                         '</div>';
                                     }
@@ -155,7 +154,8 @@
 
                                 echo '<div class="col-lg-3 col-md-3 col-sm-12">';
                                     echo '<h3>Moyen de paiement</h3>';
-                                    $finCarte = substr($data_cb['NumCarte'], 7,15);
+                                    $finCarte = "XXXX XXXX XXXX ";
+                                    $finCarte .= substr($data_cb['NumCarte'], 12,15);
                                     echo 'Numéro de carte: ' . $finCarte;  
                                 echo '</div>';
 
@@ -173,7 +173,8 @@
                                 echo '</div>';
 
                             echo '</div>';
-
+                            echo '<hr>';
+                            
                     echo '</div>';
                 }
             ?>

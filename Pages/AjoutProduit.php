@@ -126,8 +126,8 @@
                                 <label for="inVid">Lien Youtube vers la vidéo</label>
                                 <input type="text" class="form-control" id="inVid" placeholder="" name="video">
                             </div>
-
-                        <button type="submit" class="btn btn-primary btn-block" name="button1">Soumettre</button>
+                            <button type="submit" class="btn btn-primary btn-block" name="button1">Soumettre</button>
+                        </div>
                     </form>
                 </div>
             </div>
