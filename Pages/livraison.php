@@ -39,7 +39,6 @@ if (isset($_POST['button1'])) {
         VALUES('$adrL1','$adrL2','$ville',$CP,'$pays',$tel,$IDAcheteur)";
 
     if (mysqli_query($db_handle, $sql3)) {
-            echo "<br> Adresse Ajoutee <br>";
         } else {
             echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
         }
@@ -48,21 +47,23 @@ if (isset($_POST['button1'])) {
         $result = mysqli_query($db_handle, $sql);
         $row = mysqli_fetch_assoc($result);
         $IDAdresse = $row['IDAdresse'];
+        $_SESSION['adresse']=$row;
 
         $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
         VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
 
         if (mysqli_query($db_handle, $sql5)) {
-            echo "<br> Commande Créée<br>";
             } else {
         echo "Error: " . $sql5 . "<br>" . mysqli_error($db_handle);
-            }       
-
+            }    
+            header('Location: CommandeCB.php');            
 }
 else {
 echo "Database not found";
 }
 }
+
+
 if (isset($_POST['button2'])) {
     $liv=3;
 
@@ -76,7 +77,6 @@ if (isset($_POST['button2'])) {
         VALUES('$adrL12','$adrL22','$ville2',$CP2,'$pays2',$tel2,$IDAcheteur)";
 
     if (mysqli_query($db_handle, $sql4)) {
-            echo "<br> Adresse Ajoutee <br>";
         } else {
             echo "Error: " . $sql4 . "<br>" . mysqli_error($db_handle);
         }
@@ -84,18 +84,20 @@ if (isset($_POST['button2'])) {
         $result = mysqli_query($db_handle, $sql);
         $row = mysqli_fetch_assoc($result);
         $IDAdresse = $row['IDAdresse'];
+        $_SESSION['adresse']=$row;
 
         $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
         VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
 
         if (mysqli_query($db_handle, $sql5)) {
-            echo "<br> Commande Créée<br>";
             } else {
         echo "Error: " . $sql5 . "<br>" . mysqli_error($db_handle);
             } 
+            header('Location: CommandeCB.php');
 }
 else {
 echo "Database not found";
 }
 }
+
 ?>

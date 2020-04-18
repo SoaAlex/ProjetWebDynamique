@@ -12,6 +12,8 @@
     if($db_found){
         $sql = "SELECT * FROM adresse WHERE `#IDAcheteur`=$userID LIMIT 1";
         $result = mysqli_query($db_handle, $sql);
+        $data = mysqli_fetch_assoc($result);
+        $_SESSION['adresse']=$data;
     }
 ?>
 
@@ -84,11 +86,11 @@
             </div>
             <div class="row" style="margin-top: 20px;">      
                 
-            <!-- A TRAVAILLER -->
-             <?php // echo '<div class="col-lg-2 col-md-2 col-sm-2"> <input type="text" class="form-control" id="IDAdresseSave"placeholder=".$result['adrl1']" name="AdresseSave"> </div>'; ?> 
-        
-                <div class="col-lg-2 col-md-2 col-sm-2" >
-                    <div class="btn btn-warning btn-lg btn-block">Valider</button></div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                 <?php echo' <p>'.$data["AdrLigne1"].'</p>' ?>
+                 </div> 
+                 <div class="col-lg-2 col-md-2 col-sm-2" >
+                 <button type="submit" class="btn btn-primary btn-block" onclick="window.location.href ='CommandeCB.php'">Valider</button>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2"></div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -124,7 +126,7 @@
                             <label for="Ville">Ville</label>
                             <input type="text" class="form-control" id="IDVille" placeholder="Ex: Chamouille" name="Ville">
                             <label for="CodePostal">Code Postal</label>
-                            <input type="text" class="form-control" id="IDCodePostal" placeholder="Ex: 75 003" name="CP">
+                            <input type="number" class="form-control" id="IDCodePostal" placeholder="Ex: 75 003" name="CP">
                             <label for="Pays">Pays</label>
                             <input type="text" class="form-control" id="IPays" placeholder="Ex: Guatemala" name="pays"><br>
                             <label for="Tel">Telephone</label>
@@ -133,7 +135,6 @@
                         <br>
                         </form>
                     </div>
-                
                 </div>
                 
                 <div class="col-lg-1 col-md-1 col-sm-1"></div>

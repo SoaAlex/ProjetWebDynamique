@@ -37,11 +37,12 @@ if (isset($_POST['button1'])) {
         $result = mysqli_query($db_handle, $sql);
         //Résultats Requête SQL
         if (mysqli_num_rows($result) == 0) {
-            echo "Carte Non Trouvée";
+            header('Location: CommandeCB.php');
             } 
         else {
-            echo "Carte Trouvée";
+            header('Location: CommandeValidation.php');
             }
+            
 }
 else {
 echo "Database not found";

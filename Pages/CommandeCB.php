@@ -46,12 +46,12 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="form-group"> <!-- Inspiré de https://getbootstrap.com/docs/4.0/components/forms/ -->
-                        <h4>| Carte Enregistrée</h4>
+                      <!--  <h4>| Carte Enregistrée</h4>
                         <input type="text" class="form-control" id="CB"  placeholder="XXXX XXXX XXX9 9872" name="numeroCBSave"><br>
                         <div class="btn btn-warning btn-lg btn-block">Valider</button></div>
                         </div>
-
-                        <br><hr><h4>| Nouvelle carte</h4>
+                    -->
+                        <h4>| Informations Carte Bancaire</h4>
                         <form method="POST" action="Cb.php">
                         <div class="form-group">
                             <label for="CBnew">Numéro de la carte</label>
