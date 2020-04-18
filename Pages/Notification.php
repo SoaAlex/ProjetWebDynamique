@@ -19,6 +19,10 @@
         $sql_nego = "SELECT * FROM negociation WHERE `#IDVendeur`=$userID";
         $result_nego = mysqli_query($db_handle, $sql_nego);
     }
+    else if($_SESSION['user_type'] == "Admin"){
+        $sql_ench = "SELECT * FROM enchere WHERE Accepte=0";
+        $result_ench = mysqli_query($db_handle, $sql_ench);
+    }
 
     $dernierTour = '';
     $afficher = 'none';
@@ -44,7 +48,7 @@
         <div class="container">
             <!-- NEGOCIATION (Vendeur/Acheteur) -->
             <div style="display: <?php if($_SESSION['user_type'] == 'Admin') echo 'none';?>">
-            <h2>| Négociations à répondre</h2>
+            <h2>| Négociation à gérer</h2>
                         <?php
                             //Pour chaque négo
                             while($data_nego = mysqli_fetch_assoc($result_nego)){ 
@@ -126,12 +130,131 @@
             </div>
 
             <!-- ENCHERES (Admin) -->
-            <div style="display: <?php if($_SESSION['user_type'] == 'Admin') echo 'none';?>">
+            <div style="display: <?php if($_SESSION['user_type'] != 'Admin') echo 'none';?>">
+                <h2>| Enchère à gérer</h2>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <?php 
+                        //Pour chaque enchères
+                        while($data_ench = mysqli_fetch_assoc($result_ench)){
+                            //Quel est le max ?
+                            $article = $data_ench['#IDArticle'];
+                            $sql_max = "SELECT IDEnchere AS IDEnchere, MAX(MontantMaxAcheteur) AS max, `#IDAcheteur` AS IDAcheteur 
+                                        FROM enchere 
+                                        WHERE `#IDArticle`=$article";
+                            $result_max = mysqli_query($db_handle, $sql_max);
+                            $data_max = mysqli_fetch_assoc($result_max);
+
+                            $sql_max2 = "SELECT *  
+                                         FROM enchere 
+                                         WHERE `#IDArticle`=$article
+                                         ORDER BY MontantMaxAcheteur DESC";
+                            $result_max2 = mysqli_query($db_handle, $sql_max2);
+                            $j = 0;
+                            $max2 = 0;
+                            while($data_max2 = mysqli_fetch_assoc($result_max2)){
+                                if($j==1){ $max2 = $data_max2['MontantMaxAcheteur']; break;}
+                                $j++;
+                            }
+
+                            //Recherche image article
+                            $article = $data_ench['#IDArticle'];
+                            $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$article";
+                            $result_img = mysqli_query($db_handle, $sql_img);
+                            $dataImg = mysqli_fetch_assoc($result_img);
+
+                            //Recherche IDVendeur
+                            $sql_article = $sql_vend = "SELECT * FROM `article` WHERE `IDArticle`=$article";
+                            $result_article = mysqli_query($db_handle, $sql_article);
+                            $data_article = mysqli_fetch_assoc($result_article);
+
+                            //Recherche Vendeur
+                            $IDVendeur = $data_article['#IDVendeur'];
+                            $sql_vend = "SELECT Pseudo AS PseudoVend FROM `Vendeur` WHERE `IDVendeur`=$IDVendeur";
+                            $result_vend = mysqli_query($db_handle, $sql_vend);
+                            $dataVend = mysqli_fetch_assoc($result_vend); 
+
+                            ?>
+
+                            <!--Affichage-->
+                            <div class="row" style="display: <?php if(isset($vus[$article])) echo 'none';?>">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="box-article">
+                                        <a href="http://localhost/ProjetWebDynamique/Pages/produit.php?IDArticle= <?php echo $data_article['IDArticle']; ?> ">
+                                        <img src="<?php echo $dataImg['CheminImg'];?>" style="width: 100%;" class="img-fluid">
+                                        </a>
+                                        <h1 style="margin-left: 5%;"> <?php echo $data_article['Nom']; ?></h1>
+
+                                        <?php echo '
+                                            <img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;"> <span style="font-size: x-large;">'. $dataVend['PseudoVend']. '</span>'.
+                                            '<p style="margin: 5%;">'. $data_article['Description']. '</p>';
+                                        if($data_article['VenteBestOffer'] == 1 && $data_article['VenteImmediat'] == 0){
+                                            echo '<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>';
+                                        }
+                                        if($data_article['VenteEnchere'] == 1){
+                                            echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>';
+                                        } 
+                                        if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 0) {
+                                            echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                        }
+                                        if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 1) {
+                                            echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                            echo '<div style="margin-top: -10%; margin-left: -3%;"> <img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span> </div>';
+                                        } ?>
+                                        <div class="prixArticle"> <?php echo $data_article['Prix']; ?>€</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12"> 
+                                    <h1>Offres: </h1>
+                                    <table>
+                                        <tr>
+                                            <th>Acheteur</th>
+                                            <th>Offre</th>
+                                        </tr>
+                                    <?php 
+                                        $nomMax = '';
+                                        $sql_each = "SELECT * FROM enchere WHERE `#IDArticle`=$article";
+                                        $result_each = mysqli_query($db_handle, $sql_each);
+                                        while($data_each = mysqli_fetch_assoc($result_each)){
+                                            $ach = $data_each['#IDAcheteur'];
+                                            $sql_ach = "SELECT * FROM acheteur WHERE `IDAcheteur`=$ach";
+                                            $result_ach = mysqli_query($db_handle, $sql_ach);
+                                            $data_ach = mysqli_fetch_assoc($result_ach);
+
+                                            if($data_ach['IDAcheteur'] == $data_max['IDAcheteur']){
+                                                $nomMax = $data_ach['Nom'];
+                                            }
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $data_ach['Nom'];?></td>
+                                                    <td><?php echo $data_each['MontantMaxAcheteur'];?>€</td>
+                                                </tr>
+
+                                        <?php } ?>
+                                    </table>
+                                    <br>
+                                    <h1>Meilleure offre pour cette article: </h1>
+                                    <h1 style="text-align: center; font-size:5em; color:#DF6D14;"> <?php echo $max2+1; ?>€</h1>
+                                    <h2 style="text-align: center">Par: </h2>
+                                    <h1 style="text-align: center; font-size:4em; color:#DF6D14;"><?php echo $nomMax; ?></h1>
+
+                                    <p style="font-size:1.5em;">La surenchère est automatiquement appliquée ci-dessus</p>
+                                    <p style="font-size:1.5em;">Cette acheteur remportera l'enchère, à moins qu'un autre acheteur ne propose une meilleure
+                                        offre avant le <strong><?php echo $data_article['DateLim'];?> </strong>
+                                    </p>
+                                </div>
+                            </div>
+
+
+
                     </div>
                 </div>
+                <hr>
+                <?php 
+                    //Articles vus
+                    $vus[$article] = true;
+                }?>
             </div>
         </div>
 
