@@ -102,4 +102,8 @@ echo "Database not found";
 }
 }
 
+if (isset($_POST['button3'])) {
+    $_SESSION['liv']=$liv;
+    header('Location: CommandeCB.php');
+}
 ?>

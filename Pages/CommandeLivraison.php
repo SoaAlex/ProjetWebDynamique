@@ -90,14 +90,15 @@
                  <?php echo' <p>'.$data["AdrLigne1"].'</p>' ?>
                  </div> 
                  <div class="col-lg-2 col-md-2 col-sm-2" >
-                 <button type="submit" class="btn btn-primary btn-block" onclick="window.location.href ='CommandeCB.php'">Valider</button>
+                 <form method="POST" action="livraison.php">
+                 <button type="submit" class="btn btn-primary btn-block" name="button3">Valider</button>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2"></div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                    
                    
                     <div class="form-check form-check-inline" style="margin-top: 20px">
-                    <form method="POST" action="livraison.php">
+                   
                           <input class="form-check-input" type="radio" name="Livraison" class="exampleRadios" value=10 onclick="Prelais()" checked>
                           <label class="form-check-label" for="exampleRadios1" style="width: 200px;  margin-right: 30px;">
                           Express: 10€
