@@ -109,6 +109,10 @@ body {
     margin-left: auto;
     margin-right: auto; 
 }
+.image_milieu
+{
+    text-align:center;
+}
 
 .Merci{
     text-align:center;
