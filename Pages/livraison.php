@@ -43,7 +43,7 @@ if (isset($_POST['button1'])) {
             echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
         }
         
-        $sql = "SELECT `IDAdresse` FROM `adresse` WHERE AdrLigne1 LIKE '$adrL1' AND Ville LIKE '$ville'";
+        $sql = "SELECT * FROM `adresse` WHERE AdrLigne1 LIKE '$adrL1' AND Ville LIKE '$ville'";
         $result = mysqli_query($db_handle, $sql);
         $row = mysqli_fetch_assoc($result);
         $IDAdresse = $row['IDAdresse'];
@@ -51,8 +51,6 @@ if (isset($_POST['button1'])) {
         $_SESSION['liv']=$liv;
         $_SESSION['adresse1']=$row['AdrLigne1'];
 
-        $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
-        VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
 
         if (mysqli_query($db_handle, $sql5)) {
             } else {
@@ -60,6 +58,7 @@ if (isset($_POST['button1'])) {
             }    
             header('Location: CommandeCB.php');            
 }
+
 else {
 echo "Database not found";
 }
@@ -82,16 +81,13 @@ if (isset($_POST['button2'])) {
         } else {
             echo "Error: " . $sql4 . "<br>" . mysqli_error($db_handle);
         }
-        $sql = "SELECT `IDAdresse` FROM `adresse` WHERE AdrLigne1 LIKE '$adrL12' AND Ville LIKE '$ville2'";
+        $sql = "SELECT * FROM `adresse` WHERE AdrLigne1 LIKE '$adrL12' AND Ville LIKE '$ville2'";
         $result = mysqli_query($db_handle, $sql);
         $row = mysqli_fetch_assoc($result);
         $IDAdresse = $row['IDAdresse'];
         $_SESSION['adresse']=$row;
         $_SESSION['liv']=$liv;
         $_SESSION['adresse1']=$row['AdrLigne1'];
-
-        $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`#IDAcheteur`,`#IDAdresse`)
-        VALUES(CURDATE(),$liv,$IDAcheteur,$IDAdresse)";
 
         if (mysqli_query($db_handle, $sql5)) {
             } else {

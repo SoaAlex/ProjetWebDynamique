@@ -41,7 +41,7 @@
     $message = "Bonjour ".$_SESSION["username"].", votre commande sur le site EbayEce à bien été prise en compte. La livraison de vos achats est prévue pour le " .date('Y-m-d', strtotime('+1 week'))." Nous vous remercions de votre confiance";
 
     
-    mail($mail['Mail'],'Commande passée',$message,'From: noreply @ ebayece.fr'); ?>
+    //mail($mail['Mail'],'Commande passée',$message,'From: noreply @ ebayece.fr'); ?>
 
 
 		<div class="Titre" style="margin-top: 30px; margin-left: 50px;"><h1>| PROCESSUS DE COMMANDE</h1></div>
