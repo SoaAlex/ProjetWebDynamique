@@ -25,8 +25,11 @@
     }
 
     $dernierTour = '';
+    $dernierTourVendeur = '';
+    $affDernVend = "PROPOSER UNE NOUVELLE OFFRE";
     $afficher = 'none';
     $but = 0;
+    $color = "#DF6D14";
 
 ?>
 
@@ -54,6 +57,11 @@
                             while($data_nego = mysqli_fetch_assoc($result_nego)){ 
                                 if($data_nego['NBNego'] != 9)  {//Si c'est le dernier tour de l'acheteur
                                     $dernierTour = 'none';
+                                }
+                                if($data_nego['NBNego'] == 10)  {//Si c'est le dernier tour de l'acheteur
+                                    $dernierTourVendeur = 'none';
+                                    $affDernVend = "REFUSER";
+                                    $color = "red";
                                 }
                                 if((($data_nego['NBNego'] % 2 != 0) || ($data_nego['NBNego'] == 1)) && ($_SESSION['user_type'] == "Acheteur")){ //Si c'est au tour de l'acheteur
                                     $afficher = '';
@@ -116,11 +124,11 @@
                                             <div class="form-group">
                                                 <input type="submit" name="BA<?php echo $data_nego['IDNego'];?>" value="ACCEPTER" class="btn btn-primary btn-block" style="width: 100%; background-color:green; border: solid 3px green;">
                                                 <br>
-                                                <input type="text" class="form-control <?php if($dernierTour == '') echo 'is-invalid';?>" style="width:100%; margin-bottom:-2%;" placeholder="Entre ici votre nouvelle offre" name="derniereOffre">
+                                                <input type="text" class="form-control <?php if($dernierTour == '') echo 'is-invalid';?>" style="width:100%; margin-bottom:-2%; display:<?php echo $dernierTourVendeur;?>;" placeholder="Entre ici votre nouvelle offre" name="derniereOffre">
                                                 <div class="invalid-feedback" style="width:100%; margin-top:2%; display:<?php echo $dernierTour?>;">
                                                     ATTENTION: Il s'agit de votre dernière offre !
                                                 </div>
-                                                <input type="submit" name="BN<?php echo $data_nego['IDNego'];?>" value="PROPOSER UNE NOUVELLE OFFRE" class="btn btn-primary btn-block" style="width: 100%; background-color:#DF6D14; border: solid 3px #DF6D14;">
+                                                <input type="submit" name="BN<?php echo $data_nego['IDNego'];?>" value="<?php echo $affDernVend;?>" class="btn btn-primary btn-block" style="width: 100%; background-color:<?php echo $color;?>; border: solid 3px <?php echo $color;?>;">
                                             </div>
                                         </form>
                                     </div>

@@ -31,20 +31,29 @@
         //Si nego tjr en cours
         $BN .= $i;
         if(isset($_POST[$BN])){
-            //MAJ Nego
             $derniereOffre = $_POST['derniereOffre'];
             $sql_nego = "SELECT * FROM negociation WHERE `#IDVendeur`=$userID AND `IDNego`=$i";
             $result_nego = mysqli_query($db_handle, $sql_nego);
             $data_nego = mysqli_fetch_assoc($result_nego);
             $NBNego = $data_nego['NBNego'];
-            $NBNego++;
-            $sql = "UPDATE negociation
-                    SET NBNego=$NBNego, DerniereOffre=$derniereOffre
-                    WHERE IDNego=$i ";
-            mysqli_query($db_handle, $sql);
+            if($NBNego == 10){
+                //Delete Nego 
+                $sql_del = "DELETE FROM negociation WHERE `IDNego`=$i";
+                //Delete Panier
+                $result_nego = mysqli_query($db_handle, $sql_del);
+                $IDArticle = $data_nego['#IDArticle'];
+                $sql_del = "DELETE FROM choixarticles WHERE `#IDArticle`=$IDArticle AND `#IDAcheteur`=$userID";
+                $result_nego =mysqli_query($db_handle, $sql_del);
+            }
+            else{
+                //MAJ Nego
+                $NBNego++;
+                $sql = "UPDATE negociation
+                        SET NBNego=$NBNego, DerniereOffre=$derniereOffre
+                        WHERE IDNego=$i ";
+                mysqli_query($db_handle, $sql);
+            }
             header("Location: http://localhost/ProjetWebDynamique/Pages/Notification.php");
         }
     }
-
-
 ?>
