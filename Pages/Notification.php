@@ -118,17 +118,18 @@
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12"> 
+                                        <h1 style="text-align: center; display: <?php if($data_nego['Accepte'] == 1){echo '';}else{echo 'none';}?>; color: green;">OFFRE ACCEPTÉE PAR LE VENDEUR</h1>
                                         <h1>Dernière offre proposée par <?php if($_SESSION['user_type'] == 'Acheteur'){echo 'le vendeur';} else{echo "l'acheteur";} ?>: </h1>
                                         <h1 style="text-align: center; font-size:5em; color:#DF6D14;"><?php echo $data_nego['DerniereOffre'];?>€</h1>
                                         <form method="POST" action="negociation.php">
                                             <div class="form-group">
-                                                <input type="submit" name="BA<?php echo $data_nego['IDNego'];?>" value="ACCEPTER" class="btn btn-primary btn-block" style="width: 100%; background-color:green; border: solid 3px green;">
+                                                <input type="submit" name="BA<?php echo $data_nego['IDNego'];?>" value="<?php if($data_nego['Accepte'] == 1){echo 'COMMANDER';}else{echo 'ACCEPTER';}?>" class="btn btn-primary btn-block" style="width: 100%; background-color:green; border: solid 3px green;">
                                                 <br>
                                                 <input type="text" class="form-control <?php if($dernierTour == '') echo 'is-invalid';?>" style="width:100%; margin-bottom:-2%; display:<?php echo $dernierTourVendeur;?>;" placeholder="Entre ici votre nouvelle offre" name="derniereOffre">
                                                 <div class="invalid-feedback" style="width:100%; margin-top:2%; display:<?php echo $dernierTour?>;">
                                                     ATTENTION: Il s'agit de votre dernière offre !
                                                 </div>
-                                                <input type="submit" name="BN<?php echo $data_nego['IDNego'];?>" value="<?php echo $affDernVend;?>" class="btn btn-primary btn-block" style="width: 100%; background-color:<?php echo $color;?>; border: solid 3px <?php echo $color;?>;">
+                                                <input type="submit" name="BN<?php echo $data_nego['IDNego'];?>" value="<?php echo $affDernVend;?>" class="btn btn-primary btn-block" style="width: 100%; background-color:<?php echo $color;?>; border: solid 3px <?php echo $color;?>;" <?php if($data_nego['Accepte'] == 1){echo 'disabled';}else{echo '';}?>>
                                             </div>
                                         </form>
                                     </div>
@@ -253,8 +254,6 @@
                                     </p>
                                 </div>
                             </div>
-
-
 
                     </div>
                 </div>

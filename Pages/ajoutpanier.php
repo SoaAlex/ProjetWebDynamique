@@ -26,7 +26,7 @@
             if($isNego == 1){
                 //Insertion dans table nego
                 $prixNego = $_POST['prixNego'];
-                $sql_nego = "INSERT INTO negociation(`NBNego`, `DerniereOffre`, `Accepte`, `#IDArticle`, `#IDAcheteur`, `#IDVendeur`) VALUES (1, $prixNego, 0, $IDArticle, $IDAcheteur, $IDVendeur)";
+                $sql_nego = "INSERT INTO negociation(`NBNego`, `DerniereOffre`, `Accepte`, `#IDArticle`, `#IDAcheteur`, `#IDVendeur`) VALUES (2, $prixNego, 0, $IDArticle, $IDAcheteur, $IDVendeur)";
                 $result_nego = mysqli_query($db_handle, $sql_nego);//Ajouter nego
             }
 

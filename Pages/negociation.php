@@ -18,14 +18,24 @@
         //Si nego acceptée
         $BA .= $i;
         if(isset($_POST["$BA"])){
-            //MAJ Nego
-            $sql = "UPDATE negociation 
-                    SET Accepte = 1
-                    WHERE IDNego=$i";
-            $result = mysqli_query($db_handle, $sql);
-
             //Créer commande
-            header("Location: http://localhost/ProjetWebDynamique/Pages/CommandeLivraison.php");
+            if($userID == "Acheteur"){
+                //MAJ Nego
+                $sql = "UPDATE negociation 
+                SET Accepte = 1
+                WHERE IDNego=$i";
+                $result = mysqli_query($db_handle, $sql);
+                header("Location: http://localhost/ProjetWebDynamique/Pages/CommandeLivraison.php");
+            }
+            else{
+                //MAJ Nego
+                $NBNego++;
+                $sql = "UPDATE negociation
+                        SET NBNego=$NBNego, Accepte=1
+                        WHERE IDNego=$i ";
+                mysqli_query($db_handle, $sql);
+                header("Location: http://localhost/ProjetWebDynamique/Pages/Notification.php");
+            }
         }
 
         //Si nego tjr en cours
@@ -36,9 +46,12 @@
             $result_nego = mysqli_query($db_handle, $sql_nego);
             $data_nego = mysqli_fetch_assoc($result_nego);
             $NBNego = $data_nego['NBNego'];
+
+            //Si offre (5) max atteint
             if($NBNego == 10){
                 //Delete Nego 
                 $sql_del = "DELETE FROM negociation WHERE `IDNego`=$i";
+                $result_nego =mysqli_query($db_handle, $sql_del);
                 //Delete Panier
                 $result_nego = mysqli_query($db_handle, $sql_del);
                 $IDArticle = $data_nego['#IDArticle'];
