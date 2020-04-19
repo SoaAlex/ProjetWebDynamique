@@ -136,6 +136,10 @@ body {
     border:10px solid red;
   }
 
+  #inPseudo{
+      width: 200px;
+  }
+
 
 /*--- mobile view ---*/
 @media (max-width: 575.98px) {

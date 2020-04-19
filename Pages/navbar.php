@@ -17,6 +17,11 @@
                     <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_type'] != "Acheteur")//Pas vendre si acheteur
                     echo '<li class="nav-item"><a class="nav-link" href="AjoutProduit.php">VENDRE</a></li>'
                     ?>
+                     <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_type'] == "Admin")//Apparait que pour l'admin
+                    echo '<li class="nav-item"><a class="nav-link" href="SupprVendeur.php">
+                          GERER VENDEURS
+                        </a></li>'
+                    ?>
                 </ul>
             </div>
             <div class="collapse navbar-collapse Cend" id="main-navigation">
