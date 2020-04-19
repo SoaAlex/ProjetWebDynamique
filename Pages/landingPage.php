@@ -35,15 +35,15 @@
 
         <div id="content-wrapper">
             <div class="container">
-                <h1 style="text-align: center; color: white;">BIENVENUE 
+                <h1 style="text-align: center; color: white; margin-top: 10%; font-size:6em;">BIENVENUE
                 <?php 
                     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
                     {
-                        echo $_SESSION["username"]. "<br>";
-                        echo 'Profil ' . $_SESSION['user_type'];
+                        echo $_SESSION["username"]. "<br>" .'</h1>';
+                        echo '<h1 style="text-align: center; color: white;font-size:3em;">Profil ' . $_SESSION['user_type'];
                     }
                     else{
-                        echo "SUR EBAYECE";
+                        echo "SUR EBAYECE</h1>";
                     }
                 ?>
             </h1>

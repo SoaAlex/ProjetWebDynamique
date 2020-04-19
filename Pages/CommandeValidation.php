@@ -12,9 +12,61 @@
     $solde=$_SESSION['SoldeRestant'];
 
     if($db_found){
-        $sql = "SELECT * FROM choixarticles WHERE `#IDAcheteur`=$userID";
-        $result = mysqli_query($db_handle, $sql);
+        //Frais de livraison
         $TOTAL = $_SESSION['liv'];
+        $isNego = 0;
+        $isEnch = 0;
+        
+        $sql_nego = "SELECT * FROM negociation WHERE `#IDAcheteur`=$userID AND Accepte=1";
+        $sql_ench = "SELECT * FROM enchere WHERE `#IDAcheteur`=$userID AND Accepte=1";
+        $sql = "SELECT * FROM choixarticles WHERE `#IDAcheteur`=$userID";
+        $result_nego = mysqli_query($db_handle, $sql_nego);
+        $result_ench = mysqli_query($db_handle, $sql_ench);
+
+
+        if(mysqli_num_rows($result_nego) != 0){ //Si on trouve négo une acceptée
+            $result_isChoix = mysqli_query($db_handle, $sql);
+            while($data_isChoix = mysqli_fetch_assoc($result_isChoix)){ //On regarde s'il est dans ChoixArticle (sinon ça veut dire qu'il a déjà été commandé, on aurait pu regarder dans commande aussi)
+                $IDArticle = $data_isChoix['#IDArticle'];
+                $sql_nego2 = "SELECT * FROM negociation WHERE `#IDAcheteur`=$userID AND Accepte=1 AND `#IDArticle`=$IDArticle LIMIT 1";
+                $result_nego2 = mysqli_query($db_handle, $sql_nego2);
+                while($data_nego2 = mysqli_fetch_assoc($result_nego2)){
+                    $TOTAL += $data_nego2['DerniereOffre'];
+                    $result = $result_nego2;
+                    $isNego = 1;
+                }
+            }
+        }
+        else if(mysqli_num_rows($result_ench) != 0){ //Si on trouve une enchère
+            echo "test";
+            $result_isChoix = mysqli_query($db_handle, $sql);
+            while($data_isChoix = mysqli_fetch_assoc($result_isChoix)){
+                $IDArticle = $data_isChoix['#IDArticle'];
+                $sql_ench2 = "SELECT * FROM enchere WHERE `#IDAcheteur`=$userID AND Accepte=1 AND `#IDArticle`=$IDArticle LIMIT 1";
+                $result_ench2 = mysqli_query($db_handle, $sql_ench2);
+                while($data_ench2 = mysqli_fetch_assoc($result_ench2)){
+                    //Cherche max
+                    $sql_max = "SELECT * FROM enchere WHERE `#IDArticle`=$IDArticle ORDER BY MontantMaxAcheteur DESC";
+                    $result_max = mysqli_query($db_handle, $sql_max);
+                    $j = 0;
+                    $max2 = 0;
+                    while($data_max = mysqli_fetch_assoc($result_max)){
+                        if($j==1){
+                            $max2 = $data_max['MontantMaxAcheteur'];
+                        break;
+                        }
+                        $j++;
+                    }
+                    $max2++;
+                    $TOTAL += $max2;
+                    $result = $result_ench2;
+                    $isEnch = 1;
+                }
+            }
+        }
+        else{ //Si on trouve rien, c'est en achat immédiat
+            $result = mysqli_query($db_handle, $sql);
+        }
     }
 ?>
 
@@ -79,64 +131,64 @@
 		<div class="container">
         	<div class="row">
     			<?php 
-                            while($data = mysqli_fetch_assoc($result)){
-                                $article = $data["#IDArticle"];
-                                $sql_article = "SELECT * FROM article WHERE `IDArticle`=$article";
-                                $sql_nego = "SELECT * FROM negociation WHERE `#IDArticle`=$article";
-                                $result_negociation = mysqli_query($db_handle, $sql_nego);
-                                $result_article = mysqli_query($db_handle, $sql_article);
-                                $data_article = mysqli_fetch_assoc($result_article);
+                    while($data = mysqli_fetch_assoc($result)){
+                        $article = $data["#IDArticle"];
+                        $sql_article = "SELECT * FROM article WHERE `IDArticle`=$article";
+                        $sql_nego = "SELECT * FROM negociation WHERE `#IDArticle`=$article";
+                        $result_negociation = mysqli_query($db_handle, $sql_nego);
+                        $result_article = mysqli_query($db_handle, $sql_article);
+                        $data_article = mysqli_fetch_assoc($result_article);
 
-                                if(mysqli_num_rows($result_negociation)==0)
-                                {
-                                    if($data_article['VenteImmediat'] == 1){
-                                        //Ajout au total
-                                        $TOTAL += $data_article['Prix'];
-    
-                                        //Recherche image article
-                                        $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$article";
-                                        $result_img = mysqli_query($db_handle, $sql_img);
-                                        $dataImg = mysqli_fetch_assoc($result_img);
-    
-                                        //Affichage si conditions remplies
-                                        echo '
-                                        <div class="col-lg-4 col-md-2 col-sm-12">
-                                            <div class="box-article">
-                                            <a href="http://localhost/ProjetWebDynamique/Pages/produit.php?IDArticle=' . $data_article['IDArticle'] . '">'.
-                                            '<img src="'. $dataImg['CheminImg'] .'" style="width: 100%;" class="img-fluid">'.
-                                            '</a>'.
-                                            '<h2 style="margin-left: 5%;">'. $data_article['Nom'] . '</h2>';
-                                        
-                                        $IDVendeur = $data_article['#IDVendeur'];
-                                        $sql_vend = "SELECT Pseudo AS PseudoVend FROM `Vendeur` WHERE `IDVendeur`=$IDVendeur";
-                                        $result_vend = mysqli_query($db_handle, $sql_vend);
-                                        $dataVend = mysqli_fetch_assoc($result_vend);
-                                        echo '
-                                            <img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;">'. $dataVend['PseudoVend'].
-                                            '<p style="margin: 5%;">'. $data_article['Description']. '</p>';
-                                        if($data_article['VenteBestOffer'] == 1 && $data_article['VenteImmediat'] == 0){
-                                            echo '<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>';
-                                        }
-                                        if($data_article['VenteEnchere'] == 1){
-                                            echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>';
-                                        } 
-                                        if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 0) {
-                                            echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
-                                        }
-                                        if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 1) {
-                                            echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
-                                            echo '<div style="margin-top: -10%; margin-left: -3%;"> <img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span> </div>';
-                                        }
-                                        echo '
-                                            </span>'.
-                                            '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
-                                            '</div>'.
-                                        '</div>';
-                                    }
+                        if(mysqli_num_rows($result_negociation)==0)
+                        {
+                            if($data_article['VenteImmediat'] == 1){
+                                //Ajout au total
+                                $TOTAL += $data_article['Prix'];
 
+                                //Recherche image article
+                                $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$article";
+                                $result_img = mysqli_query($db_handle, $sql_img);
+                                $dataImg = mysqli_fetch_assoc($result_img);
+
+                                //Affichage si conditions remplies
+                                echo '
+                                <div class="col-lg-4 col-md-2 col-sm-12">
+                                    <div class="box-article">
+                                    <a href="http://localhost/ProjetWebDynamique/Pages/produit.php?IDArticle=' . $data_article['IDArticle'] . '">'.
+                                    '<img src="'. $dataImg['CheminImg'] .'" style="width: 100%;" class="img-fluid">'.
+                                    '</a>'.
+                                    '<h2 style="margin-left: 5%;">'. $data_article['Nom'] . '</h2>';
+                                
+                                $IDVendeur = $data_article['#IDVendeur'];
+                                $sql_vend = "SELECT Pseudo AS PseudoVend FROM `Vendeur` WHERE `IDVendeur`=$IDVendeur";
+                                $result_vend = mysqli_query($db_handle, $sql_vend);
+                                $dataVend = mysqli_fetch_assoc($result_vend);
+                                echo '
+                                    <img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;">'. $dataVend['PseudoVend'].
+                                    '<p style="margin: 5%;">'. $data_article['Description']. '</p>';
+                                if($data_article['VenteBestOffer'] == 1 && $data_article['VenteImmediat'] == 0){
+                                    echo '<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>';
                                 }
-                               
+                                if($data_article['VenteEnchere'] == 1){
+                                    echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>';
+                                } 
+                                if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 0) {
+                                    echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                }
+                                if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 1) {
+                                    echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                    echo '<div style="margin-top: -10%; margin-left: -3%;"> <img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span> </div>';
+                                }
+                                echo '
+                                    </span>'.
+                                    '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
+                                    '</div>'.
+                                '</div>';
                             }
+
+                        }
+                        
+                    }
 
                         ?>
                     </div>

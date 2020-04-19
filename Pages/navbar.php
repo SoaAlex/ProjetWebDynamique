@@ -21,6 +21,10 @@
             </div>
             <div class="collapse navbar-collapse Cend" id="main-navigation">
                 <ul class="navbar-nav">
+                    <form class="form-inline my-2 my-lg-0" method="POST" action="produit.php">
+                        <input class="form-control mr-sm-2" type="text" name="nomArt" placeholder="Nom de l'article..." aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                    </form>
                     <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) //Deco/Conn
                     echo'
                     <li class="nav-item"><a class="nav-link" href="CreationAcheteur.php">
@@ -39,9 +43,6 @@
                     ?>
                     <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) //Que si Co
                         echo'
-                        <li class="nav-item"><a class="nav-link" href="#">
-                            <img class="img-fluid navbar-img" src="../img/UI/loupe.png" style="width: 20px; margin-right: 5px;">
-                        </a></li>
                         <li class="nav-item"><a class="nav-link" href="Notification.php">
                             <img class="img-fluid navbar-img" src="../img/UI/notif.png" style="width: 20px; margin-right: 5px;">
                         </a></li>

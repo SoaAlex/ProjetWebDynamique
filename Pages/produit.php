@@ -4,7 +4,23 @@
     $database = "bddebay";
     $db_handle = mysqli_connect('localhost', 'root','');
     $db_found = mysqli_select_db($db_handle, $database);
-    $IDArticle = $_SESSION['IDArticle'] = $_GET['IDArticle'];
+
+    //Si search bar
+    if(isset($_POST["nomArt"])){
+        $nomArt = $_POST["nomArt"];
+        $sql_find = "SELECT * FROM article WHERE Nom LIKE '%$nomArt%' LIMIT 1";
+        $result = mysqli_query($db_handle, $sql_find);
+        $data_find = mysqli_fetch_assoc($result);
+        if(mysqli_num_rows($result) == 0){
+            header("location: aucunResult.php");
+        }
+        else{
+            $IDArticle = $data_find["IDArticle"];
+        }
+    }
+    else{ //Si depuis page articles.php
+        $IDArticle = $_SESSION['IDArticle'] = $_GET['IDArticle'];
+    }
     
     if($db_found){
         //Trouver Article
