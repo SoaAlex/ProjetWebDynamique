@@ -51,7 +51,7 @@
         <div class="container">
             <!-- NEGOCIATION (Vendeur/Acheteur) -->
             <div style="display: <?php if($_SESSION['user_type'] == 'Admin') echo 'none';?>">
-            <h2>| Négociation à gérer</h2>
+                <h2>| Négociations à gérer</h2>
                         <?php
                             //Pour chaque négo
                             while($data_nego = mysqli_fetch_assoc($result_nego)){ 
@@ -136,11 +136,107 @@
                                 </div>
 
                                 <?php }?>
+            </div><br><hr>
+
+            <!-- ENCHERES (Acheteur) -->
+            <div style="display: <?php if($_SESSION['user_type'] == 'Admin') echo 'none';?>">
+                <h2>| Enchères</h2>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <?php 
+                        $sql_ench = "SELECT * FROM enchere WHERE `#IDAcheteur`=$userID";
+                        $result_ench = mysqli_query($db_handle, $sql_ench);
+                        while($data_ench = mysqli_fetch_assoc($result_ench)){
+                            if($data_ench['Accepte'] == 1){ 
+                                //Recherche image article
+                                $article = $data_ench['#IDArticle'];
+                                $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$article";
+                                $result_img = mysqli_query($db_handle, $sql_img);
+                                $dataImg = mysqli_fetch_assoc($result_img);
+
+                                //Recherche IDVendeur
+                                $sql_article = $sql_vend = "SELECT * FROM `article` WHERE `IDArticle`=$article";
+                                $result_article = mysqli_query($db_handle, $sql_article);
+                                $data_article = mysqli_fetch_assoc($result_article);
+
+                                //Recherche Vendeur
+                                $IDVendeur = $data_article['#IDVendeur'];
+                                $sql_vend = "SELECT Pseudo AS PseudoVend FROM `Vendeur` WHERE `IDVendeur`=$IDVendeur";
+                                $result_vend = mysqli_query($db_handle, $sql_vend);
+                                $dataVend = mysqli_fetch_assoc($result_vend); 
+                                ?>
+
+                                <!--Affichage-->
+                                <div class="row" style="display: <?php if(isset($vusAch[$article])) echo 'none';?>">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="box-article">
+                                            <a href="http://localhost/ProjetWebDynamique/Pages/produit.php?IDArticle= <?php echo $data_article['IDArticle']; ?> ">
+                                            <img src="<?php echo $dataImg['CheminImg'];?>" style="width: 100%;" class="img-fluid">
+                                            </a>
+                                            <h1 style="margin-left: 5%;"> <?php echo $data_article['Nom']; ?></h1>
+
+                                            <?php echo '
+                                                <img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;"> <span style="font-size: x-large;">'. $dataVend['PseudoVend']. '</span>'.
+                                                '<p style="margin: 5%;">'. $data_article['Description']. '</p>';
+                                            if($data_article['VenteBestOffer'] == 1 && $data_article['VenteImmediat'] == 0){
+                                                echo '<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>';
+                                            }
+                                            if($data_article['VenteEnchere'] == 1){
+                                                echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>';
+                                            } 
+                                            if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 0) {
+                                                echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                            }
+                                            if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 1) {
+                                                echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
+                                                echo '<div style="margin-top: -10%; margin-left: -3%;"> <img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span> </div>';
+                                            } ?>
+                                            <div class="prixArticle"> <?php echo $data_article['Prix']; ?>€</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <?php 
+                                        //On cherche toutes les enchères pour cette article
+                                        $sql_max = "SELECT * FROM enchere WHERE `#IDArticle`=$article ORDER BY MontantMaxAcheteur DESC";
+                                        $result_max = mysqli_query($db_handle, $sql_max);
+                                        $j = 0;
+                                        $max1 = 0;
+                                        $max2 = 0;
+                                        while($data_max = mysqli_fetch_assoc($result_max)){
+                                            if($j==0) {
+                                                $max1 = $data_max["MontantMaxAcheteur"];
+                                            }
+                                            if($j==1){ 
+                                                $max2 = $data_max["MontantMaxAcheteur"];
+                                            break;
+                                            }
+                                            $j++;
+                                        }
+                                        $max2++; // 2ème max +1
+                                        ?>
+                                        <h1 style="text-align: center; color: green;">ENCHERE GAGNÉE</h1>
+                                        <h1 style="text-align: center; font-size:5em; color:#DF6D14;"> <?php echo $max2; ?>€</h1>
+                                        <form method="POST" action="CommandeLivraison.php">
+                                            <div class="form-group">
+                                                <input type="submit" value="COMMANDER" class="btn btn-primary btn-block" style="width: 100%; background-color: green; border: solid 3px green;">
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <?php 
+                                        //Articles vus
+                                        $vusAch[$article] = true; 
+                            }
+                        }
+                                ?>
+                            </div>        
+                    </div>
+                </div>
             </div>
 
             <!-- ENCHERES (Admin) -->
             <div style="display: <?php if($_SESSION['user_type'] != 'Admin') echo 'none';?>">
-                <h2>| Enchère à gérer</h2>
+                <h2>| Enchères à gérer</h2>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <?php 
@@ -262,7 +358,7 @@
                     //Articles vus
                     $vus[$article] = true;
                 }?>
-            </div>
+            </div> 
         </div>
 
         <?php include 'footer.php'; ?>

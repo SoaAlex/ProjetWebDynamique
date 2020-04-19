@@ -10,6 +10,7 @@
     if(isset($_POST["buttonNego"]) || isset($_POST["buttonEnchere"]) || isset($_POST["buttonImmediat"])){
         $sql = "SELECT * FROM `choixArticles` WHERE `#IDArticle`=$IDArticle AND `#IDAcheteur`=$IDAcheteur";
         $result = mysqli_query($db_handle, $sql);
+        
         //Si pas dans panier
         if(mysqli_num_rows($result) == 0) {
             //Ajout panier
