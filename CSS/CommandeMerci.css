@@ -100,7 +100,7 @@ body {
 }
 .mon_image{
     float: left;
-    width: 800px;
+    width: 500px;
     margin: 0 6px 6px 0;
 }
 .displayed {
@@ -112,12 +112,13 @@ body {
 
 .Merci{
     text-align:center;
-    font-size: 200px;
+    font-size: 100px;
     margin-top: -50px;
 }
 .Texte{
     text-align:center;
-    font-size: 80px;
+    font-size: 50px;
+    margin-left:-20px;
 
 }
 
