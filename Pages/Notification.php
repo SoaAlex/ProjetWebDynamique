@@ -76,10 +76,14 @@
                                 $result_img = mysqli_query($db_handle, $sql_img);
                                 $dataImg = mysqli_fetch_assoc($result_img);
 
+
                                 //Recherche IDVendeur
                                 $sql_article = $sql_vend = "SELECT * FROM `article` WHERE `IDArticle`=$article";
                                 $result_article = mysqli_query($db_handle, $sql_article);
                                 $data_article = mysqli_fetch_assoc($result_article);
+                                if($data_article['#IDCommande'] != NULL){
+                                    $afficher = 'none';
+                                }
 
                                 //Recherche Vendeur
                                 $IDVendeur = $data_article['#IDVendeur'];

@@ -26,7 +26,7 @@
 
     if($db_found && $mail != '' && $psw != ''){
         //Trouver acheteur
-        $sql = "SELECT Mail AS Mail, Nom AS Nom, IDAcheteur as IDAcheteur FROM acheteur WHERE Mail='$mail' AND Password='$psw'";
+        $sql = "SELECT Mail AS Mail, Prenom AS Prenom, IDAcheteur as IDAcheteur FROM acheteur WHERE Mail='$mail' AND Password='$psw'";
         $result = mysqli_query($db_handle, $sql);
 
         if(mysqli_num_rows($result) == 0){
@@ -64,7 +64,7 @@
         }
         else{
             $data = mysqli_fetch_assoc($result);
-            $_SESSION["username"] = $data['Nom'];
+            $_SESSION["username"] = $data['Prenom'];
             $_SESSION["userID"] = $data['IDAcheteur'];
             $_SESSION['loggedin'] = true;
             $_SESSION['valid'] = true;

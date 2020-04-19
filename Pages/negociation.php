@@ -19,7 +19,7 @@
         $BA .= $i;
         if(isset($_POST["$BA"])){
             //Créer commande
-            if($userID == "Acheteur"){
+            if($_SESSION['user_type'] == "Acheteur"){
                 //MAJ Nego
                 $sql = "UPDATE negociation 
                 SET Accepte = 1
@@ -29,12 +29,16 @@
             }
             else{
                 //MAJ Nego
+                $sql_nego = "SELECT * FROM negociation WHERE `#IDVendeur`=$userID AND `IDNego`=$i";
+                $result_nego = mysqli_query($db_handle, $sql_nego);
+                $data_nego = mysqli_fetch_assoc($result_nego);
+                $NBNego = $data_nego['NBNego'];
                 $NBNego++;
                 $sql = "UPDATE negociation
                         SET NBNego=$NBNego, Accepte=1
                         WHERE IDNego=$i ";
                 mysqli_query($db_handle, $sql);
-                header("Location: http://localhost/ProjetWebDynamique/Pages/Notification.php");
+               header("Location: http://localhost/ProjetWebDynamique/Pages/Notification.php");
             }
         }
 

@@ -161,10 +161,11 @@
 
                                 echo '<div class="col-lg-3 col-md-3 col-sm-12">';
                                 echo '<h3>Facturation</h3>';      
-                                        $sousTotal = $data_com['Total'] - $data_com['FraisLivraison'];
+                                        $sousTotal = $data_com['Total'];
+                                        $total =$data_com['Total']+ $data_com['FraisLivraison'] ;
                                         echo 'Sous-Total: ' . $sousTotal . '€ <br><hr>';
                                         echo 'Livraison: ' . $data_com['FraisLivraison'] . '€ <br><hr>';
-                                        echo 'TOTAL: <strong>' . $data_com['Total'] . '</strong>€ ';
+                                        echo 'TOTAL: <strong>' .$total . '</strong>€ ';
                                 echo '</div>';
 
                                 echo '<div class="col-lg-3 col-md-3 col-sm-12">';

@@ -35,8 +35,8 @@ if (isset($_POST['button1'])) {
             $data_article = mysqli_fetch_assoc($result_article);
             $IDAcheteur = $_SESSION['userID'];
 
-            if(mysqli_num_rows($result_negociation)==0)
-            {
+            //if(mysqli_num_rows($result_negociation)==0)
+            //{
 
                 $liv= $_SESSION['liv'];
                 $article2= $data_article['IDArticle'];
@@ -57,6 +57,7 @@ if (isset($_POST['button1'])) {
 
 
                 if($data_article['VenteImmediat'] == 1){
+                    echo "IMMED <br>";
                     $Tot=$_SESSION['Total'];
                     //Màj Article
                     $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`Total`,`#IDAcheteur`,`#IDAdresse`,`#IDCB`)
@@ -73,6 +74,7 @@ if (isset($_POST['button1'])) {
                     mysqli_query($db_handle, $sql3);                 
                 }
                 else if($Nego == 1){
+                    echo "NEGO <br>";
                     $Tot=$row12['DerniereOffre'];
                     $sql7 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`Total`,`#IDAcheteur`,`#IDAdresse`,`#IDCB`)
                     VALUES(CURDATE(),$liv,$Tot,$IDAcheteur,$IDAdr,$IDCB)";
@@ -89,6 +91,7 @@ if (isset($_POST['button1'])) {
 
                 }
                 else if($Ench == 1){
+                echo "ENCH <br>";
                  //On cherche toutes les enchères pour cette article
                  $sql_max = "SELECT * FROM enchere WHERE `#IDArticle`=$article2 ORDER BY MontantMaxAcheteur DESC";
                  $result_max = mysqli_query($db_handle, $sql_max);
@@ -120,10 +123,10 @@ if (isset($_POST['button1'])) {
                     mysqli_query($db_handle, $sql3);    
                 }
     
-            }
+            //}
            
         }
-        header('Location: CommandeMerci.php');
+        //header('Location: CommandeMerci.php');
     }
     else{
         header('Location: CommandeValidation.php');
