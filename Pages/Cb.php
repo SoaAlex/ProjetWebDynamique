@@ -34,7 +34,7 @@ if (isset($_POST['button1'])) {
                     }
                 }
             }     
-        }
+        }   
         $result = mysqli_query($db_handle, $sql);
         //Résultats Requête SQL
         if (mysqli_num_rows($result) == 0) {
