@@ -35,8 +35,6 @@ if (isset($_POST['button1'])) {
             $data_article = mysqli_fetch_assoc($result_article);
             $IDAcheteur = $_SESSION['userID'];
 
-            if(mysqli_num_rows($result_negociation)==0)
-            {
 
                 $liv= $_SESSION['liv'];
                 $article2= $data_article['IDArticle'];
@@ -120,7 +118,7 @@ if (isset($_POST['button1'])) {
                     mysqli_query($db_handle, $sql3);    
                 }
     
-            }
+            
            
         }
         header('Location: CommandeMerci.php');

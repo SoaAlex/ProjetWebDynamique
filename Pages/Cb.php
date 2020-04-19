@@ -6,6 +6,7 @@ session_start();
     $nom = isset($_POST["Acheteur"])? $_POST["Acheteur"] : "";
     $secu = isset($_POST["Secu"])? $_POST["Secu"] : "";
     $type = isset($_POST["TypeCarte"])? $_POST["TypeCarte"] : "";
+    $ID = $_SESSION['userID'];
    
 //identifier votre BDD
 $database = "bddebay";
@@ -29,12 +30,17 @@ if (isset($_POST['button1'])) {
                     $sql .= " AND CodeSecur LIKE '$secu'";
                         if ($type!= "") {
                         $sql .= " AND TypeCarte LIKE '%$type%'";
-                        $_SESSION['numCarte'] = $numCarte;
+                            if($ID!="")
+                            {
+                                $sql .= " AND `#IDAcheteur`=$ID";
+                                $_SESSION['numCarte'] = $numCarte;
+                            }
                         }
                     }
                 }
             }     
         }   
+        
         $result = mysqli_query($db_handle, $sql);
         //Résultats Requête SQL
         if (mysqli_num_rows($result) == 0) {
