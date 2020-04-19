@@ -96,7 +96,6 @@ if (isset($_POST['button1'])) {
                  while($data_max = mysqli_fetch_assoc($result_max)){
                      if($j=0) {
                          $max1 = $data_max["MontantMaxAcheteur"];
-                        
                      }
                      if($j=1){ 
                          $max2 = $data_max["MontantMaxAcheteur"];
@@ -104,7 +103,7 @@ if (isset($_POST['button1'])) {
                      }
                      $j++;
                  }
-                 $Tot = $max2 + 1;
+                 $Tot = ++$max2;
                     $sql7 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`Total`,`#IDAcheteur`,`#IDAdresse`,`#IDCB`)
                     VALUES(CURDATE(),$liv,$Tot,$IDAcheteur,$IDAdr,$IDCB)";
                     mysqli_query($db_handle, $sql7);
@@ -117,9 +116,6 @@ if (isset($_POST['button1'])) {
                     $sql3 = "DELETE FROM choixarticles WHERE `#IDArticle`=$article2";
                     mysqli_query($db_handle, $sql3);    
                 }
-    
-            
-           
         }
         header('Location: CommandeMerci.php');
     }

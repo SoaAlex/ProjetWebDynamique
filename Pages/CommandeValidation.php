@@ -87,6 +87,7 @@
                                 $result_article = mysqli_query($db_handle, $sql_article);
                                 $data_article = mysqli_fetch_assoc($result_article);
 
+
                                 if(mysqli_num_rows($result_negociation)==0)
                                 {
                                     if($data_article['VenteImmediat'] == 1){
