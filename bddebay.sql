@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 17 avr. 2020 à 15:54
+-- Généré le :  Dim 19 avr. 2020 à 15:01
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -132,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `article` (
 --
 
 INSERT INTO `article` (`IDArticle`, `Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, `CheminVideo`) VALUES
-(1, 'Piece rare', 'Je suis une description nulle d\'article. Je suis une description nulle d\'article. Je suis une description nulle d\'article. Je suis une description nulle d\'article.\r\nJe suis une description nulle d\'article.\r\nJe suis une description nulle d\'article.', 'Ferraille', 50, 1, 0, 0, '2020-04-29', NULL, 1, NULL, NULL),
-(2, 'Picasso', 'Je suis une description nulle d\'article', 'Musee', 100, 0, 1, 0, '2020-04-29', NULL, 1, NULL, NULL),
+(1, 'Piece rare', 'Je suis une description nulle d\'article. Je suis une description nulle d\'article. Je suis une description nulle d\'article. Je suis une description nulle d\'article.\r\nJe suis une description nulle d\'article.\r\nJe suis une description nulle d\'article.', 'Ferraille', 50, 1, 0, 0, '2020-04-29', 2, 1, NULL, NULL),
+(2, 'Picasso', 'Je suis une description nulle d\'article', 'Musee', 100, 0, 1, 0, '2020-04-29', 5, 1, NULL, NULL),
 (3, 'Anneau', 'Je suis une description nulle d\'article', 'VIP', 200, 0, 0, 1, '2020-04-21', NULL, 1, NULL, NULL),
 (4, 'La nuit étoilée', 'Je suis une description nulle d\'article', 'Musee', 200, 0, 1, 1, '2020-04-21', NULL, 1, NULL, NULL);
 
@@ -146,8 +146,8 @@ INSERT INTO `article` (`IDArticle`, `Nom`, `Description`, `TypeArticle`, `Prix`,
 DROP TABLE IF EXISTS `cartebancaire`;
 CREATE TABLE IF NOT EXISTS `cartebancaire` (
   `IDCB` int(11) NOT NULL AUTO_INCREMENT,
-  `NumCarte` int(11) NOT NULL,
-  `DateExpiration` date NOT NULL,
+  `NumCarte` varchar(255) NOT NULL,
+  `DateExpiration` varchar(5) NOT NULL,
   `NomAffiche` varchar(255) NOT NULL,
   `CodeSecur` int(11) NOT NULL,
   `TypeCarte` varchar(255) NOT NULL,
@@ -155,7 +155,14 @@ CREATE TABLE IF NOT EXISTS `cartebancaire` (
   `#IDAcheteur` int(11) NOT NULL,
   PRIMARY KEY (`IDCB`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `cartebancaire`
+--
+
+INSERT INTO `cartebancaire` (`IDCB`, `NumCarte`, `DateExpiration`, `NomAffiche`, `CodeSecur`, `TypeCarte`, `Solde`, `#IDAcheteur`) VALUES
+(1, '1234567812345678', '04/21', 'SOARES Alexandre', 123, 'VISA', 300, 1);
 
 -- --------------------------------------------------------
 
@@ -171,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `choixarticles` (
   PRIMARY KEY (`IDChoix`),
   KEY `#IDAcheteur` (`#IDAcheteur`),
   KEY `#IDArticle` (`#IDArticle`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `choixarticles`
@@ -179,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `choixarticles` (
 
 INSERT INTO `choixarticles` (`IDChoix`, `#IDAcheteur`, `#IDArticle`) VALUES
 (2, 2, 3),
-(31, 1, 2);
+(35, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -195,19 +202,20 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `Total` int(11) NOT NULL,
   `#IDAcheteur` int(11) NOT NULL,
   `#IDAdresse` int(11) NOT NULL,
-  `#IDVendeur` int(11) NOT NULL,
+  `#IDCB` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDCommande`),
   KEY `#IDAcheteur` (`#IDAcheteur`),
   KEY `#IDAdresse` (`#IDAdresse`),
-  KEY `#IDVendeur` (`#IDVendeur`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `#IDCB` (`#IDCB`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `commande`
 --
 
-INSERT INTO `commande` (`IDCommande`, `Date`, `FraisLivraison`, `Total`, `#IDAcheteur`, `#IDAdresse`, `#IDVendeur`) VALUES
-(2, '2020-04-14', 10, 200, 1, 2, 1);
+INSERT INTO `commande` (`IDCommande`, `Date`, `FraisLivraison`, `Total`, `#IDAcheteur`, `#IDAdresse`, `#IDCB`) VALUES
+(2, '2020-04-14', 10, 200, 1, 2, 1),
+(5, '2020-04-19', 10, 110, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -226,14 +234,15 @@ CREATE TABLE IF NOT EXISTS `enchere` (
   PRIMARY KEY (`IDEnchere`),
   KEY `#IDArticle` (`#IDArticle`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `enchere`
 --
 
 INSERT INTO `enchere` (`IDEnchere`, `MontantMaxAcheteur`, `DateProposition`, `Accepte`, `#IDArticle`, `#IDAcheteur`) VALUES
-(1, 400, '2020-04-15', 0, 1, 1);
+(1, 400, '2020-04-15', 0, 1, 1),
+(5, 320, '2020-04-16', 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -280,18 +289,20 @@ CREATE TABLE IF NOT EXISTS `negociation` (
   `Accepte` tinyint(1) NOT NULL DEFAULT '0',
   `#IDArticle` int(11) NOT NULL,
   `#IDAcheteur` int(11) NOT NULL,
+  `#IDVendeur` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDNego`),
   KEY `#IDArticle` (`#IDArticle`),
-  KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `#IDAcheteur` (`#IDAcheteur`),
+  KEY `#IDVendeur` (`#IDVendeur`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `negociation`
 --
 
-INSERT INTO `negociation` (`IDNego`, `NBNego`, `DerniereOffre`, `Accepte`, `#IDArticle`, `#IDAcheteur`) VALUES
-(1, 1, 400, 0, 3, 2),
-(6, 1, 200, 0, 3, 1);
+INSERT INTO `negociation` (`IDNego`, `NBNego`, `DerniereOffre`, `Accepte`, `#IDArticle`, `#IDAcheteur`, `#IDVendeur`) VALUES
+(1, 1, 500, 0, 3, 2, 1),
+(10, 2, 150, 0, 4, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -353,7 +364,7 @@ ALTER TABLE `choixarticles`
 ALTER TABLE `commande`
   ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE RESTRICT ON UPDATE CASCADE,
   ADD CONSTRAINT `commande_ibfk_2` FOREIGN KEY (`#IDAdresse`) REFERENCES `adresse` (`IDAdresse`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `commande_ibfk_3` FOREIGN KEY (`#IDVendeur`) REFERENCES `vendeur` (`IDVendeur`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `commande_ibfk_3` FOREIGN KEY (`#IDCB`) REFERENCES `cartebancaire` (`IDCB`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `enchere`
@@ -374,7 +385,8 @@ ALTER TABLE `image`
 --
 ALTER TABLE `negociation`
   ADD CONSTRAINT `negociation_ibfk_1` FOREIGN KEY (`#IDAcheteur`) REFERENCES `acheteur` (`IDAcheteur`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `negociation_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `negociation_ibfk_2` FOREIGN KEY (`#IDArticle`) REFERENCES `article` (`IDArticle`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `negociation_ibfk_3` FOREIGN KEY (`#IDVendeur`) REFERENCES `vendeur` (`IDVendeur`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
