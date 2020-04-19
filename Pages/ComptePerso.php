@@ -61,12 +61,12 @@
                     <li class="nav-item"><a class="nav-link" href="CompteHistorique.php">
                         Historique de commande
                     </a></li>
-                    <li class="nav-item"><a class="nav-link" href="ComptePaiement.php">
+                    <!--<li class="nav-item"><a class="nav-link" href="ComptePaiement.php">
                         Vos moyens de paiement
                     </a></li>
                     <li class="nav-item"><a class="nav-link" href="CompteSUivi.php">
                         Commandes en cours
-                    </a></li>
+                    </a></li>-->
                 </ul>
             </div>
         </nav>

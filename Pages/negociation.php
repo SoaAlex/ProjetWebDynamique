@@ -11,7 +11,7 @@
     $db_handle = mysqli_connect('localhost', 'root','');
     $db_found = mysqli_select_db($db_handle, $database);
     
-    for($i=0; $i< 10; $i++){
+    for($i=0; $i< 200; $i++){
         $BA = 'BA';
         $BN = 'BN';
 

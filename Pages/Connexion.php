@@ -49,7 +49,7 @@
                     $_SESSION['loggedin'] = true;
                     $_SESSION['usermail'] = $mail;
                     $_SESSION['user_type'] = 'Admin';
-                    header("Location: landingPage.php");
+                    header("Location: MAJ.php");
                 }
             }
             else{

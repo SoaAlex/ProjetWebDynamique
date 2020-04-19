@@ -66,7 +66,7 @@
                     <p>
                         <?php echo $data['Description']; ?>
                     </p>
-                    <form method="POST" action="ajoutPanier.php">
+                    <form method="POST" action="ajoutPanier.php" style="display: <?php if($_SESSION['user_type'] != 'Acheteur') echo 'none'; ?>">
                     <?php 
                         if($data['VenteBestOffer'] == 1 && $data['VenteImmediat'] == 0){
                             echo '<input type="number" class="form-control" id="prixNego" placeholder="Quel Prix souhaitez vous négocier ?" name="prixNego">';

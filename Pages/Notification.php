@@ -226,14 +226,13 @@
                                             </div>
                                         </form>
                                     </div>
-
+                                </div>
                                     <?php 
                                         //Articles vus
                                         $vusAch[$article] = true; 
-                            }
-                        }
-                                ?>
-                            </div>        
+                                        }
+                                    }
+                                    ?>         
                     </div>
                 </div>
             </div>
@@ -244,6 +243,8 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <?php 
+                        $sql_ench = "SELECT * FROM enchere WHERE `#IDAcheteur`=$userID";
+                        $result_ench = mysqli_query($db_handle, $sql_ench);
                         //Pour chaque enchères
                         while($data_ench = mysqli_fetch_assoc($result_ench)){
                             //Quel est le max ?
@@ -261,7 +262,9 @@
                             $result_max2 = mysqli_query($db_handle, $sql_max2);
                             $j = 0;
                             $max2 = 0;
+                            $nomMax1;
                             while($data_max2 = mysqli_fetch_assoc($result_max2)){
+                                if($j==0){ $IDMax = $data_max2['#IDAcheteur'];}
                                 if($j==1){ $max2 = $data_max2['MontantMaxAcheteur']; break;}
                                 $j++;
                             }
@@ -282,7 +285,6 @@
                             $sql_vend = "SELECT Pseudo AS PseudoVend FROM `Vendeur` WHERE `IDVendeur`=$IDVendeur";
                             $result_vend = mysqli_query($db_handle, $sql_vend);
                             $dataVend = mysqli_fetch_assoc($result_vend); 
-
                             ?>
 
                             <!--Affichage-->
@@ -315,7 +317,7 @@
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-12"> 
-                                    <h1>Offres: </h1>
+                                    <h1>Propositions: </h1>
                                     <table>
                                         <tr>
                                             <th>Acheteur</th>
@@ -331,7 +333,7 @@
                                             $result_ach = mysqli_query($db_handle, $sql_ach);
                                             $data_ach = mysqli_fetch_assoc($result_ach);
 
-                                            if($data_ach['IDAcheteur'] == $data_max['IDAcheteur']){
+                                            if($data_ach['IDAcheteur'] == $IDMax){
                                                 $nomMax = $data_ach['Nom'];
                                             }
                                             ?>
@@ -341,7 +343,7 @@
                                                 </tr>
 
                                         <?php } ?>
-                                    </table>
+                                    </table> 
                                     <br>
                                     <h1>Meilleure offre pour cette article: </h1>
                                     <h1 style="text-align: center; font-size:5em; color:#DF6D14;"> <?php echo $max2+1; ?>€</h1>
@@ -355,13 +357,14 @@
                                 </div>
                             </div>
 
+                            <hr>
+                            <?php 
+                                //Articles vus
+                                $vus[$article] = true;
+                            }?>
                     </div>
                 </div>
-                <hr>
-                <?php 
-                    //Articles vus
-                    $vus[$article] = true;
-                }?>
+
             </div> 
         </div>
 
