@@ -36,9 +36,7 @@ body {
 }
 
 /*--- carroussel ADAPTE AVEC https://bootsnipp.com/snippets/4a73 --*/ 
-.carousel-item.active{
-    filter: brightness(50%);
-}
+
 .carousel{
     margin-top: -150px;
     z-index: -1;
