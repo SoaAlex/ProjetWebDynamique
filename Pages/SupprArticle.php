@@ -16,19 +16,17 @@
 
     <body>
         <?php include 'navbar.php'; ?>
-        
         <nav class="navbar navbar-expand-md" style="background-color:#f59d42;">
             <div class="collapse navbar-collapse Cstart" id="main-navigation">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href=" articles.php">
                         Consulter des produits
-                    </a></li> 
+                    </a></li>
                     <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_type'] == "Admin")//Apparait que pour l'admin
                     echo '<li class="nav-item"><a class="nav-link" href="SupprArticle.php">
                           Supprimer des produits
                         </a></li>'
                     ?>
-                    
                 </ul>
             </div>
         </nav>
@@ -37,6 +35,7 @@
             <div class="container" >
                 <div class="row">
                     <!-- CONNEXION A LA BDD ET AFFICHAGE DE TOUT LES ARTICLES -->
+           
                     <?php
                         $database = "bddebay";
                         $db_handle = mysqli_connect('localhost', 'root','');
@@ -56,9 +55,12 @@
                                         $dataImg = mysqli_fetch_assoc($result_img);
                                         echo '
                                         <div class="col-lg-4 col-md-2 col-sm-12">
-                                            <div class="box-article">
-                                            <a href="http://localhost/ProjetWebDynamique/Pages/produit.php?IDArticle=' . $data['IDArticle'] . '">'.
-                                            '<img src="'. $dataImg['CheminImg'] .'" style="width: 100%;" class="img-fluid">'.
+                                            <div class="box-article" >
+                                            <a href="http://localhost/ProjetWebDynamique/Pages/produitOut.php?IDArticle=' . $data['IDArticle'] . '">'.
+                                            '<div id="Suppresion"> 
+                                            <div class="vertic"></div>
+                                            <div class="horiz"></div>
+                                        <img  src="'. $dataImg['CheminImg'] .'" style="width: 100%;" class="img-fluid"></div>'.
                                             '</a>'.
                                             '<h2 style="margin-left: 5%;">'. $data['Nom'] . '</h2>';
                                         

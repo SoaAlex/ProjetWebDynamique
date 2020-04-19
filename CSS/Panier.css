@@ -102,6 +102,41 @@ body {
     padding: 40px 0;
 }
 
+.vertic{
+    position:absolute;
+    height:0;
+    width:20px;
+    left:160px;
+    transition:all 0.5s ease-in;
+    transform: rotate(45deg);
+  }
+  
+  .horiz{
+    position:absolute;
+    height:20px;
+    width:0;
+    top:160px;
+    transition:all 0.5s ease-in;
+    transform: rotate(45deg);
+  }
+
+  #Suppresion{
+    position:relative;
+    height:345px;
+    width:345px;
+  }
+  
+  #Suppresion:hover .vertic{
+    height:345px;
+    border:10px solid red;
+  }
+  
+  #Suppresion:hover .horiz{
+    width:345px;
+    border:10px solid red;
+  }
+
+
 /*--- mobile view ---*/
 @media (max-width: 575.98px) {
     .description {
