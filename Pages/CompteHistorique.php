@@ -175,6 +175,7 @@
                             echo '</div>';
                             echo '<hr>';
                             
+                            echo '</div>';
                     echo '</div>';
                 }
             ?>

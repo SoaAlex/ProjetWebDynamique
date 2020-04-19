@@ -42,5 +42,8 @@
             //Redirection
             header("Location: http://localhost/ProjetWebDynamique/Pages/panier.php");
         }
+        else{
+            header("Location: http://localhost/ProjetWebDynamique/Pages/panier.php");
+        }
     }
 ?>

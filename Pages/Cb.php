@@ -29,6 +29,7 @@ if (isset($_POST['button1'])) {
                     $sql .= " AND CodeSecur LIKE '$secu'";
                         if ($type!= "") {
                         $sql .= " AND TypeCarte LIKE '%$type%'";
+                        $_SESSION['numCarte'] = $numCarte;
                         }
                     }
                 }
@@ -42,6 +43,10 @@ if (isset($_POST['button1'])) {
         else {
             $data = mysqli_fetch_assoc($result);
             $_SESSION['SoldeRestant']=$data['Solde'];
+            $sql = "SELECT * FROM cartebancaire WHERE NumCarte LIKE '$numCarte' AND CodeSecur LIKE '$secu'";
+            $result = mysqli_query($db_handle, $sql);
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['IDCB'] = $row['IDCB'];
             header('Location: CommandeValidation.php');    
             }
             

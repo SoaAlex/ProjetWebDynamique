@@ -50,15 +50,6 @@
             <div class="row" >
                 <div class="col-sm-5"></div>
                 <div class="col-sm-4">
-<<<<<<< HEAD
-                    <img src="img/CheckGreen.png" style="margin-left: 50px;"><br>
-                    <div class="Merci" style="margin-right: 600px;">Merci
-                    </div>
-                </div>
-                <div class="Texte">
-                    Votre commande N°J24B1B083PL a bien été enregistrée.<br>
-                    Sa livraison est prévu pour le 28/04/2020.<br><br>
-=======
                     <img src="../img/UI/CheckGreen.png" style="margin-left: -40px; margin-bottom:-50px; width:40%"><br>
                     <div class="Merci" style="margin-right: 600px;"><br> Merci
                     </div>
@@ -66,21 +57,11 @@
                 <div class="Texte">
                     Votre commande a bien été enregistrée.<br>
                     Sa livraison est prévue pour le <?php echo  date('Y-m-d', strtotime('+1 week'));?>.<br><br>
->>>>>>> ft_adrien_69
 
                     Vous allez recevoir un mail récapitulatif prochainement.<br>
                     Vous pouvez suivre à tout moment l'état de votre commande sur votre compte dans la rubrique "Commandes en cours".
                 </div>
-<<<<<<< HEAD
-                
-            </div>
-        </div> 
-	
-    </body>
-</html>
-=======
             </div>
         </div> 
     </body>
 </html>
->>>>>>> ft_adrien_69

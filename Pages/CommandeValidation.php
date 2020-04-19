@@ -47,12 +47,7 @@
     </head>
 
     <body>
-<<<<<<< HEAD
-		<?php include 'navbar.php'; ?>
-
-=======
 	<?php include 'navbar.php'; ?>
->>>>>>> ft_adrien_69
 		<div class="Titre" style="margin-top: 30px; margin-left: 50px;"><h1>| PROCESSUS DE COMMANDE</h1></div>
 		<div class="container-fluid">
 		    <div class="row" style="margin-top: 50px;">
