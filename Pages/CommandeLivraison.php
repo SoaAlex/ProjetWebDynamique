@@ -28,20 +28,6 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-        <!--<script type="text/javascript">
-            function relais(){
-                document.getElementById('affichageRelais1').style.display ='none';
-                document.getElementById('affichageRelais2').style.display ='block';
-                document.getElementById('affichageRelais3').style.display ='block';
-            }
-
-            function Prelais(){
-                document.getElementById('affichageRelais1').style.display ='block';
-                document.getElementById('affichageRelais2').style.display ='none';
-                document.getElementById('affichageRelais3').style.display ='none';
-            }
-        </script>-->
-
         <!-- Du jQuerry gratuit -->
         <script type="text/javascript">
             $(document).ready(function(){
