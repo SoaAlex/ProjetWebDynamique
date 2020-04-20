@@ -1,7 +1,7 @@
 # ProjetWebDynamique
 Repository du projet piscine web dynamique 2020. 
 
-Objectif: Conception d'un réseau social.
+Objectif: Conception d'un e-commerce.
 
 Durée: 7 jours (12 au 19 avril 2020).
 
