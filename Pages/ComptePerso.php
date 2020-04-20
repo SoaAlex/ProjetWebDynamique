@@ -11,6 +11,7 @@
 
     //Recherche info user
     $userID = $_SESSION['userID'];
+    $user_type = $_SESSION['user_type'];
     $database = "bddebay";
     $db_handle = mysqli_connect('localhost', 'root','');
     $db_found = mysqli_select_db($db_handle, $database);
@@ -35,7 +36,10 @@
         if($i == 0) {$data_img1 = $data_img; $i++;}
         else{$data_img2 = $data_img; $i = 0;}
     }
-    isset($data_img2) ? $data_img2['CheminImg'] = $data_img2['CheminImg'] : $data_img2['CheminImg'] = ''
+    $img2 = '';
+    if($user_type == 'Vendeur'){
+        $img2 = $data_img2['CheminImg'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +54,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     </head>
 
-    <body style="background-image:<?php $data_img2['CheminImg']?>">
+    <body >
         <?php include 'navbar.php'; ?>
         <nav class="navbar navbar-expand-md" style="background-color:#f59d42;">
             <div class="collapse navbar-collapse Cstart" id="main-navigation">
@@ -71,8 +75,9 @@
             </div>
         </nav>
 
-        <div class="container-fluid">
-            <div class="row" style="margin-top: 40px;"> 
+        <div style="margin-top:-2.35%; background-size: cover; background-image: url('<?php echo $img2?>'); ">
+        <div class="container-fluid" style="background-color : RGBa(255, 255, 255, 0.5); margin-top: 40px;" >
+            <div class="row"> 
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <h2>| Informations Personnelles</h2><br>
                     <table>
@@ -106,7 +111,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-3" style="display: <?php if($_SESSION['user_type'] != 'Vendeur') echo 'none';?>;"> 
                     <h2>| Photo de Profil</h2>  
                     <img src="<?php echo $data_img1['CheminImg'];?>">
-                    <button type="button" class="btn btn-primary btn-block">Upload</button>
+                    <!--<button type="button" class="btn btn-primary btn-block">Upload</button>-->
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-3"style="display: <?php if($_SESSION['user_type'] != 'Acheteur') echo 'none';?>;">
@@ -147,6 +152,7 @@
                     </form>
             </div>
             </div>
+        </div>
         </div>
         <?php include 'footer.php'; ?>
     </body>

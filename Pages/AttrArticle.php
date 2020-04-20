@@ -56,7 +56,7 @@ if (isset($_POST['button1'])) {
             $Tot = 0;
 
             if($data_article['VenteImmediat'] == 1){
-                $Tot=$_SESSION['Total'];
+                $Tot=$_SESSION['Total'] - $liv;
                 //On crée la commande
                 $sql5 = "INSERT INTO `commande` (`Date`,`FraisLivraison`,`Total`,`#IDAcheteur`,`#IDAdresse`,`#IDCB`)
                 VALUES(CURDATE(),$liv,$Tot,$IDAcheteur,$IDAdr,$IDCB)";
@@ -151,6 +151,7 @@ if (isset($_POST['button1'])) {
         $sql_cb = "UPDATE cartebancaire
                    SET Solde=$nouvSolde;
                    WHERE `#IDAcheteur`=$userID";
+        mysqli_query($db_handle, $sql_cb);
         header('Location: CommandeMerci.php');
     }
     else{

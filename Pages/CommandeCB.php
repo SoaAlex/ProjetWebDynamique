@@ -8,6 +8,12 @@
         header("location: landingPage.php");
         exit;
     }
+    $displaySolde = 'none';
+    if(isset($_SESSION['CBInsufisant'])){
+        if($_SESSION['CBInsufisant'] == 1){
+            $displaySolde = '';
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +70,7 @@
                         </div>
                     -->
                         <h4>| Informations Carte Bancaire</h4>
-                        <h3 style="color: red; display: <?php if(isset($_SESSION['CBInsufisant'])){if($_SESSION['CBInsufisant'] == 1){echo 'none';}} ?> ;">SOLDE INSUFISANT SUR VOTRE CARTE</h3>
+                        <h3 style="color: red; display: <?php echo $displaySolde ?> ;">SOLDE INSUFISANT SUR VOTRE CARTE</h3>
                         <form method="POST" action="Cb.php">
                         <div class="form-group">
                             <label for="CBnew">Numéro de la carte</label>

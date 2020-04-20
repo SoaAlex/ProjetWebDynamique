@@ -126,7 +126,16 @@
                             $sql_article = "SELECT * FROM article WHERE `IDArticle`=$article";
                             $result_article = mysqli_query($db_handle, $sql_article);
                             $data_article = mysqli_fetch_assoc($result_article);
+                            $prix = $data_article['Prix'];
 
+                            //Trouver le prix si c'est en enchère
+                            $sql_prix = "SELECT * FROM enchere WHERE `#IDArticle`=$article AND `#IDAcheteur`=$userID AND Accepte=0";
+                            $result_prix = mysqli_query($db_handle, $sql_prix);
+                            if(mysqli_num_rows($result_prix) != 0 ){
+                                $data_prix = mysqli_fetch_assoc($result_prix);
+                                $prix = $data_prix['MontantMaxAcheteur'];
+                            }
+                         
                             if($data_article['VenteEnchere'] == 1){
                                 //Recherche image article
                                 $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$article";
@@ -154,6 +163,7 @@
                                 }
                                 if($data_article['VenteEnchere'] == 1){
                                     echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>';
+                                    echo '<h4 style="margin:5%">Expire le: <strong style="color:red";>'. $data_article['DateLim'] .'</strong></h4><br>';
                                 } 
                                 if($data_article['VenteImmediat'] == 1 && $data_article['VenteBestOffer'] == 0) {
                                     echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
@@ -164,7 +174,7 @@
                                 }
                                 echo '
                                     </span>'.
-                                    '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>';
+                                    '<div class="prixArticle"><h1 style="color:red;">'.$prix . '€</h1>' . '</div>';
                                     ?> 
                                     <a href="DelArticle.php?IDArticle=<?php echo $data_article['IDArticle']; ?>">
                                     <button type="submit" class="btn btn-primary btn-block">SUPPRIMER</button> </a>
@@ -174,7 +184,7 @@
                             }
                         }
                     ?>
-                    </div><br><br>
+                    </div><br><hr><br>
 
                     <h2>| Négociation en cours</h2>
                     <div class="row">
@@ -189,10 +199,13 @@
                             $result_article = mysqli_query($db_handle, $sql_article);
                             $data_article = mysqli_fetch_assoc($result_article);
 
-                            /*//Recherche si article en négo
-                            $sql_nego = "SELECT * FROM Negociation WHERE `#IDArticle`=$article AND `#IDAcheteur`=$userID";
-                            $result_nego = mysqli_query($db_handle, $sql_nego);
-                            if(mysqli_num_rows($result_nego)) {$isNego == 1;}*/                     
+                            //Trouver le prix si c'est en négo
+                            $sql_prix = "SELECT * FROM negociation WHERE `#IDArticle`=$article AND `#IDAcheteur`=$userID";
+                            $result_prix = mysqli_query($db_handle, $sql_prix);
+                            if(mysqli_num_rows($result_prix) != 0 ){
+                                $data_prix = mysqli_fetch_assoc($result_prix);
+                                $prix = $data_prix['DerniereOffre'];
+                            }
 
                             if($data_article['VenteBestOffer'] == 1){
                                 //Recherche image article
@@ -231,7 +244,7 @@
                                 }
                                 echo '
                                     </span>'.
-                                    '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>';
+                                    '<div class="prixArticle"><h1 style="color:red;">'.$prix . '€</h1>' . '</div>';
                                     ?> 
                                     <a href="DelArticle.php?IDArticle=<?php echo $data_article['IDArticle']; ?>">
                                     <button type="submit" class="btn btn-primary btn-block">SUPPRIMER</button> </a>

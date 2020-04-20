@@ -46,7 +46,7 @@
                             $sql = "SELECT * FROM article";
                             $result = mysqli_query($db_handle, $sql);
                             if(mysqli_num_rows($result) !=0){
-                                while($data = mysqli_fetch_assoc($result)){
+                                while($data = mysqli_fetch_assoc($result)){                                    
                                     //Verif si article pas commandé
                                     if($data['#IDCommande'] == NULL){
                                         //Trouver image
@@ -54,6 +54,7 @@
                                         $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$IDArticle";
                                         $result_img = mysqli_query($db_handle, $sql_img);
                                         $dataImg = mysqli_fetch_assoc($result_img);
+
                                         echo '
                                         <div class="col-lg-4 col-md-2 col-sm-12">
                                             <div class="box-article">
@@ -74,6 +75,7 @@
                                         }
                                         if($data['VenteEnchere'] == 1){
                                             echo '<img src="../img/UI/enchère.png" style="width: 10%; margin:5%;"> <span class="typeVente">ENCHERE</span>';
+                                            echo '<h4 style="margin:5%">Expire le: <strong style="color:red";>'. $data['DateLim'] .'</strong></h4><br>';
                                         } 
                                         if($data['VenteImmediat'] == 1 && $data['VenteBestOffer'] == 0) {
                                             echo '<img src="../img/UI/immediat.png" style="width: 5%; margin:5%;"> <span class="typeVente">ACHAT IMMEDIAT</span>';
@@ -84,7 +86,7 @@
                                         }
                                         echo '
                                             </span>'.
-                                            '<div class="prixArticle">'.$data['Prix'] . '€' . '</div>'.
+                                            '<div class="prixArticle"><h1 style="color:#DF6D14">'.$data['Prix'] . '€</h1>' . '</div>'.
                                             '</div>'.
                                         '</div>';
                                     }
