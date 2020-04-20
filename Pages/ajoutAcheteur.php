@@ -40,7 +40,6 @@ if (isset($_POST['button1'])) {
         VALUES('$nom','$prenom','$mail','$password',$CGU)";
 
     if (mysqli_query($db_handle, $sql2)) {
-            echo "<br> Compte Acheteur créé <br>";
         } else {
             echo "Error: " . $sql2 . "<br>" . mysqli_error($db_handle);
         }
@@ -59,10 +58,10 @@ if (isset($_POST['button1'])) {
         VALUES('$adrL1','$adrL2','$ville',$CP,'$pays',$tel,$IDAcheteur)";
 
     if (mysqli_query($db_handle, $sql3)) {
-            echo "<br> Adresse Ajoutee créé <br>";
         } else {
             echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
         }
+        header("Location:Connexion.php");
 }
 else {
 echo "Database not found";

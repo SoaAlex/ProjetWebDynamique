@@ -58,28 +58,18 @@ if (isset($_POST['button1'])) {
     $result = mysqli_query($db_handle, $sql);
     //vérification Article déjà existant avec même vendeur
     if(mysqli_num_rows($result)==0){
-        echo "$nom ";
-        echo "$typeArticle ";
-        echo "$description ";
-        echo "$VenteEnchere ";
-        echo "$VenteImmediat ";
-        echo "$VenteBestOffer ";
-        echo "$prix ";
-        echo "$dateLim ";
-        echo "$IDVendeur ";
+   
 
         $sql2 = "INSERT INTO `article` (`Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, `CheminVideo`)
         VALUES('$nom','$description','$typeArticle',$prix,$VenteEnchere,$VenteImmediat,$VenteBestOffer,'$dateLim', NULL,'$IDVendeur', NULL,'$CheminVideo')";
         
         if (mysqli_query($db_handle, $sql2)) {
-            echo "<br> Article mis en vente <br>";
         } else {
             echo "Error: " . $sql2 . "<br>" . mysqli_error($db_handle);
         }
         } 
         else {
         //Article déjà existant
-        echo "Article deja existant";
         }
 
         $sql = "SELECT IDArticle FROM article WHERE Nom LIKE '$nom' AND DateLim LIKE '$dateLim'";
@@ -91,7 +81,6 @@ if (isset($_POST['button1'])) {
         VALUES('$CheminImage1','$nom',$IDArticle)";
 
         if (mysqli_query($db_handle, $sql3)) {
-            echo "<br> Image 1 Ajoutée<br>";
             } else {
         echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
             }       
@@ -102,7 +91,6 @@ if (isset($_POST['button1'])) {
         VALUES('$CheminImage2','$nom',$IDArticle)";
 
         if (mysqli_query($db_handle, $sql4)) {
-            echo "<br> Image 2 Ajoutée<br>";
          } else {
         echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
     }
@@ -113,16 +101,16 @@ if (isset($_POST['button1'])) {
     VALUES('$CheminImage3','$nom',$IDArticle)";
 
     if (mysqli_query($db_handle, $sql5)) {
-        echo "<br> Image 3 Ajoutée<br>";
      } else {
     echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
 }
 }
 
-      
+
 }
 else {
 echo "Database not found";
 }
+header("Location : landingPage.php");
 }
 ?>

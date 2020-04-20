@@ -6,7 +6,7 @@
             </button>
             <div class="collapse navbar-collapse Cstart" id="main-navigation">
                 <ul class="navbar-nav">
-                    <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false)
+                    <?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false|| $_SESSION['user_type'] == "Vendeur")
                     echo'
                         <li class="nav-item"><a class="nav-link" href="articles.php">CATEGORIES</a></li>
                     ';

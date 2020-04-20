@@ -62,6 +62,7 @@ if (isset($_POST['button1'])) {
         } else {
             echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
         }
+        header("Location:Connexion.php");
 }
 else {
 echo "Database not found";
