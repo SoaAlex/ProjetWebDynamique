@@ -36,7 +36,7 @@
 
             if(mysqli_num_rows($result) == 0){
                 //Trouver admin
-                $sql = "SELECT Mail AS Mail, Nom AS Nom, IDAdmin as IDAdmin FROM administrateur WHERE Mail='$mail' AND Password='$psw'";
+                $sql = "SELECT Mail AS Mail, Prenom AS Prenom, IDAdmin as IDAdmin FROM administrateur WHERE Mail='$mail' AND Password='$psw'";
                 $result = mysqli_query($db_handle, $sql);
                 if(mysqli_num_rows($result) == 0){
                     $mail_error = "Utilisateur non trouvé";
@@ -44,7 +44,7 @@
                 }
                 else{
                     $data = mysqli_fetch_assoc($result);
-                    $_SESSION['username'] = $data['Nom'];
+                    $_SESSION['username'] = $data['Prenom'];
                     $_SESSION["userID"] = $data['IDAdmin'];
                     $_SESSION['loggedin'] = true;
                     $_SESSION['usermail'] = $mail;
