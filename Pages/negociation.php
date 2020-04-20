@@ -10,6 +10,11 @@
     $database = "bddebay";
     $db_handle = mysqli_connect('localhost', 'root','');
     $db_found = mysqli_select_db($db_handle, $database);
+
+    $sql_nego = "SELECT * FROM negociation WHERE `#IDVendeur`=$userID AND `IDNego`=$i";
+                $result_nego = mysqli_query($db_handle, $sql_nego);
+                $data_nego = mysqli_fetch_assoc($result_nego);
+                $NBNego = $data_nego['NBNego'];
     
     for($i=0; $i< 200; $i++){
         $BA = 'BA';

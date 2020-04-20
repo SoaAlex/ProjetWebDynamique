@@ -31,7 +31,6 @@
         echo "Adresse Mail: " . $data['Mail'] . "<br> <br>";
         } ?>
         <form method="POST" action="SupprimerVendeur.php">
-
              <label for="inNom">Pseudo du Vendeur à supprimer</label>
              <input type="text" class="form-control" id="inPseudo"  name="pseudo" style="width:300px" required>  
              <button type="submit" class="btn btn-primary btn-block" name="button" style="width:300px; margin-left:50px" >Supprimer le vendeur du site</button>
