@@ -87,8 +87,12 @@
                                     }
                                     echo '
                                         </span>'.
-                                        '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
-                                        '</div>'.
+                                        '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>';
+                                        ?> 
+                                            <a href="DelArticle.php?IDArticle=<?php echo $data_article['IDArticle']; ?>">
+                                            <button type="submit" class="btn btn-primary btn-block">SUPPRIMER</button> </a>
+                                        <?php 
+                                    echo '</div>'.
                                     '</div>';
                                 }
                             }
@@ -160,8 +164,12 @@
                                 }
                                 echo '
                                     </span>'.
-                                    '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
-                                    '</div>'.
+                                    '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>';
+                                    ?> 
+                                    <a href="DelArticle.php?IDArticle=<?php echo $data_article['IDArticle']; ?>">
+                                    <button type="submit" class="btn btn-primary btn-block">SUPPRIMER</button> </a>
+                                    <?php 
+                                    echo '</div>'.
                                 '</div>';
                             }
                         }
@@ -223,8 +231,12 @@
                                 }
                                 echo '
                                     </span>'.
-                                    '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
-                                    '</div>'.
+                                    '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>';
+                                    ?> 
+                                    <a href="DelArticle.php?IDArticle=<?php echo $data_article['IDArticle']; ?>">
+                                    <button type="submit" class="btn btn-primary btn-block">SUPPRIMER</button> </a>
+                                    <?php 
+                                    echo '</div>'.
                                 '</div>';
                             }
                         }
