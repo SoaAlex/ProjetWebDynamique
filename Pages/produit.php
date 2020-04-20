@@ -79,17 +79,21 @@
                     </div>
 
                     <img src="<?php echo $dataImg['CheminImg'];?>" class="img-produit img-fluid">
-                    <p>
+                    <p style="margin-left:10%; margin-right: 10%; margin-top:2%; margin-bottom:2%; font-size:2em;">
                         <?php echo $data['Description']; ?>
                     </p>
-                    <form method="POST" action="ajoutPanier.php" style="display: <?php if($_SESSION['user_type'] != 'Acheteur') echo 'none'; ?>">
+                    <form method="POST" action="ajoutPanier.php" style="display: <?php if(!isset($_SESSION['user_type'])){
+                            echo 'none';}
+                            else if($_SESSION['user_type'] != 'Acheteur'){
+                                echo 'none';}
+                            ?> ">
                     <?php 
                         if($data['VenteBestOffer'] == 1 && $data['VenteImmediat'] == 0){
-                            echo '<input type="number" class="form-control" id="prixNego" placeholder="Quel Prix souhaitez vous négocier ?" name="prixNego">';
+                            echo '<input type="number" class="form-control" id="prixNego" placeholder="Quel Prix souhaitez vous négocier ?" name="prixNego" required>';
                             echo '<button type="submit" class="btn btn-primary btn-block" name="buttonNego">Négocier</button>';
                         }
                         if($data['VenteEnchere'] == 1){
-                            echo '<input type="number" class="form-control" id="prixEnchere" placeholder="Quel Prix souhaitez vous enchérir ?" name="prixEnchere">';
+                            echo '<input type="number" class="form-control" id="prixEnchere" placeholder="Quel Prix souhaitez vous enchérir ?" name="prixEnchere" required>';
                             echo '<button type="submit" class="btn btn-primary btn-block" name="buttonEnchere">Enchérir</button>';
                         } 
                         if($data['VenteImmediat'] == 1 && $data['VenteBestOffer'] == 0) {
