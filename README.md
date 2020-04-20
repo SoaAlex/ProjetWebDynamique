@@ -1,7 +1,7 @@
 # ProjetWebDynamique
 Repository du projet piscine web dynamique 2020. 
 
-Objectif: Conception d'un e-commerce.
+Objectif: Conception d'un réseau social.
 
 Durée: 7 jours (12 au 19 avril 2020).
 
@@ -15,3 +15,4 @@ Liens du projet (consultation uniquement. Modification réservés aux 3 membres)
 - Git (code): vous y êtes :p
 - Drive (annexes): https://drive.google.com/drive/folders/15vNFWM81BwyzMeZsKr7mx0EC00s35Cov?usp=sharing
 - LucidChart (entité/association): https://www.lucidchart.com/invitations/accept/e708cdb6-eb18-443b-9c28-964b8d7ec9d2 
+<3
