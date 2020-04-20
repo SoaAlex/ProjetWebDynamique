@@ -103,14 +103,13 @@ if (isset($_POST['button1'])) {
     if (mysqli_query($db_handle, $sql5)) {
      } else {
     echo "Error: " . $sql3 . "<br>" . mysqli_error($db_handle);
-}
-}
-
+        }
+    }
 
 }
 else {
 echo "Database not found";
 }
-header("Location : landingPage.php");
+header("Location: articles.php");
 }
 ?>

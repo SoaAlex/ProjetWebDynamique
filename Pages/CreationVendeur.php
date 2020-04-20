@@ -56,6 +56,7 @@
 
 
                         <button type="submit" class="btn btn-primary btn-block" name="button1">Inscription</button>
+                        </div>
                     </form>
                 </div>
             </div>

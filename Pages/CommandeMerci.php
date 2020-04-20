@@ -50,11 +50,11 @@
             <div class="row" >
                 <div class="col-sm-5"></div>
                 <div class="col-sm-4">
-                    <img src="../img/UI/CheckGreen.png" style="margin-left: -40px; margin-bottom:-50px; width:40%"><br>
+                    <img src="../img/UI/CheckGreen.png" style="text-align: center center; margin-bottom:-50px; width:40%"><br>
                     <div class="Merci" style="margin-right: 600px;"><br> Merci
                     </div>
                 </div>
-                <div class="Texte">
+                <div class="Texte" style= "font-size: 30px; margin:auto">
                     Votre commande a bien été enregistrée.<br>
                     Sa livraison est prévue pour le <?php echo  date('Y-m-d', strtotime('+1 week'));?>.<br><br>
 

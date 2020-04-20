@@ -62,9 +62,10 @@
                     <li class="nav-item"><a class="nav-link">
                         Coordonnées
                     </a></li>
-                    <li class="nav-item"><a class="nav-link" href="CompteHistorique.php">
+                    <?php if($user_type=='Acheteur') { echo '<li class="nav-item"><a class="nav-link" href="CompteHistorique.php">
                         Historique de commande
-                    </a></li>
+                    </a></li>';}?>
+                   
                     <!--<li class="nav-item"><a class="nav-link" href="ComptePaiement.php">
                         Vos moyens de paiement
                     </a></li>
@@ -76,14 +77,14 @@
         </nav>
 
         <div style="margin-top:-2.35%; background-size: cover; background-image: url('<?php echo $img2?>'); ">
-        <div class="container-fluid" style="background-color : RGBa(255, 255, 255, 0.5); margin-top: 40px;" >
+        <div class="container-fluid" style="background-color : RGBa(255, 255, 255, 0.5); margin-top: 40px; height:500px" >
             <div class="row"> 
                 <div class="col-lg-4 col-md-4 col-sm-12">
-                    <h2>| Informations Personnelles</h2><br>
+                    <h2><br>| Informations Personnelles</h2><br>
                     <table>
                         <tr style="display: <?php if($_SESSION['user_type'] != 'Vendeur') echo 'none';?>;">
-                            <td><h4>Pseudo: </h4></td>
-                            <td><h4><?php if($_SESSION['user_type'] == 'Vendeur') echo '<h4>Pseudo: '. $data['Pseudo']; ?></h4></td>
+                            <td><h4>Pseudo:</h4></td>
+                            <td><h4><?php if($_SESSION['user_type'] == 'Vendeur') echo '<h4>'. $data['Pseudo']; ?></h4></td>
                         </tr>
                         <tr style="display: <?php if($_SESSION['user_type'] == 'Vendeur') echo 'none';?>;">
                             <td><h4>Nom: </td>
@@ -110,7 +111,7 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-3" style="display: <?php if($_SESSION['user_type'] != 'Vendeur') echo 'none';?>;"> 
                     <h2>| Photo de Profil</h2>  
-                    <img src="<?php echo $data_img1['CheminImg'];?>">
+                    <img src="<?php echo $data_img1['CheminImg'];?>" style="height:320px">
                     <!--<button type="button" class="btn btn-primary btn-block">Upload</button>-->
                 </div>
 
