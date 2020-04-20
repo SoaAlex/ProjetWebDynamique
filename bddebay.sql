@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 20 avr. 2020 à 13:04
+-- Généré le :  lun. 20 avr. 2020 à 19:27
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `acheteur` (
   `Password` varchar(255) NOT NULL,
   `CGU` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `acheteur`
@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS `acheteur` (
 INSERT INTO `acheteur` (`IDAcheteur`, `Nom`, `Prenom`, `Mail`, `Password`, `CGU`) VALUES
 (1, 'SOARES', 'Alexandre', 'alexandre.soares@edu.ece.fr', '1234', 1),
 (2, 'BESSIERES', 'Adrien', 'adrien.bessieres@edu.ece.fr', '1234', 1),
-(3, 'Jean', 'Paul', 'jeanpaul@edu.ece.fr', '1234', 1);
+(3, 'Jean', 'Paul', 'jeanpaul@edu.ece.fr', '1234', 1),
+(4, 'Coty', 'René', 'rene.coty@edu.ece.fr', '1234', 1);
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   `#IDAcheteur` int(11) DEFAULT NULL,
   PRIMARY KEY (`IDAdresse`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `adresse`
@@ -98,7 +99,8 @@ CREATE TABLE IF NOT EXISTS `adresse` (
 INSERT INTO `adresse` (`IDAdresse`, `AdrLigne1`, `AdrLigne2`, `Ville`, `CodePostal`, `Pays`, `NumTel`, `#IDAcheteur`) VALUES
 (1, '37 Quai de Grenelle', 'Immeuble Pollux', 'PARIS', 75015, 'FRANCE', 303030303, 2),
 (2, '9 RUE BOULARD', 'BAT B', 'PARIS', 75017, 'FRANCE', 606060606, 1),
-(3, '28 rue louis', '', 'ROUBAIX', 59100, 'France', 988790, 3);
+(3, '28 rue louis', '', 'ROUBAIX', 59100, 'France', 988790, 3),
+(6, '10 rue du général de gaulle', '2ème étage', 'Vichy', 12548, 'France du Général de Gaulle', 625478121, 4);
 
 -- --------------------------------------------------------
 
@@ -125,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   KEY `#IDCommande` (`#IDCommande`),
   KEY `#IDVendeur` (`#IDVendeur`),
   KEY `#IDAdmin` (`#IDAdmin`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `article`
@@ -154,7 +156,8 @@ INSERT INTO `article` (`IDArticle`, `Nom`, `Description`, `TypeArticle`, `Prix`,
 (20, 'Stamnos', 'Un stamnos est un vase antique qui servait principalement à mélanger et conserver le vin.', 'VIP', 400, 0, 0, 1, '2020-04-29', NULL, 3, NULL, NULL),
 (21, 'Oxyde (III) scandium', 'Métal le plus cher au monde d\'une pureté incroyable.', 'Ferraille', 5600, 1, 0, 0, '2020-04-29', NULL, 3, NULL, NULL),
 (22, 'Soupière Baroque', 'Cette Soupière Baroque en Argent date du 20ème Siècle ', 'Ferraille', 25, 0, 1, 0, '2020-04-29', NULL, 5, NULL, NULL),
-(23, 'Bracelet ancien', 'Bracelet composé d\'or, de diamants et de perles.', 'Ferraille', 460, 0, 0, 1, '2020-04-29', NULL, 2, NULL, NULL);
+(23, 'Bracelet ancien', 'Bracelet composé d\'or, de diamants et de perles.', 'Ferraille', 460, 0, 0, 1, '2020-04-29', NULL, 2, NULL, NULL),
+(32, 'Kiwi', 'Un Kiwi incroyable', 'VIP', 200, 1, 0, 0, '2020-04-24', NULL, 8, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -174,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `cartebancaire` (
   `#IDAcheteur` int(11) NOT NULL,
   PRIMARY KEY (`IDCB`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `cartebancaire`
@@ -182,7 +185,9 @@ CREATE TABLE IF NOT EXISTS `cartebancaire` (
 
 INSERT INTO `cartebancaire` (`IDCB`, `NumCarte`, `DateExpiration`, `NomAffiche`, `CodeSecur`, `TypeCarte`, `Solde`, `#IDAcheteur`) VALUES
 (1, '1234567812345678', '04/21', 'SOARES Alexandre', 123, 'VISA', 300, 1),
-(3, '1234567812345678', '04/21', 'BESSIERES Adrien', 123, 'VISA', 500, 2);
+(2, '9865485317123764', '06/28', 'Rene Coty', 457, 'American', 9999999, 4),
+(3, '1234567812345678', '04/21', 'BESSIERES Adrien', 123, 'VISA', 500, 2),
+(4, '4563128789564578', '01/22', 'Jean Paul', 455, 'MasterCard', 10, 3);
 
 -- --------------------------------------------------------
 
@@ -198,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `choixarticles` (
   PRIMARY KEY (`IDChoix`),
   KEY `#IDAcheteur` (`#IDAcheteur`),
   KEY `#IDArticle` (`#IDArticle`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -219,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   KEY `#IDAcheteur` (`#IDAcheteur`),
   KEY `#IDAdresse` (`#IDAdresse`),
   KEY `#IDCB` (`#IDCB`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -238,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `enchere` (
   PRIMARY KEY (`IDEnchere`),
   KEY `#IDArticle` (`#IDArticle`),
   KEY `#IDAcheteur` (`#IDAcheteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -264,20 +269,29 @@ CREATE TABLE IF NOT EXISTS `image` (
 INSERT INTO `image` (`CheminImg`, `Nom`, `#IDArticle`, `#IDVendeur`) VALUES
 ('../img/Vendeur/collectionneur.jpg', 'Collectionneur', NULL, 1),
 ('../img/Vendeur/collectionneurBack.jpg', 'Magasin vendeur collectionneur', NULL, 1),
-('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxQTEhUTExMWFhUXGB4aGRgYGB4aGBkYGhoYGxcaGxgdHSggGBolHRcYITEiJSkrLi4uGh8zODMtNygtLisBCgoKDg0OGxAQGy0mICYtLS0rLTUrLS0tLS8tLS0tLS0tLS0tLS0tLS0tLS0tLy0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAMEBBQMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAFBgMEAAECB//EAD8QAAECAwYDBwMCBQMDBQEAAAECEQADIQQFEjFBUSJhcQYTMoGRobHB0fBC4RQjM1LxYnKCFSTSB0OSorI0/8QAGQEAAwEBAQAAAAAAAAAAAAAAAQIDBAAF/8QALBEAAgICAgEDAgUFAQAAAAAAAAECEQMhEjFBEyJRBDJhgZGhsUJScdHwI//aAAwDAQACEQMRAD8AWFEpUQEhQBORIfrHMyfshQ8wfrBO0f1FJGXzHJSKbkiMmj0Kfh+CgLXXNQ6gxJLtpGUwdDT5iwmU6iDp9IlkWR0ksH55tApWNbUb/wAfuRpt0xId8uY+ka/6u+YfzPwIltV1yy7JfKrN1jJF1S6s4YaE5wE0POMk3+FfubkX6lNO6B8vuY7VfpakhPm32iWXdqsKiF5aEA6dI', 'Renoir', 15, NULL),
+('http://cultures.en.tic.free.fr/IMG/jpg/sisyphe-3.jpg', 'pierrequiroule', NULL, 3),
 ('https://ae01.alicdn.com/kf/HTB1NsHsRXXXXXX1XVXXq6xXFXXXD/Jingdezhen-Yu-Hailin-c-ramique-c-l-bre-peint-la-main-pastel-sculpt-grand-vase-chinois.jpg', 'yu Hailin', 19, NULL),
 ('https://cdn.catawiki.net/assets/marketing/uploads-files/43483-ef5f6a7ae6499c8f2dd234af43b10b3e2ad74eaa-story_inline_image.jpg', 'Dinar', 11, NULL),
+('https://cdn.radiofrance.fr/s3/cruiser-production/2019/05/4c698eec-956f-4b10-8ece-53c4566bf6c9/870x489_ok60886364_2193620440714628_1071904750523383808_n.jpg.jpg', 'Primeur', NULL, 8),
+('https://escales.files.wordpress.com/2009/05/3-mats-ok.jpg', 'thomasdebateau', NULL, 5),
+('https://i.skyrock.net/9137/57509137/pics/2318861417_small_1.jpg', 'alaindain', NULL, 4),
 ('https://i0.wp.com/www.banquedelimage.com/wp-content/uploads/2016/04/1-5537001_v1_redim.jpg?fit=800%2C618&ssl=1', 'Klimt', 14, NULL),
 ('https://images-na.ssl-images-amazon.com/images/I/51fN-fwrq2L._SX466_.jpg', 'Métal rare', 21, NULL),
 ('https://images.jeugeek.com/uploads/files/csgo-ranks.jpg', 'jeanvaljean', NULL, 2),
 ('https://live.staticflickr.com/3109/2828930118_b6bb3e3647_b.jpg', 'Kusama', 17, NULL),
 ('https://medias.gazette-drouot.com/prod/medias/mediatheque/25336.jpg', 'La nuit étoilée', 4, NULL),
+('https://people.wku.edu/nathan.love/426-20th/sisyphe.jpg', 'pierrequiroule', NULL, 3),
 ('https://s3-eu-west-1.amazonaws.com/auctionmediaphotos/e/8/2/1500461407999070.jpg', 'Saphira', 9, NULL),
 ('https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt73c524420c2ba62c/5ca6896ee2a0d75e33470a83/sql-search.jpg', 'jeanvaljean', NULL, 2),
+('https://static.turbosquid.com/Preview/2019/05/31__09_38_51/tom6.PNGE721EE9D-AFC0-4F39-BBA2-47EF104CFCC2Default.jpg', 'thomasdebateau', NULL, 5),
 ('https://upload.wikimedia.org/wikipedia/commons/d/d9/Clovis_Ier_et_le_vase_de_Soissons.jpg', 'Vase soisson', 18, NULL),
+('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Pierre-Auguste_Renoir_-_Luncheon_of_the_Boating_Party_-_Google_Art_Project.jpg/1280px-Pierre-Auguste_Renoir_-_Luncheon_of_the_Boating_Party_-_Google_Art_Project.jpg', 'Renoir', 15, NULL),
+('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Fallow_deer_in_field_%28cropped%29.jpg/290px-Fallow_deer_in_field_%28cropped%29.jpg', 'alaindain', NULL, 4),
 ('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Odysseus_Sirens_BM_E440.jpg/1200px-Odysseus_Sirens_BM_E440.jpg', 'Stamnos', 20, NULL),
 ('https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Claude_Monet%2C_Saint-Georges_majeur_au_cr%C3%A9puscule.jpg/1024px-Claude_Monet%2C_Saint-Georges_majeur_au_cr%C3%A9puscule.jpg', 'Monet Crépuscule', 8, NULL),
+('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Fruits_and_Vegetables_at_Pike_Place_Market.jpg/1200px-Fruits_and_Vegetables_at_Pike_Place_Market.jpg', 'Primeur', NULL, 8),
 ('https://webclasse.files.wordpress.com/2015/09/vasarely-vega-nor-improvisation2.jpg?w=848', 'Vasarely', 16, NULL),
+('https://www.alimentarium.org/fr/system/files/thumbnails/image/alimentarium_kiwis.jpg', 'Kiwi', 32, NULL),
 ('https://www.anticswiss.com/_img/10072/grande-zuppiera-centrotavola-argento-800-sec-xx-20186-10072.jpg', 'Soupière', 22, NULL),
 ('https://www.bijouxbaume.com/upload/image/pendentif-medaillon-ancien-en-or-cisele-p-image-67787-grande.jpg', 'Médaillon', 10, NULL),
 ('https://www.bijouxoccasions.com/14403-large_default/bracelet-ancien-en-or-argent-diamants-et-perles.jpg', 'Bracelet ancien', 23, NULL),
@@ -309,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `negociation` (
   KEY `#IDArticle` (`#IDArticle`),
   KEY `#IDAcheteur` (`#IDAcheteur`),
   KEY `#IDVendeur` (`#IDVendeur`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -324,7 +338,7 @@ CREATE TABLE IF NOT EXISTS `vendeur` (
   `Mail` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   PRIMARY KEY (`IDVendeur`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `vendeur`
@@ -335,7 +349,8 @@ INSERT INTO `vendeur` (`IDVendeur`, `Pseudo`, `Mail`, `Password`) VALUES
 (2, 'jeanvaljean', 'jeanvaljean@edu.ece.fr', '1234'),
 (3, 'pierrequiroule', 'pierrequiroule@edu.ece.fr', '1234'),
 (4, 'alaindain', 'alaindain@edu.ece.fr', '1234'),
-(5, 'thomasdebateau', 'thomasdebateau@edu.ece.fr', '1234');
+(5, 'thomasdebateau', 'thomasdebateau@edu.ece.fr', '1234'),
+(8, 'Primeur', 'primeur@gmail.com', '1234');
 
 --
 -- Contraintes pour les tables déchargées
