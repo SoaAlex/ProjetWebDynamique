@@ -2,6 +2,7 @@
 session_start();
 //Récupération des données 
     $numCarte = isset($_POST["numCB"])? $_POST["numCB"] : "";
+    $numCarte = str_replace(' ', '', $numCarte); //enlève les espaces
     $dExp = isset($_POST["Expira"])? $_POST["Expira"] : "";
     $nom = isset($_POST["Acheteur"])? $_POST["Acheteur"] : "";
     $secu = isset($_POST["Secu"])? $_POST["Secu"] : "";
