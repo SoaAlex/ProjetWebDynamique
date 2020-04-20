@@ -19,7 +19,7 @@ if (isset($_POST['button1'])) {
     if ($db_found) {
         $sql = "SELECT * FROM vendeur";
         if ($mail !="") {
-        $sql .= " WHERE  Mail LIKE '$mail'" ;
+        $sql .= " WHERE  Mail LIKE '$mail' AND Pseudo LIKE '%pseudo'" ;
         }
     $result = mysqli_query($db_handle, $sql);
 
