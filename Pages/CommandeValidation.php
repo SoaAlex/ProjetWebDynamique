@@ -22,9 +22,11 @@
         $sql = "SELECT * FROM choixarticles WHERE `#IDAcheteur`=$userID";
         $result_nego = mysqli_query($db_handle, $sql_nego);
         $result_ench = mysqli_query($db_handle, $sql_ench);
+        $result;
 
 
         if(mysqli_num_rows($result_nego) != 0){ //Si on trouve négo une acceptée
+        echo "nego2";
             $result_isChoix = mysqli_query($db_handle, $sql);
             while($data_isChoix = mysqli_fetch_assoc($result_isChoix)){ //On regarde s'il est dans ChoixArticle (sinon ça veut dire qu'il a déjà été commandé, on aurait pu regarder dans commande aussi)
                 $IDArticle = $data_isChoix['#IDArticle'];
@@ -32,13 +34,12 @@
                 $result_nego2 = mysqli_query($db_handle, $sql_nego2);
                 while($data_nego2 = mysqli_fetch_assoc($result_nego2)){
                     $TOTAL += $data_nego2['DerniereOffre'];
-                    $result = $result_nego2;
+                    $result = mysqli_query($db_handle, $sql_nego2);
                     $isNego = 1;
                 }
             }
         }
-        else if(mysqli_num_rows($result_ench) != 0){ //Si on trouve une enchère
-            echo "test";
+        if(mysqli_num_rows($result_ench) != 0){ //Si on trouve une enchère
             $result_isChoix = mysqli_query($db_handle, $sql);
             while($data_isChoix = mysqli_fetch_assoc($result_isChoix)){
                 $IDArticle = $data_isChoix['#IDArticle'];
@@ -58,8 +59,8 @@
                         $j++;
                     }
                     $max2++;
-                    $TOTAL += $max2;
-                    $result = $result_ench2;
+                    $TOTAL += $max2;  
+                    $result = mysqli_query($db_handle, $sql_ench2);
                     $isEnch = 1;
                 }
             }
@@ -139,11 +140,12 @@
                         $result_article = mysqli_query($db_handle, $sql_article);
                         $data_article = mysqli_fetch_assoc($result_article);
 
-                        if(mysqli_num_rows($result_negociation)==0)
-                        {
+                        //if(mysqli_num_rows($result_negociation)==0)
+                        //{
                             if($data_article['VenteImmediat'] == 1){
                                 //Ajout au total
                                 $TOTAL += $data_article['Prix'];
+                            }
 
                                 //Recherche image article
                                 $sql_img = "SELECT CheminImg AS CheminImg FROM `image` WHERE `#IDArticle`=$article";
@@ -184,12 +186,8 @@
                                     '<div class="prixArticle">'.$data_article['Prix'] . '€' . '</div>'.
                                     '</div>'.
                                 '</div>';
-                            }
-
                         }
-                        
-                    }
-
+            
                         ?>
                     </div>
                     <div class="row">

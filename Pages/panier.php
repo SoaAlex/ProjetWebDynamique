@@ -103,7 +103,7 @@
                         <div class="col-lg-4 col-md-4 col-sm-12">
                             <h1>TOTAL: <?php echo $TOTAL ?>€</h1>
                             <form action="CommandeLivraison.php">
-                                <button type="submit" class="btn btn-primary btn-block">COMMANDER</button>
+                                <button type="submit" class="btn btn-primary btn-block" <?php if($TOTAL == 0) echo 'disabled'; ?>>COMMANDER</button>
                             </form>
                         </div>
                     </div>

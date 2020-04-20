@@ -13,6 +13,7 @@ $database = "bddebay";
 //connectez-vous de votre BDD
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
+$_SESSION["CBInsufisant"] = 0;
 
 //Vérification existence CB
 
@@ -44,6 +45,7 @@ if (isset($_POST['button1'])) {
         $result = mysqli_query($db_handle, $sql);
         //Résultats Requête SQL
         if (mysqli_num_rows($result) == 0) {
+            $_SESSION["CBInsufisant"] = 1;
             header('Location: CommandeCB.php');
             } 
         else {
@@ -53,6 +55,7 @@ if (isset($_POST['button1'])) {
             $result = mysqli_query($db_handle, $sql);
             $row = mysqli_fetch_assoc($result);
             $_SESSION['IDCB'] = $row['IDCB'];
+            $_SESSION["CBInsufisant"] = 0;
             header('Location: CommandeValidation.php');    
             }
             
