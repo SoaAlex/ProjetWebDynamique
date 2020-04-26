@@ -28,6 +28,7 @@ if (isset($_POST['button1'])) {
     $result = mysqli_query($db_handle, $sql);
     $row = mysqli_fetch_assoc($result);
     $IDVendeur = $row['IDVendeur'];
+    $IDAdmin = $_SESSION['userID'];
 
     //Remplissage False Vente
     if ($VenteEnchere == "") {
@@ -59,9 +60,15 @@ if (isset($_POST['button1'])) {
     //vérification Article déjà existant avec même vendeur
     if(mysqli_num_rows($result)==0){
    
+        if($_SESSION['user_type'] == 'Admin'){
+            $sql2 = "INSERT INTO `article` (`Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, `CheminVideo`)
+            VALUES('$nom','$description','$typeArticle',$prix,$VenteEnchere,$VenteImmediat,$VenteBestOffer,'$dateLim', NULL, NULL, $IDAdmin,'$CheminVideo')";
+        }
+        else if($_SESSION['user_type'] == 'Vendeur'){
+            $sql2 = "INSERT INTO `article` (`Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, `CheminVideo`)
+            VALUES('$nom','$description','$typeArticle',$prix,$VenteEnchere,$VenteImmediat,$VenteBestOffer,'$dateLim', NULL,'$IDVendeur', NULL,'$CheminVideo')";
+        }
 
-        $sql2 = "INSERT INTO `article` (`Nom`, `Description`, `TypeArticle`, `Prix`, `VenteEnchere`, `VenteImmediat`, `VenteBestOffer`, `DateLim`, `#IDCommande`, `#IDVendeur`, `#IDAdmin`, `CheminVideo`)
-        VALUES('$nom','$description','$typeArticle',$prix,$VenteEnchere,$VenteImmediat,$VenteBestOffer,'$dateLim', NULL,'$IDVendeur', NULL,'$CheminVideo')";
         
         if (mysqli_query($db_handle, $sql2)) {
         } else {

@@ -67,9 +67,19 @@
                                         $IDVendeur = $data['#IDVendeur'];
                                         $sql_vend = "SELECT Pseudo AS PseudoVend FROM `Vendeur` WHERE `IDVendeur`=$IDVendeur";
                                         $result_vend = mysqli_query($db_handle, $sql_vend);
-                                        $dataVend = mysqli_fetch_assoc($result_vend);
+                                        if($data['#IDVendeur'] == NULL){
+                                            $IDAdmin = $data['#IDAdmin'];
+                                            $sql_admin = "SELECT Nom AS Nom FROM `Administrateur` WHERE `IDAdmin`=$IDAdmin";
+                                            $result_admin = mysqli_query($db_handle, $sql_admin);
+                                            $dataVend = mysqli_fetch_assoc($result_admin);
+                                            $pseudo = $dataVend['Nom'];
+                                        }
+                                        else{
+                                            $dataVend = mysqli_fetch_assoc($result_vend);
+                                            $pseudo = $dataVend['PseudoVend'];
+                                        }
                                         echo '
-                                            <img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;">'. $dataVend['PseudoVend'].
+                                            <img src="../img/UI/CaddiOrange.png" style="width: 8%; margin-left: 5%; margin-right: 3%;">'. $pseudo.
                                             '<p style="margin: 5%;">'. $data['Description']. '</p>';
                                         if($data['VenteBestOffer'] == 1 && $data['VenteImmediat'] == 0){
                                             echo '<img src="../img/UI/NegoOrange.png" style="width: 10%; margin:5%;"> <span class="typeVente">NEGOCIATION</span>';

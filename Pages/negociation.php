@@ -10,11 +10,6 @@
     $database = "bddebay";
     $db_handle = mysqli_connect('localhost', 'root','');
     $db_found = mysqli_select_db($db_handle, $database);
-
-    $sql_nego = "SELECT * FROM negociation WHERE `#IDVendeur`=$userID AND `IDNego`=$i";
-                $result_nego = mysqli_query($db_handle, $sql_nego);
-                $data_nego = mysqli_fetch_assoc($result_nego);
-                $NBNego = $data_nego['NBNego'];
     
     for($i=0; $i< 200; $i++){
         $BA = 'BA';
@@ -23,6 +18,11 @@
         //Si nego acceptée
         $BA .= $i;
         if(isset($_POST["$BA"])){
+            $sql_nego = "SELECT * FROM negociation WHERE `#IDVendeur`=$userID AND `IDNego`=$i";
+            $result_nego = mysqli_query($db_handle, $sql_nego);
+            $data_nego = mysqli_fetch_assoc($result_nego);
+            $NBNego = $data_nego['NBNego'];
+
             //Créer commande
             if($_SESSION['user_type'] == "Acheteur"){
                 //MAJ Nego
@@ -51,7 +51,7 @@
         $BN .= $i;
         if(isset($_POST[$BN])){
             $derniereOffre = $_POST['derniereOffre'];
-            $sql_nego = "SELECT * FROM negociation WHERE `#IDVendeur`=$userID AND `IDNego`=$i";
+            $sql_nego = "SELECT * FROM negociation WHERE `IDNego`=$i";
             $result_nego = mysqli_query($db_handle, $sql_nego);
             $data_nego = mysqli_fetch_assoc($result_nego);
             $NBNego = $data_nego['NBNego'];
@@ -69,6 +69,8 @@
             }
             else{
                 //MAJ Nego
+                echo "nbnego" . $NBNego;
+                echo "derniere" . $derniereOffre;
                 $NBNego++;
                 $sql = "UPDATE negociation
                         SET NBNego=$NBNego, DerniereOffre=$derniereOffre
